@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>豆摇峰 — 不复盘，豆摇峰</title>
-<meta name="description" content="三个人，每周一次，审视生活，彼此照见。">
+<meta name="description" content="三个朋友，每周开一次线上复盘会，聊这周干了什么、学了什么、想了什么。">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
@@ -30,7 +30,6 @@ body {
 a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
 a:hover { opacity: 0.8; }
 
-/* Layout */
 .container { max-width: 720px; margin: 0 auto; padding: 0 2rem; }
 section { padding: 4rem 0; }
 
@@ -52,8 +51,7 @@ nav .logo {
 }
 nav .nav-links { display:flex; gap:1.5rem; }
 nav .nav-links a {
-  color: var(--text2); font-size: 0.8rem;
-  letter-spacing: 0.03em;
+  color: var(--text2); font-size: 0.8rem; letter-spacing: 0.03em;
 }
 nav .nav-links a:hover { color: var(--text); opacity:1; }
 
@@ -61,22 +59,18 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
 .hero {
   min-height: 80vh;
   display: flex; flex-direction: column;
-  justify-content: center;
-  padding-top: 6rem;
+  justify-content: center; padding-top: 6rem;
 }
 .hero .title {
   font-family: 'Noto Serif SC', serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 900; letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-bottom: 0.8rem;
+  color: var(--accent); margin-bottom: 0.8rem;
 }
 .hero .sub {
   font-size: 1rem; color: var(--text2);
-  font-weight: 300; margin-bottom: 2.5rem;
+  font-weight: 300; margin-bottom: 2.5rem; line-height: 1.9;
 }
-
-/* Counter */
 .counter {
   display: flex; gap: 2rem; margin-bottom: 2rem;
 }
@@ -86,21 +80,32 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
   color: var(--text); line-height: 1.2;
 }
 .counter-item .lbl {
-  font-size: 0.7rem; color: var(--text2);
-  letter-spacing: 0.1em;
+  font-size: 0.7rem; color: var(--text2); letter-spacing: 0.1em;
 }
 .hero .since {
   font-size: 0.75rem; color: var(--text2); opacity: 0.5;
 }
 
-/* Divider */
-.divider {
-  width: 40px; height: 1px;
-  background: rgba(184,152,90,0.3);
-  margin: 3rem 0;
+/* Guest invite */
+.invite {
+  margin-top: 2rem; padding: 1.2rem 1.5rem;
+  background: var(--bg2);
+  border: 1px solid rgba(184,152,90,0.15);
+  border-radius: 8px;
+  font-size: 0.85rem; color: var(--text2); line-height: 1.9;
+}
+.invite strong { color: var(--accent); font-weight: 500; }
+.invite code {
+  background: rgba(184,152,90,0.1); color: var(--accent);
+  padding: 0.15em 0.4em; border-radius: 3px;
+  font-family: inherit; font-size: 0.85em;
 }
 
-/* Section headers */
+.divider {
+  width: 40px; height: 1px;
+  background: rgba(184,152,90,0.3); margin: 3rem 0;
+}
+
 .sh {
   font-size: 0.65rem; letter-spacing: 0.25em;
   text-transform: uppercase; color: var(--accent);
@@ -113,31 +118,21 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
   display: flex; align-items: baseline; gap: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid rgba(255,255,255,0.04);
-  text-decoration: none; color: var(--text);
-  transition: all 0.2s;
+  text-decoration: none; color: var(--text); transition: all 0.2s;
 }
 .ep:hover { padding-left: 0.5rem; }
 .ep .ep-n {
   font-family: 'Noto Serif SC', serif;
   font-size: 0.7rem; color: var(--accent);
-  letter-spacing: 0.1em; white-space: nowrap;
-  min-width: 36px;
+  letter-spacing: 0.1em; white-space: nowrap; min-width: 36px;
 }
-.ep .ep-t {
-  font-size: 0.95rem; font-weight: 500;
-  flex: 1;
-}
-.ep .ep-d {
-  font-size: 0.75rem; color: var(--text2);
-  white-space: nowrap;
-}
+.ep .ep-t { font-size: 0.95rem; font-weight: 500; flex: 1; }
+.ep .ep-d { font-size: 0.75rem; color: var(--text2); white-space: nowrap; }
 
-/* About - minimal */
+/* About */
 .about-text {
   color: var(--text2); font-size: 0.9rem; line-height: 2;
 }
-
-/* How */
 .how-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 1px; margin-top: 1rem;
@@ -145,96 +140,111 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
   border: 1px solid rgba(255,255,255,0.04);
   border-radius: 8px; overflow: hidden;
 }
-.how-item {
-  background: var(--bg2); padding: 1.5rem 1rem;
-}
+.how-item { background: var(--bg2); padding: 1.5rem 1rem; }
 .how-item .hw-n {
   font-family: 'Noto Serif SC', serif;
   font-size: 1.5rem; font-weight: 900;
-  color: var(--accent); opacity: 0.3;
-  margin-bottom: 0.3rem;
+  color: var(--accent); opacity: 0.3; margin-bottom: 0.3rem;
 }
-.how-item h4 {
-  font-size: 0.9rem; font-weight: 600;
-  margin-bottom: 0.4rem;
-}
-.how-item p {
-  font-size: 0.75rem; color: var(--text2); line-height: 1.7;
-}
+.how-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+.how-item p { font-size: 0.75rem; color: var(--text2); line-height: 1.7; }
 
 /* Articles */
 .articles { display: flex; flex-direction: column; gap: 1.5rem; }
-.article-card {
-  display: block; padding: 1.5rem;
+.article-block {
+  padding: 1.5rem;
   background: var(--bg2);
   border: 1px solid rgba(255,255,255,0.04);
   border-radius: 8px;
-  text-decoration: none; color: var(--text);
-  transition: all 0.2s;
 }
-.article-card:hover {
-  border-color: rgba(184,152,90,0.2);
-  transform: translateY(-1px);
-}
-.article-card .ac-author {
+.article-block .ab-author {
   font-size: 0.7rem; color: var(--accent);
   letter-spacing: 0.1em; margin-bottom: 0.4rem;
 }
-.article-card .ac-title {
+.article-block .ab-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: 1rem; font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.8rem;
 }
-.article-card .ac-excerpt {
-  font-size: 0.8rem; color: var(--text2); line-height: 1.8;
+.article-block .ab-excerpt {
+  font-size: 0.85rem; color: var(--text2); line-height: 1.9;
 }
-.article-card .ac-pub {
+.article-block .ab-full {
+  font-size: 0.85rem; color: var(--text2); line-height: 2;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.article-block .ab-full.open { max-height: 3000px; }
+.article-block .ab-full h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--text); margin: 1.5rem 0 0.5rem;
+}
+.article-block .ab-full h4 {
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--text); margin: 1rem 0 0.4rem;
+}
+.article-block .ab-full p { margin-bottom: 0.8rem; }
+.article-block .ab-full ul {
+  padding-left: 1.2rem; margin-bottom: 0.8rem;
+}
+.article-block .ab-full li { margin-bottom: 0.3rem; }
+.ab-toggle {
+  display: inline-block; margin-top: 0.8rem;
+  font-size: 0.8rem; color: var(--accent);
+  cursor: pointer; border: none; background: none;
+  font-family: inherit; letter-spacing: 0.03em;
+  transition: opacity 0.2s;
+}
+.ab-toggle:hover { opacity: 0.7; }
+.article-block .ab-source {
   font-size: 0.7rem; color: var(--text2);
-  margin-top: 0.8rem; opacity: 0.6;
+  margin-top: 0.8rem; opacity: 0.5;
 }
+.article-block .ab-source a { font-size: 0.7rem; }
 
-/* Team - minimal row */
-.team-row {
-  display: flex; gap: 2rem; flex-wrap: wrap;
+/* Team */
+.team-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.tm-card {
+  display: flex; gap: 1.5rem; align-items: flex-start;
 }
-.tm {
-  flex: 1; min-width: 180px;
-}
-.tm .tm-name {
+.tm-card .tm-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
   font-family: 'Noto Serif SC', serif;
-  font-size: 1rem; font-weight: 700;
-  margin-bottom: 0.2rem;
+  font-weight: 700; font-size: 1.1rem; color: #fff;
+  flex-shrink: 0;
 }
-.tm .tm-role {
-  font-size: 0.75rem; color: var(--text2);
+.tm-card .tm-avatar.c1 { background: linear-gradient(135deg, #b8985a, #8a6a30); }
+.tm-card .tm-avatar.c2 { background: linear-gradient(135deg, #5a8ab8, #306a8a); }
+.tm-card .tm-avatar.c3 { background: linear-gradient(135deg, #6ab85a, #3a8a30); }
+.tm-card .tm-info { flex: 1; }
+.tm-card .tm-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem;
+}
+.tm-card .tm-desc {
+  font-size: 0.8rem; color: var(--text2); line-height: 1.8;
   margin-bottom: 0.5rem;
 }
-.tm .tm-link {
-  font-size: 0.75rem;
-}
+.tm-card .tm-link { font-size: 0.75rem; }
 
-/* Footer */
 footer {
   padding: 3rem 0; text-align: center;
   border-top: 1px solid rgba(255,255,255,0.04);
 }
-footer p {
-  font-size: 0.75rem; color: var(--text2);
-}
+footer p { font-size: 0.75rem; color: var(--text2); }
 footer .f-logo {
   font-family: 'Noto Serif SC', serif;
   color: var(--accent); font-weight: 700;
   font-size: 1rem; margin-bottom: 0.3rem;
 }
 
-/* Fade */
 .fi {
   opacity:0; transform:translateY(16px);
   transition: opacity 0.6s, transform 0.6s;
 }
 .fi.v { opacity:1; transform:translateY(0); }
 
-/* Mobile */
 @media (max-width: 600px) {
   .how-grid { grid-template-columns: repeat(2, 1fr); }
   .counter { gap: 1.5rem; }
@@ -243,6 +253,7 @@ footer .f-logo {
   nav .nav-links a { font-size: 0.7rem; }
   .ep { flex-wrap: wrap; gap: 0.3rem; }
   .ep .ep-d { width: 100%; }
+  .tm-card { flex-direction: column; gap: 0.8rem; }
 }
 @media (max-width: 400px) {
   nav .nav-links { display: none; }
@@ -266,10 +277,9 @@ footer .f-logo {
 
 <div class="container">
 
-<!-- Hero -->
 <section class="hero">
   <div class="title fi">不复盘，豆摇峰</div>
-  <div class="sub fi">三个不同行业的人，每周坐下来，把日子摊开看一遍。</div>
+  <div class="sub fi">三个朋友，每周开一次线上复盘会，聊这周干了什么、学了什么、想明白了什么。</div>
   <div class="counter fi">
     <div class="counter-item">
       <div class="num" id="days">—</div>
@@ -285,6 +295,10 @@ footer .f-logo {
     </div>
   </div>
   <div class="since">自 2024.01.01 起</div>
+  <div class="invite fi">
+    <strong>2026 年新玩法：</strong>每周邀请一位朋友来做客，聊聊你的行业、你的思考。<br>
+    欢迎添加微信 <code>cupaibaidou</code> 报名来做客。
+  </div>
 </section>
 
 <!-- Episodes -->
@@ -316,7 +330,6 @@ footer .f-logo {
 
 <div class="divider"></div>
 
-<!-- About - minimal -->
 <section id="about">
   <div class="sh fi">关于</div>
   <div class="about-text fi">
@@ -352,47 +365,144 @@ footer .f-logo {
 <section id="writings">
   <div class="sh fi">我们写过的</div>
   <div class="articles">
-    <a class="article-card fi" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">
-      <div class="ac-author">李墨玩</div>
-      <div class="ac-title">高质量的复盘，从找到"队友"开始</div>
-      <div class="ac-excerpt">这件事情始于23年的8月。我想到自己每天都在做复盘，但个人复盘容易偷懒，于是提议「我们是不是可以每周末一起开个复盘会？」——一拍即合。后来想到中国引入特斯拉的鲶鱼效应，在24年1月邀请白豆加入，三人成团。</div>
-      <div class="ac-pub">公众号 · 李墨玩</div>
-    </a>
-    <a class="article-card fi" href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">
-      <div class="ac-author">摇摇</div>
-      <div class="ac-title">一周一回头——在一年的每周复盘中我收获了什么</div>
-      <div class="ac-excerpt">拖延的问题由来已久。看到自己产生的那么多瓜子皮，以周为单位，看看磕了多少瓜子。先快速完成任务，再去优化——连草稿都没有，那只是一厢情愿的想法，毫无意义。所谓的完美主义也只是拖延症的一个表现形式。</div>
-      <div class="ac-pub">公众号 · 自供能前站</div>
-    </a>
-    <a class="article-card fi" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">
-      <div class="ac-author">白豆</div>
-      <div class="ac-title">和朋友定期交流的好处</div>
-      <div class="ac-excerpt">交流的时候必须自己说话，「说话」比在心里想更能刺激大脑。一来一回的讨论像打网球，会扩散激活自己其他的想法——而自言自语就像对墙打球，路线自己大都能预判。三个人的POV能想得更全面。</div>
-      <div class="ac-pub">公众号 · 醋泡白豆</div>
-    </a>
+
+    <!-- 李墨玩 -->
+    <div class="article-block fi">
+      <div class="ab-author">李墨玩</div>
+      <div class="ab-title">高质量的复盘，从找到"队友"开始</div>
+      <div class="ab-excerpt">这件事情始于23年的8月，我和朋友摇摇聊天时提到，如何能够更好的提升自己？我想到自己每天都在做复盘，但个人复盘容易偷懒，于是提议：「我们是不是可以每周末一起开个复盘会？」——一拍即合。</div>
+      <div class="ab-full" id="article-limo">
+        <h3>一、缘起</h3>
+        <p>这件事情始于23年的8月，我和朋友摇摇聊天时提到，如何能够更好的提升自己，让自己快速成长？我想到自己每天都在做复盘，但是发现个人复盘容易偷懒，导致复盘质量不高，因此提议说："我们是不是可以在每周末一起开个复盘会？"于是，一拍即合，复盘会就这样开始了。</p>
+
+        <h3>二、为什么要结对复盘？</h3>
+        <p>复盘自己也能进行，为什么一定要多人呢？对比单人复盘，与他人讨论可以弥补自己的思维盲区，同时让外部的力量监督自己的复盘，提升复盘的质量。</p>
+        <p>教员在年轻的时候组织了新民学会，和他人一起讨论问题，富兰克林在自传中提到年轻时期，与小伙伴也组织了学习会，定期讨论问题。</p>
+        <p>最开始，复盘是我和摇摇两个人在进行，持续了小半年，问题也随之暴露出来。由于我们俩都是关系很好的朋友，彼此也比较熟悉，所以发现复盘时，双方不好意思互相指出尖锐的问题。另外，也因过于熟悉，复盘久了开始懈怠，有时，我们的复盘频率从每周一次变成了两周一次。</p>
+        <p>这时，我想到了中国引入特斯拉建造工厂的案例，特斯拉的引入是为了发展我们的新能源产业，它作为一条鲶鱼，激活其他新能源汽车公司，现在来看，这个策略非常成功。于是，在24年1月3日，我在微信问白豆"有没有兴趣参与到我们的结对复盘？"，他也认同我们的理念，于是加入了我们。他的加入为复盘会注入了许多活力。至此，结对复盘小队完全成型，并坚持到了现在，回头看真没想到我们能坚持这么久。</p>
+
+        <h3>三、我们是如何进行复盘的？</h3>
+        <p>我们的复盘经历过多次的迭代，并计划继续迭代升级。</p>
+        <h4>第一阶段：双人复盘</h4>
+        <p>我和摇摇每周会讨论完成的工作、读过的书，两人从头到尾对着讲一遍，但耗费的时间比较多。</p>
+        <h4>第二版：三人结对复盘</h4>
+        <p>在白豆加入后，每周还是延续了最开始的方式，每个人把自己的内容讲一遍，但白豆会进行计时，控制时长，同时我们也开启了每月主题演讲的活动，分享自己的月度学习体会。</p>
+        <h4>第三版：改用飞阅会的方式</h4>
+        <p>如果熟悉亚马逊的朋友可能知道，在一些记录亚马逊工作方法的书中，提到他们在开会前，会互相把文档浏览一遍再开始。于是，为了提升复盘的效率，我们也采纳了这种飞阅会的方式，会前，每人发出自己的文档，并互相评论，然后开始在线会议。每人不再把自己的复盘内容一条条展开讲，而是直接进入讨论环节，回答文档中评论的问题，大大节省了时间。</p>
+        <p>此外，在会后我们会填写随会表单，记录本次复盘会的收获，对他人的反馈（既有正面也有负面），以及后续的待办事项。加入随会表单有什么作用？之前复盘会开完后，我们常常忘记了讨论什么，印象不深刻，有了表单，可以二次复习曾经讨论过的内容，更好的促进自己吸收。此外，一个人想要更好的成长，必然需要一定的正反馈，就和福格行为模型里说的一样，所以我们在表单加上了对他人的正面反馈。</p>
+
+        <h3>四、取得了哪些收获？</h3>
+        <p>1、每周复盘的效率得到了提升，通过结对复盘会学到了其它领域的知识，扩展了自己的视野，比如从摇摇那学到了很多关于科研、以及制造业的相关知识，从白豆那获取到了许多高质量的英文信息。</p>
+        <p>2、通过每月一次的主题演讲，一是精进了自己的演讲技巧，印象深刻的是有一次白豆提到我的演讲细节太多，听众根本掌握不了细节，自那之后，我就进行了优化，在演讲前把框架先介绍一遍；二是对最近的学习进行一个阶段性的总结，帮助自己消化。</p>
+        <p>3、通过他们的监督和反馈，从去年开始到现在，在输出上有了很大的进步。以前总想着要多输出，但执行力太差，一直拖延，直到受到白豆的启发，从每周5篇微博开始，再到每周一篇公众号，再到现在每周稳定更新三篇公众号，输出慢慢开始步入正轨。</p>
+
+        <h3>五、今后我们会怎么做？</h3>
+        <p>1、搭建网站，宣传我们的理念。</p>
+        <p>2、尝试制作播客节目，将我们每周复盘的思考搬到网上，希望能启发更多的人，当然目前我们也不知道受众是谁，会不会有人感兴趣，不过没关系，先干起来哈哈。</p>
+        <p>希望能对大家有启发，如果有合适的朋友，也可以像我们这样，做一些结对复盘的尝试，即使最后失败了也没关系。</p>
+      </div>
+      <button class="ab-toggle" onclick="toggleArticle('article-limo', this)">展开全文 ↓</button>
+      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">李墨玩</a></div>
+    </div>
+
+    <!-- 摇摇 -->
+    <div class="article-block fi">
+      <div class="ab-author">摇摇</div>
+      <div class="ab-title">一周一回头——在一年的每周复盘中我收获了什么</div>
+      <div class="ab-excerpt">每周复盘活动起源于一年前的读书小组，最初由李墨玩提出。拖延的问题由来已久，往往是因为觉得自己能在截止日期前用很短的时间完成任务。这种心理导致了「白天串门子，晚上缝裤子」的情况。</div>
+      <div class="ab-full" id="article-yaoyao">
+        <h3>引言</h3>
+        <p>每周复盘活动起源于一年前的读书小组，最初由李墨玩提出，当时仅有我们两个参与，相互分享了过去一周的思考、行动和体会。三个月后，白豆加入了我们的行列。在这一年中，复盘的形式和内容经历了多次演变和优化。目前，我们的复盘内容涵盖了多个方面，包括但不限于：工作中积累的经验和技巧、读书的心得体会、身体状况的自我观察、个人成长和自我反思，以及对每周任务的回顾与未来规划。</p>
+
+        <h3>我为什么要加入每周复盘行动</h3>
+        <p>拖延的问题由来已久，往往是因为觉得自己能在截止日期前用很短的时间完成任务。这种心理导致了「白天串门子，晚上缝裤子」的情况，白天虽然在做其他事情，但心里总是挂念着未完成的任务，结果是玩也玩不好，工作也做得草草了事，需要更多时间来优化更改。</p>
+        <p>另外，我还存在一个问题，希望自己掌握所有的工具、技巧和知识。这导致精力分散：在阅读文献时，遇到不懂的东西，即使与主线任务关系不大，我也会去查，然后埋头进去，最后忘了自己为什么要开始这件事。享受新手期的红利，自以为掌握了很多知识，但实际上却总是一瓶子不满半瓶子晃荡。</p>
+        <p>这些问题亟需解决。在与李墨玩讨论的过程中，他给了我很多建议，特别有收获。设定检查点，每周回顾自己过去一周做了哪些事情，就像嗑瓜子一样，看到自己产生的那么多瓜子皮，以周为单位，看看自己磕了多少瓜子，完成了多少任务。</p>
+        <p>看到白豆的一篇公众号「exploit it or explore」也让我很有启发，发现很多问题是大家共有的，那为什么不一起来探索呢？我们处于不同的行业，见识不同的人和事情，正好可以开拓视野，一起讨论一起学习，何乐而不为呢？由此，我们开启了长达一年的复盘活动。</p>
+
+        <h3>在一年的复盘中我收获了什么</h3>
+        <h4>开始和适应</h4>
+        <p>在复盘的过程中，我遇到了很多问题：在复盘上也拖延；一周过去发现自己并没有多少"瓜子皮"。这些问题让我一度想退出，完全不知道该怎么做。特别是李墨玩，他是一个非常严格且直言不讳的同志。每次开始复盘时都感到非常痛苦，不知道该写什么。其他两个人分享的内容非常丰富，自己却不知道该怎么做。</p>
+        <p>这就是我复盘行为的开始，但是在他们两个的分享中，我又确实收获了好多东西，而且遇到的问题都是我需要改的问题，在这里能得到改变的机会和方法，也就这么开始起来了。</p>
+
+        <h4>深入和挑战</h4>
+        <p>最开始的时候，我们选择事无巨细地把自己写好的复盘完全展示出来。然而，这样的方式效率较低，一个复盘可能需要两个小时。随着时间的推移，复盘的形式也在不断变化。由于三个人的思考模式有所不同，我们设定了一些共同的话题来探讨，并且加入了每个月一次的主题分享。</p>
+        <p>复盘行为不仅包括在一起讨论的这一个小时，我们还尝试在事前阅读每个人的文档并给出评论。这种优化使得每个人都能抓住别人的重点，让讨论更加有效率。</p>
+        <p>关于每周任务的细化，在复盘开始的时候，每周任务列出来总是太笼统。做一件事情最好的办法就是把一件大事变成很多件小事，这是一个有正向反馈的方式，让你知道你确实走在正确的道路上。</p>
+        <p>就像打游戏一样，设置好一个检查点，也可以避免注意力分散的问题。最近感受比较深的是李墨玩分享的一本任正非的讲话，「每个人的精力有限，不可能成为每个行业的专家。」合理地安排任务，关注主线，关注当下，注意自己的身体变化。</p>
+        <p>在分享工具方面，白豆提供了很多好用的工具，比如 Kimi、Anki、Claude，这些工具对个人完成项目有很大的帮助。其他的还有书单，我目前微信读书书架上的内容基本都是他们读过推荐的书。</p>
+
+        <h3>一年复盘总结</h3>
+        <ul>
+          <li>关注身体</li>
+          <li>提升效率</li>
+          <li>多回头看</li>
+          <li>不要拖延：所谓的完美主义也只是拖延症的一个表现形式</li>
+          <li>先快速完成任务，在完成任务的基础上去优化。不要想着第一次做出来的就是完美的。既然不可能第一次就是完美的，那你所谓的精益求精就没有意义。先有草稿，才有修改的基础。如果连草稿都没有，那只是一厢情愿的想法，毫无意义。</li>
+          <li>增加与世界的联系</li>
+        </ul>
+      </div>
+      <button class="ab-toggle" onclick="toggleArticle('article-yaoyao', this)">展开全文 ↓</button>
+      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">自供能前站</a></div>
+    </div>
+
+    <!-- 白豆 -->
+    <div class="article-block fi">
+      <div class="ab-author">白豆</div>
+      <div class="ab-title">和朋友定期交流的好处</div>
+      <div class="ab-excerpt">今年 1 月 1 日以来，每周日都会和两个朋友相聚线上会议间，复盘+聊天。交流的时候必须自己说话，「说话」要比单纯在心里想更能够刺激大脑。</div>
+      <div class="ab-full" id="article-baidou">
+        <p>今年 1 月 1 日以来，每周日都会和两个朋友相聚线上会议间，复盘+聊天。最近复习知识卡，有几个很有关联的：</p>
+
+        <p><strong>1、说出来，让想法见光。</strong></p>
+        <p>交流的时候必须自己说话，「说话」要比单纯在心里想更能够刺激大脑，更多和朋友聊天，更多次提到想法、观点、经历和故事，记忆力也增强了。</p>
+        <p>同时，自己说东西，相当于把「思维方式」「个人知识」拿出来晒晒——货架上的食物过期就发霉发馊，人的观念想法也会变质，但因为没有「指标」可以检测，且自己还总护着自己，所谓的「自尊心」，所以脑子就可能保存这种「变质」「过时」的东西好久。</p>
+        <p>说出来，朋友可能看到它过期了；当然写出来也可以。</p>
+
+        <p><strong>2、一来一回，扩散激活。</strong></p>
+        <p>一来一回的讨论交流，像是打网球，会「扩散刺激」，为了听懂或解释清楚，会「扩散激活」自己其他的想法。就像和真人打球的时候，会锻炼到特别刁钻的角度和位置，而自言自语自我反思就像和发球器或者对墙打，路线自己大都能够预判，也不会特认真。</p>
+
+        <p><strong>3、三个 POV，看得更全。</strong></p>
+        <p>三个人的 POV（point of view）能想得更全面，我们仨恰好不同专业、不同类型工作，能够获得多两个视角。</p>
+        <p>同时，还能让两人从他们的视角给自己反馈（人很难深入全面认识评判自己，因为再好也不能把这个嵌入基因传下去，但观察同伴的反应，察言观色，再做出相应的反应，能够提高自己这一代的生存概率，所以我们对别人的观察更敏感）。</p>
+        <p>上周末主题分享，我自己讲到准备不充分的地方，自我感觉面红耳赤，到处「找词」，都这样了，自感觉还能打 6 分。有了朋友的反馈，才知道自己更真实的表现。</p>
+      </div>
+      <button class="ab-toggle" onclick="toggleArticle('article-baidou', this)">展开全文 ↓</button>
+      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">醋泡白豆</a></div>
+    </div>
+
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- Team - minimal -->
+<!-- Team -->
 <section id="team">
   <div class="sh fi">成员</div>
-  <div class="team-row fi">
-    <div class="tm">
-      <div class="tm-name">白豆</div>
-      <div class="tm-role">AI 产品</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">醋泡白豆</a>
+  <div class="team-list">
+    <div class="tm-card fi">
+      <div class="tm-avatar c1">白</div>
+      <div class="tm-info">
+        <div class="tm-name">白豆</div>
+        <div class="tm-desc">做 AI 产品的，擅长把技术变成普通人能用的东西。给律师做过 AI 课，帮朋友用 Claude Code 搭过作品集，会用「场景」而不是「概念」说服人。是那个会在复盘会上计时、在群里丢英文文章、给你推 Anki 和 Kimi 的人。信奉「exploit it or explore」。</div>
+        <a class="tm-link" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">公众号 · 醋泡白豆</a>
+      </div>
     </div>
-    <div class="tm">
-      <div class="tm-name">摇摇</div>
-      <div class="tm-role">硬件工程</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">自供能前站</a>
+    <div class="tm-card fi">
+      <div class="tm-avatar c2">摇</div>
+      <div class="tm-info">
+        <div class="tm-name">摇摇</div>
+        <div class="tm-desc">硬件工程师，在公司推 AI 数字化转型，带9人团队。科研出身，喜欢把大事拆成小事，信奉「嗑瓜子理论」——以周为单位看自己磕了多少瓜子。曾经被完美主义困住，现在的信条是「先有草稿，才有修改的基础」。会飞全国各地给人讲 AI 落地。</div>
+        <a class="tm-link" href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">公众号 · 自供能前站</a>
+      </div>
     </div>
-    <div class="tm">
-      <div class="tm-name">李墨玩</div>
-      <div class="tm-role">公众号写作</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">李墨玩</a>
+    <div class="tm-card fi">
+      <div class="tm-avatar c3">李</div>
+      <div class="tm-info">
+        <div class="tm-name">李墨玩</div>
+        <div class="tm-desc">豆摇峰的发起人。公众号写作者，从每周5条微博起步，到现在每周稳定三篇公众号，一年写了20万字。想到用「鲶鱼效应」引入第三人激活复盘，读过毛选、富兰克林自传，相信「和他人一起讨论问题」是年轻人最该做的事。2026 年注册了自己的营业执照，开始探索商业化。</div>
+        <a class="tm-link" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">公众号 · 李墨玩</a>
+      </div>
     </div>
   </div>
 </section>
@@ -416,6 +526,12 @@ function updateCounter() {
 }
 updateCounter();
 setInterval(updateCounter, 60000);
+
+function toggleArticle(id, btn) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  btn.textContent = el.classList.contains('open') ? '收起 ↑' : '展开全文 ↓';
+}
 
 const obs = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
