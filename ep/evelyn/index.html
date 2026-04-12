@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E 同学 AI 启蒙录 · 2026.04.03</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e6e3;
+    --text-dim: #8a8a9a;
+    --accent-rocky: #f59e0b;
+    --accent-evelyn: #a78bfa;
+    --accent-miao: #34d399;
+    --glow-rocky: rgba(245,158,11,0.15);
+    --glow-evelyn: rgba(167,139,250,0.15);
+    --glow-miao: rgba(52,211,153,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(245,158,11,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(167,139,250,0.06) 0%, transparent 50%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3%, 2%) scale(1.05); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-date {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--accent-rocky), var(--accent-evelyn));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-dim);
+    max-width: 600px;
+    font-weight: 300;
+  }
+
+  .hero-people {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .person-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .person-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .label-rocky { color: var(--accent-rocky); }
+  .label-evelyn { color: var(--accent-evelyn); }
+  .label-miao { color: var(--accent-miao); }
+  .label-all { color: var(--text-dim); }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+
+  .section p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  /* ===== QUOTE ===== */
+  .quote-block {
+    border-left: 3px solid;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--surface);
+    border-radius: 0 12px 12px 0;
+    position: relative;
+  }
+
+  .quote-rocky { border-color: var(--accent-rocky); background: var(--glow-rocky); }
+  .quote-evelyn { border-color: var(--accent-evelyn); background: var(--glow-evelyn); }
+  .quote-miao { border-color: var(--accent-miao); background: var(--glow-miao); }
+
+  .quote-block .quote-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.9;
+    font-weight: 400;
+  }
+
+  .quote-block .quote-author {
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* ===== IMAGE ===== */
+  .section-img {
+    width: 100%;
+    border-radius: 16px;
+    margin: 2.5rem 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-rocky), var(--accent-evelyn), var(--accent-miao));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-rocky);
+    background: var(--bg);
+    margin-left: -4px;
+  }
+
+  .timeline-item .time {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .timeline-item .event {
+    font-size: 1rem;
+    color: var(--text);
+    margin-top: 0.3rem;
+  }
+
+  /* ===== CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+
+  /* ===== COUNTER ===== */
+  .stats-row {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent-rocky), var(--accent-evelyn));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+  }
+
+  /* ===== HIGHLIGHT ===== */
+  .highlight {
+    color: var(--accent-rocky);
+    font-weight: 500;
+  }
+
+  .highlight-ev {
+    color: var(--accent-evelyn);
+    font-weight: 500;
+  }
+
+  .highlight-miao {
+    color: var(--accent-miao);
+    font-weight: 500;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+
+  .footer .logo-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .hero-people { gap: 1rem; }
+    .stats-row { gap: 1rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .quote-block { padding: 1.2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-content">
+    <p class="hero-date">2026.04.03 &middot; Cursor Workshop</p>
+    <h1>E 同学 AI 启蒙录</h1>
+    <p class="hero-sub">当一个从未写过代码的人，第一次用自然语言让机器为她工作<br>这是一场关于「工具民主化」的实况记录</p>
+    <div class="hero-people">
+      <span class="person-tag"><span class="person-dot" style="background:var(--accent-rocky)"></span> R 老师 · 引路人</span>
+      <span class="person-tag"><span class="person-dot" style="background:var(--accent-evelyn)"></span> E 同学 · 探索者</span>
+      <span class="person-tag"><span class="person-dot" style="background:var(--accent-miao)"></span> M 老师 · 旁观者</span>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL &darr;</div>
+</header>
+
+<!-- ===== 1. 开场：连接的仪式感 ===== -->
+<section class="section">
+  <p class="section-label label-all">Chapter 01</p>
+  <h2>连接的仪式感</h2>
+  <p>四月初的下午，R 老师 在咖啡厅，E 同学 和M 老师在搬家途中。三台设备、三段不稳定的网络、无数次「哈喽哈喽可以听见吗」——但这恰恰是真实的样子：<span class="highlight">技术的启蒙，不在洁净实验室，而在嘈杂的生活里。</span></p>
+  <img src="images/01-compass.jpg" alt="数字指南针" class="section-img">
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「现在我共享屏幕了，可以看见吗？」<br>「包括这个网页，也就是大概我在10分钟之内做完的。也是用这个工具来做的。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>R 老师 打开了一个他10分钟内用 Cursor 做出的教学引导页面。没有 PPT，没有文档——直接用成品说话。这是他的教学哲学：<span class="highlight">不解释概念，先展示可能性。</span></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 2. Cursor 是什么 ===== -->
+<section class="section">
+  <p class="section-label label-rocky">Chapter 02 · R 老师</p>
+  <h2>「带AI的超级记事本」</h2>
+  <p>R 老师 开始演示 Cursor 的核心概念。他没有用技术术语，而是把它翻译成 E 同学 能理解的语言：</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「它是一个本地的AI，相当于一个带AI的超级记事本。你能够直接打开一个文件夹，然后它就有这个文件夹里面的权限了——你可以让它新建文件、更改文件，都能够实现。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>三个模式，R 老师 用最直白的方式解释：</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#x1F916;</div>
+      <h3>Agent 模式</h3>
+      <p>直接干活——读文件、改代码、新建内容，一步到位。R 老师 说：「我们一般就用这个。」</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F9E0;</div>
+      <h3>Plan 模式</h3>
+      <p>先想后做——它只聊天、做计划，不会立即改东西。适合大任务的思考阶段。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4AC;</div>
+      <h3>Ask 模式</h3>
+      <p>R 老师 的大白话：「不干活，先跟你聊，聊通了之后再改。」</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 3. 实战：网页变PPT ===== -->
+<section class="section">
+  <p class="section-label label-rocky">Chapter 03 · R 老师</p>
+  <h2>10秒指令，全自动交付</h2>
+  <img src="images/02-portal.jpg" alt="代码之门" class="section-img">
+  <p>R 老师 现场演示了一个惊艳的操作链：他对 Cursor 说了一句话——</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「你做的这个网页非常好，然后现在帮我变成一个PPT。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>Cursor 读取了整个网页的结构和内容，然后自动生成了一份演示文稿。而这一切的前提，是 R 老师 之前安装了一个叫 <span class="highlight">frontend-slides</span> 的 Skill。</p>
+  <p>这引出了一个关键概念——</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「Skill，就是写给AI的SOP。大师已经把这个SOP写好了，你只需要执行就行了。」<br><br>「它本身也能做，但是你安装了Skill就是别人做好的一个最佳路径。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 4. 飞书打通 ===== -->
+<section class="section">
+  <p class="section-label label-rocky">Chapter 04 · R 老师</p>
+  <h2>打通飞书：对话即操作</h2>
+  <p>R 老师 展示了 Cursor 与飞书的深度集成。不是简单的「读飞书」，而是完整的双向打通：</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">Step 1</div>
+      <div class="event">安装飞书 Skill，一句话搞定</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Step 2</div>
+      <div class="event">浏览器跳转授权，点击确认</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Step 3</div>
+      <div class="event">直接对话：「把对话框中有价值的内容总结一下，建个云文档上传到飞书」</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Result</div>
+      <div class="event">文档自动创建、内容自动填充、链接直接分享</div>
+    </div>
+  </div>
+  <div class="quote-block quote-evelyn">
+    <div class="quote-text">「他是给飞书的权限这么高嘛？飞书给他这个权限？」</div>
+    <div class="quote-author" style="color:var(--accent-evelyn)">— E 同学</div>
+  </div>
+  <p>R 老师 解释：权限是可控的，可以部分授权。而且每次编辑操作前，AI都会先告诉你它要干什么，让你确认。<span class="highlight">安全感，是让新手迈出第一步的关键。</span></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 5. E 同学 的恐惧与好奇 ===== -->
+<section class="section">
+  <p class="section-label label-evelyn">Chapter 05 · E 同学</p>
+  <h2>「它会把我电脑全删了吗？」</h2>
+  <img src="images/03-human-ai.jpg" alt="人与AI的连接" class="section-img">
+  <p>每一个第一次接触 AI 工具的人，都会有这个恐惧。E 同学 提出了一个极其真实的问题：</p>
+  <div class="quote-block quote-evelyn">
+    <div class="quote-text">「它会像小龙虾一样，比如你说删除，你只是想说部分删除，但是他可能就不太智能，把你电脑里面的全给删了？会出现这种吗？」</div>
+    <div class="quote-author" style="color:var(--accent-evelyn)">— E 同学</div>
+  </div>
+  <p>R 老师 的回答非常耐心：</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「它每次做的时候会问你——它会显示出来它在干什么，然后你点击确认。这个权限是给你的。而且它基本上所有的权限都在这个文件夹里面，它不会突然去把别的给删了。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>这段对话揭示了一个深层洞察：<span class="highlight-ev">AI 工具的第一道门槛，不是「学不会」，而是「不敢用」。</span>而打破恐惧的方式不是说教，是让人亲眼看到安全机制在工作。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 6. 安装实操 ===== -->
+<section class="section">
+  <p class="section-label label-evelyn">Chapter 06 · E 同学</p>
+  <h2>从零到一：83分钟安装记</h2>
+  <p>接下来是最真实的部分——E 同学 全程屏幕共享，在 R 老师 的指导下一步步安装 Cursor。过程中遇到的每一个细节，都是真实的「新手体验」：</p>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">编程基础</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">83</div>
+      <div class="stat-label">分钟完成</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Skill 已安装</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1</div>
+      <div class="stat-label">网页已生成</div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">00:23</div>
+      <div class="event">下载 Cursor —— 「翻墙也能下？不翻也能？」结果真的不用翻墙</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:29</div>
+      <div class="event">注册账号 —— 163邮箱直接注册，国内手机号验证通过</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:35</div>
+      <div class="event">设置 Rules —— 复制 R 老师 的提示词「用大白话再解释一遍」</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:38</div>
+      <div class="event">安装 Skills —— frontend-slides、web-access、办公四件套</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">00:44</div>
+      <div class="event">第一次生成 —— 用文件夹内容自动生成了主播培训网页</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">01:07</div>
+      <div class="event">飞书授权 —— 创建应用「喵总的Cursor飞书」，一键打通</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">01:17</div>
+      <div class="event">支付宝付费 —— 20刀/月 Pro版，扫码完成</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 7. 工业革命 ===== -->
+<section class="section">
+  <p class="section-label label-all">Chapter 07</p>
+  <h2>「我们算不算见证了一次工业革命？」</h2>
+  <img src="images/04-revolution.jpg" alt="工业革命" class="section-img">
+  <p>当 E 同学 亲眼看到 Cursor 读取文件夹、自动生成网页、自动打开浏览器展示时，她说出了这句话：</p>
+  <div class="quote-block quote-evelyn">
+    <div class="quote-text">「好神奇啊，咱们算不算见证了一次叫什么工业革命？算不算？我觉得真的算了。」</div>
+    <div class="quote-author" style="color:var(--accent-evelyn)">— E 同学</div>
+  </div>
+  <p>R 老师 的回答很冷静，也很清醒：</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「但是真正创意的部分还是看人。它不会主动去做。但是能够解放大部分这些枯燥的时间。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>然后 E 同学 接了一句极其深刻的话——</p>
+  <div class="quote-block quote-evelyn">
+    <div class="quote-text">「人类的作用就是为了下一代——人不是人嘛？」</div>
+    <div class="quote-author" style="color:var(--accent-evelyn)">— E 同学</div>
+  </div>
+  <p>一句玩笑式的哲学炸弹。<span class="highlight-ev">当机器开始理解自然语言、自动执行任务、甚至参与自身研发——人类在这个链条中的角色，是否正在从「操作者」变成「意义赋予者」？</span></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 8. R 老师 的学习方法论 ===== -->
+<section class="section">
+  <p class="section-label label-rocky">Chapter 08 · R 老师</p>
+  <h2>截屏问 Kimi：AI 时代的学习法</h2>
+  <p>R 老师 在教学过程中分享了一个极其实用的学习方法——</p>
+  <div class="quote-block quote-rocky">
+    <div class="quote-text">「我就是在这个过程中截屏。有任何疑问的时候，不让它自己解释——因为会占用上下文。我会再开一个网页窗口，截屏去问别的AI。」</div>
+    <div class="quote-author" style="color:var(--accent-rocky)">— R 老师</div>
+  </div>
+  <p>这揭示了一个高级使用技巧：</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#x1F4F8;</div>
+      <h3>截屏 + 问 Kimi</h3>
+      <p>遇到不懂的操作，截屏丢给 Kimi 或豆包，让另一个 AI 当你的翻译官。不占用 Cursor 的上下文记忆。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F50D;</div>
+      <h3>好奇心驱动</h3>
+      <p>「打开PPT用了这么多步骤，我会好奇它干了啥。」——每一次好奇，都是一次技术理解的升级。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4DD;</div>
+      <h3>Rules = 人格设定</h3>
+      <p>给AI设定「先专业回答，再用大白话解释一遍」。学习与执行同步进行。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 9. M 老师的静默 ===== -->
+<section class="section">
+  <p class="section-label label-miao">Chapter 09 · M 老师</p>
+  <h2>最安静的观察者</h2>
+  <p>M 老师全程几乎没说话，但他的存在本身就是一个有趣的注脚：</p>
+  <div class="quote-block quote-evelyn">
+    <div class="quote-text">「我旁边就是M 老师。我当时说要不要让他跟我一起去听那个演讲嘛，他说『我要先忙公司的事』。」</div>
+    <div class="quote-author" style="color:var(--accent-evelyn)">— E 同学</div>
+  </div>
+  <p>M 老师代表了大多数人对 AI 的态度：<span class="highlight-miao">不是抗拒，不是热情，而是「我先忙手上的事」。</span></p>
+  <p>但他还是出现在了这场会议里。也许看着 E 同学 从零到一的过程，某个时刻他心里也闪过一个念头——<em>「也许我也该试试。」</em></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 10. 五个启示 ===== -->
+<section class="section">
+  <p class="section-label label-all">Chapter 10 · Insights</p>
+  <h2>五个启示</h2>
+  <img src="images/05-bridge.jpg" alt="连接两个世界的桥" class="section-img">
+  <div class="card-grid">
+    <div class="card" style="border-top: 2px solid var(--accent-rocky);">
+      <div class="card-icon">&#x1F6E1;&#xFE0F;</div>
+      <h3>恐惧是第一道墙</h3>
+      <p>「它会不会把我电脑全删了？」——AI普及的最大障碍不是学习曲线，而是心理门槛。最好的教育是「让人亲眼看到安全机制在工作」。</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--accent-evelyn);">
+      <div class="card-icon">&#x1F3AF;</div>
+      <h3>不翻墙也能用</h3>
+      <p>Cursor 下载、注册、支付宝付费——全程无需翻墙。当工具降低了基础设施门槛，普及就是时间问题。</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--accent-miao);">
+      <div class="card-icon">&#x1F9E9;</div>
+      <h3>Skill = AI的SOP</h3>
+      <p>安装了别人写好的最佳路径，AI的输出质量就从「能用」跳到「好用」。这就像 E 同学 说的：「跟当年玩 Diffusion 和 LoRA 一样。」</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--accent-rocky);">
+      <div class="card-icon">&#x1F504;</div>
+      <h3>AI 加速 AI</h3>
+      <p>「当一个智能足够聪明的时候，它就会参与研发自己。」飞书的 Lark CLI 本身就是用 AI 写的。工具在制造自己的工具。</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--accent-evelyn);">
+      <div class="card-icon">&#x1F30D;</div>
+      <h3>真正的创意仍在人</h3>
+      <p>AI 解放的是枯燥的执行时间。但「想到要做什么」「知道给谁看」「判断什么是好的」——这些仍然是、也将长期是人的工作。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p class="logo-text">E 同学 AI 启蒙录</p>
+  <p>2026.04.03 &middot; R 老师 & E 同学 & M 老师</p>
+  <p style="margin-top: 1rem; font-size: 0.75rem;">「人能够想到的，大概率都能做到。做不到的，是因为一些企业为了自己的利益设置的限制。」<br>—— R 老师</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
