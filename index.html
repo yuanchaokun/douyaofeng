@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇锋 — 不复盘，豆摇锋</title>
+<meta name="description" content="三个人，每周一次，审视生活，彼此照见。从2024年1月1日开始的复盘实验。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --bg2: #12121a;
+  --bg3: #1a1a26;
+  --text: #e8e6e3;
+  --text2: #9a9a9a;
+  --accent: #c8a86e;
+  --accent2: #e8c88e;
+  --accent-glow: rgba(200,168,110,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: var(--bg); }
+
+/* Nav */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 1rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,168,110,0.1);
+  transition: transform 0.3s;
+}
+nav .logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--accent); letter-spacing: 0.1em;
+}
+nav .nav-links { display:flex; gap:2rem; }
+nav .nav-links a {
+  color: var(--text2); text-decoration:none; font-size:0.85rem;
+  letter-spacing:0.05em; transition: color 0.3s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 6rem 2rem 4rem;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background: url('images/hero.jpg') center/cover no-repeat;
+  opacity: 0.15; z-index:0;
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:200px;
+  background: linear-gradient(transparent, var(--bg)); z-index:1;
+}
+.hero > * { position:relative; z-index:2; }
+
+.hero .tagline {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%,100% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+}
+.hero .subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--text2); font-weight: 300;
+  margin-bottom: 3rem; letter-spacing: 0.2em;
+}
+
+/* Counter */
+.counter-section {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 2rem;
+}
+.counter-card {
+  background: rgba(200,168,110,0.08);
+  border: 1px solid rgba(200,168,110,0.15);
+  border-radius: 16px;
+  padding: 1.5rem 2rem; min-width: 140px; text-align: center;
+  backdrop-filter: blur(10px); transition: all 0.3s; cursor: pointer;
+}
+.counter-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: translateY(-2px);
+}
+.counter-card .number {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--accent); line-height: 1.2;
+}
+.counter-card .label {
+  font-size: 0.8rem; color: var(--text2);
+  letter-spacing: 0.1em; margin-top: 0.3rem;
+}
+.hero .since {
+  font-size: 0.85rem; color: var(--text2);
+  letter-spacing: 0.15em; opacity: 0.6;
+}
+.scroll-hint {
+  position: absolute; bottom: 3rem; z-index: 2;
+  animation: float 3s ease-in-out infinite;
+}
+.scroll-hint svg { width:24px; height:24px; stroke:var(--text2); }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Sections */
+section { padding: 6rem 2rem; max-width: 900px; margin: 0 auto; }
+section.wide { max-width: 1100px; }
+.section-label {
+  font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4;
+}
+
+/* Philosophy */
+.philosophy {
+  position: relative; padding: 8rem 2rem; text-align: center;
+}
+.philosophy::before {
+  content:''; position:absolute; inset:0;
+  background: url('images/philosophy.jpg') center/cover no-repeat;
+  opacity: 0.12; z-index:0;
+}
+.philosophy > * { position:relative; z-index:1; }
+.philosophy blockquote {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 600; color: var(--accent2);
+  line-height: 1.8; max-width: 700px; margin: 0 auto 2rem;
+}
+.philosophy .attr {
+  font-size: 0.85rem; color: var(--text2); letter-spacing: 0.1em;
+}
+
+/* Steps */
+.steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem; margin-top: 2rem;
+}
+.step {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 2rem; transition: all 0.3s;
+}
+.step:hover {
+  border-color: rgba(200,168,110,0.2);
+  transform: translateY(-3px);
+}
+.step .step-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--accent); opacity: 0.4; margin-bottom: 0.5rem;
+}
+.step h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.step p { font-size: 0.9rem; color: var(--text2); line-height: 1.7; }
+
+/* Timeline */
+.timeline { position: relative; margin-top: 2rem; }
+.timeline::before {
+  content:''; position:absolute; left:20px; top:0; bottom:0;
+  width:2px; background: linear-gradient(var(--accent), transparent);
+}
+.tl-item { position: relative; padding-left: 56px; margin-bottom: 2.5rem; }
+.tl-item::before {
+  content:''; position:absolute; left:13px; top:8px;
+  width:16px; height:16px; border-radius:50%;
+  background: var(--bg); border:2px solid var(--accent);
+}
+.tl-item.active::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.tl-date {
+  font-size: 0.75rem; color: var(--accent);
+  letter-spacing: 0.15em; margin-bottom: 0.3rem;
+}
+.tl-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem;
+}
+.tl-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.7; }
+
+/* Episodes */
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem; margin-top: 2rem;
+}
+.ep-card {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 1.8rem;
+  text-decoration: none; color: var(--text);
+  transition: all 0.3s; display: block;
+  position: relative; overflow: hidden;
+}
+.ep-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px rgba(200,168,110,0.1);
+}
+.ep-card .ep-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.75rem; color: var(--accent);
+  letter-spacing: 0.2em; margin-bottom: 0.5rem;
+}
+.ep-card .ep-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.15rem; font-weight: 700;
+  margin-bottom: 0.5rem; line-height: 1.5;
+}
+.ep-card .ep-date { font-size: 0.8rem; color: var(--text2); }
+.ep-card .ep-arrow {
+  position:absolute; right:1.5rem; top:50%;
+  transform:translateY(-50%); opacity:0;
+  transition: all 0.3s; color: var(--accent); font-size: 1.2rem;
+}
+.ep-card:hover .ep-arrow { opacity:1; right:1.2rem; }
+
+/* Team */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem; margin-top: 2rem;
+}
+.member-card {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 2rem;
+  text-align: center; transition: all 0.3s;
+}
+.member-card:hover {
+  border-color: rgba(200,168,110,0.2);
+  transform: translateY(-3px);
+}
+.member-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.5rem; font-weight: 700;
+  margin: 0 auto 1rem; color: #fff;
+}
+.member-avatar.baidou { background: linear-gradient(135deg, #c8a86e, #a08040); }
+.member-avatar.yaoyao { background: linear-gradient(135deg, #6ea8c8, #4080a0); }
+.member-avatar.limo { background: linear-gradient(135deg, #8ec86e, #60a040); }
+.member-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem;
+}
+.member-role {
+  font-size: 0.8rem; color: var(--text2);
+  margin-bottom: 1rem; line-height: 1.6;
+}
+.member-quote {
+  font-size: 0.85rem; color: var(--text2);
+  font-style: italic; line-height: 1.7;
+  border-left: 2px solid rgba(200,168,110,0.3);
+  padding-left: 1rem; text-align: left; margin-bottom: 1rem;
+}
+.member-link {
+  display: inline-block; font-size: 0.8rem;
+  color: var(--accent); text-decoration: none;
+  border: 1px solid rgba(200,168,110,0.3);
+  border-radius: 20px; padding: 0.4rem 1.2rem;
+  transition: all 0.3s; letter-spacing: 0.05em;
+}
+.member-link:hover { background: var(--accent); color: var(--bg); }
+
+.about-visual {
+  width: 100%; border-radius: 16px; margin: 2rem 0; opacity: 0.8;
+}
+
+/* Insights */
+.insights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+.insight {
+  background: var(--bg3); border-radius: 12px;
+  padding: 1.5rem; border-left: 3px solid var(--accent);
+}
+.insight h4 { font-size:0.95rem; margin-bottom:0.5rem; color: var(--accent2); }
+.insight p { font-size:0.85rem; color:var(--text2); line-height:1.7; }
+
+/* Footer */
+footer {
+  text-align: center; padding: 4rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer .footer-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
+footer p { font-size: 0.8rem; color: var(--text2); line-height: 2; }
+
+/* Animations */
+.fade-in {
+  opacity:0; transform:translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* Mobile */
+@media (max-width: 768px) {
+  nav { padding: 0.8rem 1rem; }
+  nav .nav-links { gap: 1rem; }
+  nav .nav-links a { font-size: 0.75rem; }
+  .counter-card { min-width: 100px; padding: 1rem 1.2rem; }
+  .counter-card .number { font-size: 2rem; }
+  section { padding: 4rem 1.5rem; }
+  .episodes-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  nav .nav-links { display:none; }
+  .counter-section { gap: 0.6rem; }
+  .counter-card { min-width: 90px; padding: 0.8rem 1rem; }
+  .counter-card .number { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">豆摇锋</div>
+  <div class="nav-links">
+    <a href="#about">关于</a>
+    <a href="#how">方式</a>
+    <a href="#journey">历程</a>
+    <a href="#episodes">回顾</a>
+    <a href="#team">成员</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="tagline">不复盘，豆摇锋</div>
+  <div class="subtitle">三个人 · 每周一次 · 审视生活 · 彼此照见</div>
+  <div class="counter-section">
+    <div class="counter-card">
+      <div class="number" id="days">—</div>
+      <div class="label">天</div>
+    </div>
+    <div class="counter-card">
+      <div class="number" id="weeks">—</div>
+      <div class="label">周</div>
+    </div>
+    <div class="counter-card">
+      <div class="number" id="years">—</div>
+      <div class="label">年</div>
+    </div>
+  </div>
+  <div class="since">自 2024 年 1 月 1 日起，持续复盘中</div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+      <path d="M7 13l5 5 5-5M7 7l5 5 5-5"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<section class="philosophy" id="philosophy">
+  <blockquote class="fade-in">「未经审视的生活不值得过」</blockquote>
+  <p class="attr fade-in">苏格拉底 · 也是我们坚持到现在的理由</p>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-label fade-in">ABOUT</div>
+  <div class="section-title fade-in">我们是谁</div>
+  <p class="fade-in" style="color:var(--text2); margin-bottom:1.5rem;">
+    豆摇锋，谐音「都要疯」——不复盘，都要疯。
+  </p>
+  <p class="fade-in" style="color:var(--text2); margin-bottom:1.5rem;">
+    我们是三个来自不同行业的朋友：一个做 AI 产品，一个做公众号写作，一个做硬件工程。2024 年 1 月 1 日，我们决定每周固定一个时间，坐下来，把这一周活过的日子摊开来看。
+  </p>
+  <p class="fade-in" style="color:var(--text2); margin-bottom:1.5rem;">
+    不是为了变得更高效，不是为了 KPI。是因为我们发现——一个人回头看，太容易放过自己；三个人一起看，那些「自以为懂了」「自以为做了」的地方，才会被照出来。
+  </p>
+  <img src="images/about.jpg" alt="三杯咖啡" class="about-visual fade-in">
+  <p class="fade-in" style="color:var(--text2);">
+    说出来，朋友可能看到它过期了。像打网球一样，一来一回的讨论会「扩散激活」自己其他的想法——而自言自语就像对墙打球，路线自己大都能预判。
+  </p>
+</section>
+
+<!-- How -->
+<section id="how">
+  <div class="section-label fade-in">HOW IT WORKS</div>
+  <div class="section-title fade-in">我们怎么做</div>
+  <div class="steps">
+    <div class="step fade-in">
+      <div class="step-num">01</div>
+      <h3>写</h3>
+      <p>每人每周写一份复盘文档。格式自定，可以是工作经验、读书心得、身体观察、自我反思、任务回顾——重要的是写下来。</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">02</div>
+      <h3>阅</h3>
+      <p>会前互相阅读对方的文档，留下评论。参考亚马逊的飞阅会方式——先读完再开口，让讨论直奔重点。</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">03</div>
+      <h3>聊</h3>
+      <p>每周固定时间，线上腾讯会议。不复述文档，直接讨论评论中的问题、分享经历、碰撞想法。</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">04</div>
+      <h3>记</h3>
+      <p>会后填写随会表单——本次收获、对他人的反馈（正面+负面）、待办事项。让复盘不止于谈话。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Journey -->
+<section id="journey">
+  <div class="section-label fade-in">JOURNEY</div>
+  <div class="section-title fade-in">一路走来</div>
+  <div class="timeline">
+    <div class="tl-item fade-in">
+      <div class="tl-date">2023 年 8 月</div>
+      <div class="tl-title">起源</div>
+      <div class="tl-desc">李墨玩和摇摇开始双人复盘。起因很简单：一个人复盘容易偷懒，两个人互相看着，质量就上去了。</div>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-date">2024 年 1 月 1 日</div>
+      <div class="tl-title">白豆加入，三人成团</div>
+      <div class="tl-desc">引入「鲶鱼效应」。白豆的加入为复盘注入了新的视角和活力，豆摇锋正式成型。</div>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-date">2024 年上半年</div>
+      <div class="tl-title">从复述到讨论</div>
+      <div class="tl-desc">最初每人从头讲一遍自己的复盘，一次要两小时。后来改为飞阅会模式，效率大幅提升。</div>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-date">2024 年中</div>
+      <div class="tl-title">月度主题演讲 + 简历更新</div>
+      <div class="tl-desc">每月一次深度分享，精进演讲能力。同时每月更新简历，让成长可见、可量化。</div>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-date">2024 年 7 月</div>
+      <div class="tl-title">一周年文章</div>
+      <div class="tl-desc">三人各写一篇回顾，总结这一年的收获。「先快速完成，再去优化——连草稿都没有，那只是一厢情愿。」</div>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-date">2025 年</div>
+      <div class="tl-title">随会表单 + 输出正轨</div>
+      <div class="tl-desc">加入随会表单记录收获和反馈。从每周微博，到每周一篇公众号，到每周稳定三篇——输出步入正轨。</div>
+    </div>
+    <div class="tl-item active fade-in">
+      <div class="tl-date">2026 年</div>
+      <div class="tl-title">AI 时代的新实验</div>
+      <div class="tl-desc">探索 AI 工具赋能个人成长、滚动叙事网页记录每期讨论、开源方法论。不复盘，豆摇锋——继续。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Insights -->
+<section>
+  <div class="section-label fade-in">INSIGHTS</div>
+  <div class="section-title fade-in">一年复盘，几点共识</div>
+  <div class="insights">
+    <div class="insight fade-in">
+      <h4>三个 POV</h4>
+      <p>不同专业、不同行业，三个视角比一个看得全。人很难深入认识自己，但观察同伴的反应，能提高自己的「生存概率」。</p>
+    </div>
+    <div class="insight fade-in">
+      <h4>说出来才算数</h4>
+      <p>「说话」比在心里想更能刺激大脑。思维方式和个人知识需要拿出来晒——脑子里的东西也会过期发霉。</p>
+    </div>
+    <div class="insight fade-in">
+      <h4>完美主义是拖延的面具</h4>
+      <p>先有草稿，才有修改的基础。如果连草稿都没有，那只是一厢情愿的想法，毫无意义。</p>
+    </div>
+    <div class="insight fade-in">
+      <h4>嗑瓜子理论</h4>
+      <p>以周为单位，看看自己磕了多少瓜子——设检查点，让正向反馈持续发生，知道自己走在正确的路上。</p>
+    </div>
+    <div class="insight fade-in">
+      <h4>鲶鱼效应</h4>
+      <p>两个人太舒适就会懈怠。引入第三人，像中国引入特斯拉激活新能源产业——适度的张力让所有人都更好。</p>
+    </div>
+    <div class="insight fade-in">
+      <h4>关注主线</h4>
+      <p>「每个人的精力有限，不可能成为每个行业的专家。」合理安排任务，关注当下，注意身体变化。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Episodes -->
+<section id="episodes" class="wide">
+  <div class="section-label fade-in">EPISODES</div>
+  <div class="section-title fade-in">每期回顾</div>
+  <p class="fade-in" style="color:var(--text2); margin-bottom:1rem;">每周一期，以滚动叙事的方式记录我们的讨论。</p>
+  <div class="episodes-grid" id="episodes-grid">
+    <a class="ep-card fade-in" href="https://douyaofeng-weekly.pages.dev" target="_blank">
+      <div class="ep-num">EPISODE 04</div>
+      <div class="ep-title">AI时代，我们的不可替代性在哪里</div>
+      <div class="ep-date">2026.03.22</div>
+      <span class="ep-arrow">&rarr;</span>
+    </a>
+    <a class="ep-card fade-in" href="https://douyaofeng-weekly-0329.pages.dev" target="_blank">
+      <div class="ep-num">EPISODE 05</div>
+      <div class="ep-title">能力地图 × 长板理论 × 德州扑克哲学</div>
+      <div class="ep-date">2026.03.29</div>
+      <span class="ep-arrow">&rarr;</span>
+    </a>
+    <a class="ep-card fade-in" href="https://douyaofeng-weekly-0407.pages.dev" target="_blank">
+      <div class="ep-num">EPISODE 06</div>
+      <div class="ep-title">Regenerate — AI创作的虚假繁荣与真实内化</div>
+      <div class="ep-date">2026.04.07</div>
+      <span class="ep-arrow">&rarr;</span>
+    </a>
+    <a class="ep-card fade-in" href="https://douyaofeng-weekly-0412.pages.dev" target="_blank">
+      <div class="ep-num">EPISODE 07</div>
+      <div class="ep-title">你真的懂，还是你以为你懂？</div>
+      <div class="ep-date">2026.04.12</div>
+      <span class="ep-arrow">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- Team -->
+<section id="team">
+  <div class="section-label fade-in">TEAM</div>
+  <div class="section-title fade-in">三个人</div>
+  <div class="team-grid">
+    <div class="member-card fade-in">
+      <div class="member-avatar baidou">白</div>
+      <div class="member-name">白豆</div>
+      <div class="member-role">AI 产品 · 连接者</div>
+      <div class="member-quote">「交流像打网球，一来一回会扩散激活自己其他的想法。自言自语就像对墙打球，路线自己大都能预判。」</div>
+      <a class="member-link" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">公众号 · 醋泡白豆</a>
+    </div>
+    <div class="member-card fade-in">
+      <div class="member-avatar yaoyao">摇</div>
+      <div class="member-name">摇摇</div>
+      <div class="member-role">硬件工程 · 行动者</div>
+      <div class="member-quote">「看到自己产生的那么多瓜子皮，以周为单位，看看自己磕了多少瓜子。先快速完成，连草稿都没有，那只是一厢情愿。」</div>
+      <a class="member-link" href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">公众号 · 自供能前站</a>
+    </div>
+    <div class="member-card fade-in">
+      <div class="member-avatar limo">李</div>
+      <div class="member-name">李墨玩</div>
+      <div class="member-role">公众号写作 · 发起者</div>
+      <div class="member-quote">「想到特斯拉作为鲶鱼激活了中国的电动车产业。引入第三人，适度的张力让所有人都更好。」</div>
+      <a class="member-link" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">公众号 · 李墨玩</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">豆摇锋</div>
+  <p>不复盘，豆摇锋</p>
+  <p style="margin-top:1rem; opacity:0.4; font-size:0.75rem;">
+    三个人 · 从 2024.01.01 开始 · 每周一次 · 持续进行中
+  </p>
+</footer>
+
+<script>
+function updateCounter() {
+  const start = new Date('2024-01-01T00:00:00+08:00');
+  const now = new Date();
+  const diff = now - start;
+  const days = Math.floor(diff / (1000*60*60*24));
+  const weeks = Math.floor(days / 7);
+  const years = (days / 365.25).toFixed(1);
+  document.getElementById('days').textContent = days;
+  document.getElementById('weeks').textContent = weeks;
+  document.getElementById('years').textContent = years;
+}
+updateCounter();
+setInterval(updateCounter, 60000);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  const current = window.scrollY;
+  nav.style.transform = (current > lastScroll && current > 100) ? 'translateY(-100%)' : 'translateY(0)';
+  lastScroll = current;
+});
+</script>
+
+</body>
+</html>
