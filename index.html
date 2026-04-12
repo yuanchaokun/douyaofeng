@@ -66,7 +66,13 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 900; letter-spacing: 0.1em;
   color: var(--accent); margin-bottom: 0.8rem;
+  min-height: 1.2em;
 }
+.typewriter-cursor::after {
+  content: '|'; animation: blink 0.8s step-end infinite;
+  color: var(--accent); font-weight: 300; margin-left: 2px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 .hero .sub {
   font-size: 1rem; color: var(--text2);
   font-weight: 300; margin-bottom: 2.5rem; line-height: 1.9;
@@ -278,7 +284,7 @@ footer .f-logo {
 <div class="container">
 
 <section class="hero">
-  <div class="title fi">不复盘，豆摇峰</div>
+  <div class="title fi" id="typewriter-title">&nbsp;</div>
   <div class="sub fi">三个朋友，每周开一次线上复盘会，聊这周干了什么、学了什么、想明白了什么。</div>
   <div class="counter fi">
     <div class="counter-item">
@@ -296,8 +302,8 @@ footer .f-logo {
   </div>
   <div class="since">自 2024.01.01 起</div>
   <div class="invite fi">
-    <strong>2026 年新玩法：</strong>每周邀请一位朋友来做客，聊聊你的行业、你的思考。<br>
-    欢迎添加微信 <code>cupaibaidou</code> 报名来做客。
+    <strong>2026 年，周复盘开放迎客了，欢迎来玩儿！</strong><br>
+    添加微信 <code>cupaibaidou</code> 报名做客。
   </div>
 </section>
 
@@ -525,6 +531,58 @@ const obs = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+// Typewriter effect
+(function() {
+  const el = document.getElementById('typewriter-title');
+  const phase1 = '不复盘，都要疯？';
+  const phase2 = '不复盘，豆摇峰';
+  const typeSpeed = 180;
+  const deleteSpeed = 120;
+  const pauseAfterType = 2000;
+  const pauseAfterDelete = 600;
+  let i = 0;
+
+  el.classList.add('typewriter-cursor');
+
+  function typePhase1() {
+    if (i < phase1.length) {
+      el.textContent = phase1.slice(0, i + 1);
+      i++;
+      setTimeout(typePhase1, typeSpeed);
+    } else {
+      setTimeout(deletePartial, pauseAfterType);
+    }
+  }
+
+  function deletePartial() {
+    // delete back to "不复盘，"
+    const keep = 4; // "不复盘，"
+    if (i > keep) {
+      i--;
+      el.textContent = phase1.slice(0, i);
+      setTimeout(deletePartial, deleteSpeed);
+    } else {
+      setTimeout(typePhase2, pauseAfterDelete);
+    }
+  }
+
+  function typePhase2() {
+    const prefix = phase2.slice(0, 4); // "不复盘，"
+    const suffix = phase2.slice(4);    // "豆摇峰"
+    const j = i - 4;
+    if (j < suffix.length) {
+      el.textContent = prefix + suffix.slice(0, j + 1);
+      i++;
+      setTimeout(typePhase2, typeSpeed);
+    } else {
+      el.classList.remove('typewriter-cursor');
+      el.classList.add('v');
+    }
+  }
+
+  setTimeout(typePhase1, 800);
+})();
 </script>
 
 </body>
