@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇峰 · 第八期 — 80分是谁定义的？</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --accent4: #b887c7;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 25% 40%, rgba(184,135,199,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 60%, rgba(212,168,83,0.07) 0%, transparent 50%);
+    animation: drift 24s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  .hero .guest {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.3rem 1rem;
+    border: 1px solid var(--accent4);
+    border-radius: 20px;
+    color: var(--accent4);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+  .accent4-text { color: var(--accent4); font-weight: 500; }
+
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block.guest {
+    border-left-color: var(--accent4);
+  }
+
+  .quote-block p {
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+
+  .quote-block.guest .speaker {
+    color: var(--accent4);
+  }
+
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+  .avatar.wendy { background: linear-gradient(135deg, #b887c7, #9768a6); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .insight-card .number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .steps {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .step {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4.5px);
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="episode">豆摇峰 · 第八期</div>
+    <h1>80分是谁定义的？</h1>
+    <div class="subtitle">一场关于扮演与真实、关于「放心做个垃圾」、关于<br>人自己成为卡点的深夜对话</div>
+    <div class="meta">2026.04.19 · 白豆 · 李墨玩 · 摇摇</div>
+    <div class="guest">× 本期嘉宾 · Wendy 首次做客</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- Chapter 01: Wendy 做客 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>穿过摄像头：Wendy 第一次来旁听</h2>
+  <p>Wendy 手忙脚乱地试了两台设备才接进会议 — <span class="highlight">「我想用电脑试一下，我怎么手机加进来了？」</span> 她是通过白豆认识的朋友，20 年经验的发型师，上个月刚和一位朋友一起报了摩托车驾照，还没考下来。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar wendy">文</div>
+      <div class="dialogue-text">你们会议是不开摄像头的？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我们一直都随缘。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar wendy">文</div>
+      <div class="dialogue-text">好，你你们开始我我观摩。</div>
+    </div>
+  </div>
+
+  <p>三个人，一个旁观者。一场原以为平静的复盘会，<span class="accent4-text">后来被 Wendy 的跨领域反馈三连击，变成了今年最有回响的一期</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 02: 抢占山头 -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>意外之喜：被破格提拔的先行者</h2>
+
+  <div class="image-block">
+    <img src="images/summit-flag.jpg" alt="山顶旗帜">
+    <div class="caption">先行者抢占的，是一个全新的山头</div>
+  </div>
+
+  <p>摇摇从飞机上下来就直接去了公司 — 不是为了加班，是<span class="highlight">怕回拼房酒店吵到室友</span>。深夜空荡的办公室接入会议，他分享了一件意外的好消息：被破格升了一级。</p>
+
+  <div class="quote-block">
+    <p>「这种怎么说呢，意外的，或者是破格提拔的更给人动力，因为出乎意料。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>李墨玩借此把一个话题挑起来：<span class="accent-text">占住生态位</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">比如白豆最近在做公司的 AI 视频，公司没人做过这件事。他做了之后形成了 SOP，就等于他们公司在这个领域的先行者，抢住了先机。以后别人再想做，就是跟着你的脚步走了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我不是上周跟你们分享了被问到"AI 数字化"那件事吗？现在想来和生态位这件事高度相关。在硬件部门做这些确实是有独特生态位的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">就算以后来了有经验的人，他不懂你们公司的业务，他要改你的东西，需要说服其他业务部门，还要获得老板同意 — 这不是件容易事。</div>
+    </div>
+  </div>
+
+  <p>摇摇笑：<span class="highlight">一年 52 次，从 2024 年 1 月到现在已经 100 多期了</span> — 加上中间 gap 的那些，至少这个数。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 03: 80分 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>80分是谁定义的？</h2>
+
+  <div class="image-block">
+    <img src="images/sprout-draft.jpg" alt="嫩芽与草稿纸">
+    <div class="caption">所有尝试都是在训练你，从 5 斤的哑铃开始</div>
+  </div>
+
+  <p>摇摇本来昨天想去重庆溜达，却被一件「未完成的事」拦住 — 他想在 2026 年 5 月 1 号发一篇关于去年一整年转折的文章。</p>
+
+  <div class="quote-block">
+    <p>「我甚至不是想做一个 80 分的，我就是一直在做一个 100 分的思想实验。在我的想法里头，这像是我的一个鸿篇巨作一样，一定要非常认真地去对待它 — 然后我就一直不敢写。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>最后他承认自己<span class="highlight">拖拖拉拉地把它写出来了</span>。他发现：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>接受自己是普通人</h4>
+      <p>世界上普通人挺多的，我也是普通人，干嘛要给自己那么大的希冀呢？期待着不训练不锻炼就直接能变成非常优秀的选手，那是在痴人说梦。</p>
+    </div>
+    <div class="step">
+      <h4>想去健身房 ≠ 真的去健身房</h4>
+      <p>所有的尝试都是在训练你。你期望举 100 斤的哑铃，那你就要先从 5 斤的开始举。</p>
+    </div>
+    <div class="step">
+      <h4>面子工程</h4>
+      <p>不记录的一个重要原因 — 觉得写出来的东西不够好，怕丢脸。但其实根本没有那么多人会关注你发生的每一件事。</p>
+    </div>
+    <div class="step">
+      <h4>容错率比想象的大</h4>
+      <p>人生的容错率其实是蛮大的，大到你难以想象。社会是鼓励你犯错的，每一个坑都是现在还造不成严重后果时的宝贵积累。</p>
+    </div>
+  </div>
+
+  <p>Wendy 听到这里，<span class="accent4-text">说了一句后来让摇摇记住整晚的话</span>：</p>
+
+  <div class="quote-block guest">
+    <p>「还有一个问题 — 这个 80 分是谁定义的？你可能是你自己定义的，但是在我这，你已经到 130 分了。」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 04: 扮演与真实 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>装乐观的人，维持不住了</h2>
+
+  <div class="image-block">
+    <img src="images/mask-water.jpg" alt="面具与水下真实面孔">
+    <div class="caption">我不知道我是不是在装，但即使是在装，我也是在做</div>
+  </div>
+
+  <p>摇摇从上高中起就看「感动中国」。有一期讲大连化工厂爆炸，消防局长被评为感动中国人物。记者问他：很多人说你是在装。他回答 —</p>
+
+  <div class="quote-block">
+    <p>「我不知道我是不是在装。但即使是在装，我也是在做。对这件真正有意义的事情，你装我也装，这个世界就会变得很美好。装久了，你自己本身就是这样的人了。」</p>
+    <div class="speaker">— 摇摇转述的故事</div>
+  </div>
+
+  <p>十几年过去，摇摇说他<span class="highlight">一直都是一个状态偏低的人，但一直在装一个积极向上、乐观开朗的角色</span>。他希望别人看到的是「我没有什么烦心事」「这个人还挺厉害的」。</p>
+
+  <div class="quote-block">
+    <p>「一直在维持一个高能量的状态，是一件非常疲惫的事情。内心其实有很多负能量还没有被消化，又没有办法往外展示。这个情绪总是找不到出口。可能也是最近累积到一个度了 — 起伏已经浮到底了。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">它也不是一个不好的事情，你不用把它想成是不好的事情，它就是一个正常的事情。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我明白。但是不能不计成本地维持，我现在有点维持不住了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">没关系。你就表现你真实的自己，没有人会在意这个东西。</div>
+    </div>
+  </div>
+
+  <p>摇摇最后说了一段很重要的话 — 关于<span class="accent-text">密码本和密码</span>：</p>
+
+  <div class="quote-block">
+    <p>「我今天跟朋友说，你要去找一找自己生活的触动点。他说有时候像丢掉了那把解锁的密钥 — 你记了事，却记不起当时的感受。所以你不光要记录事情，你还要记录自己在当下这个时间有什么样的触动 — 把密码本和密码放在一起。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 05: 把 token 打开 -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>李墨玩：把 token 上限打开到 65536</h2>
+  <p>李墨玩这周的关键一步，是<span class="accent-text">把 AI 输出的长度限制手动拧大</span>。他的公众号排版工具之前只能处理两三千字的文章 — 到了 7000 字的长文就爆掉。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">模型有个参数叫 max_token。比如你设成 100，AI 最多只能给你 100 个字。默认一般是两万多，最大支持到 65536。我把它放大之后，7000 字的长文它也能一次性排版，而且思考过程也算在这个 token 里面 — 所以要调大一点。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">哦，你解决的这个问题，是把 AI 能够回复的上限改大了，所以排版就一次性出了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">对。以前只能排两三千字，现在 7000 字一次过。</div>
+    </div>
+  </div>
+
+  <p>这种看上去很小的调整，背后是<span class="highlight">"不断踩坑 → 搞懂原理 → 踩过的坑变成经验"</span>的完整循环。李墨玩这周还在做另一件事：把产品部署到宝塔面板，遇到不熟悉的数据库选型 — 以前都是纯自己干，这次他让 AI 先处理：</p>
+
+  <div class="quote-block">
+    <p>「以前我都是自己上传文件、自己处理，没有想过先交给 AI。这次尝试了之后，就可以放心大胆地把这个事交出去，效率会快很多 — 自己不再成为一个卡点。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 06: 做个垃圾 -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>放心大胆地做个垃圾</h2>
+  <p>李墨玩上周给大家推荐了米哈游创始人刘伟的一场演讲。<span class="highlight">米哈游从 2012 年开始做，2020 年才火</span>。前一两年拉投资，投资人觉得"普通"不给投；也非常受挫，一开始做的也很烂。</p>
+
+  <div class="quote-block">
+    <p>「他提到，他们上海交大的同学大部分人都有绩优主义倾向 — 做一件事情就要做到 80 分，做不好我就不做。但带着这种心态去创业，非常不现实。」</p>
+    <div class="speaker">— 李墨玩转述刘伟</div>
+  </div>
+
+  <p>李墨玩说他自己写公众号 — <span class="accent-text">2020 年写第一篇，2022 年发第二篇，2024 年才更了十几二十篇。去年才开始每周更新两三篇</span>。5 年，一点一滴。</p>
+
+  <div class="quote-block">
+    <p>「那种完美主义倾向的人，往往是不会止步于此的。所以 — 放心大胆地去做一个垃圾。种下一个种子。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>他还提了一个反例 — <span class="accent3-text">AI-Native 的钉钉走到了另一个极端</span>：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">钉钉现在出了个规定 — 以后写文档都不许人手写，必须是 AI 生成的。阿里高德的朋友说他们内部评审一个文档，领导会问"这个文档 AI 看过没有？AI 怎么说？"— 给我整笑了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">哈哈哈哈。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">对，完全走到了另外一个极端。但 AI-Native 组织这个方向是对的 — 每个人的工作边界越来越不清晰。你可能是做产品的，也可以通过 AI 去做营销。怎么跟 AI 更好协作，目前还没有一个成型的理论，朝这个方向琢磨、分享，说不定能成为这个领域走在前沿的人。</div>
+    </div>
+  </div>
+
+  <p>李墨玩最后送了三个大模型的性格画像：</p>
+
+  <div class="insight-grid" style="margin-top:2rem;">
+    <div class="insight-card">
+      <div class="number">GPT</div>
+      <h3>班里的书呆子</h3>
+      <p>刻苦努力，成绩挺好，但不太懂人情世故。跟他沟通，木讷，直白，不会绕。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">Claude</div>
+      <h3>鬼精鬼精的学霸</h3>
+      <p>学习成绩又好，玩也玩得挺好。脑子特别好用，还会跟你开玩笑，忽悠忽悠你。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">Gemini</div>
+      <h3>艺术家气质</h3>
+      <p>谈不上最好，也不是最差。不会死读书，但想法特别多 — 做设计、创意非常有天分。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 白豆身体觉察 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>白豆：番茄表单与身体觉察</h2>
+  <p>白豆这周跟大家分享了一个<span class="accent-text">极简的自我监测循环</span>：用 flomo 记身体信号 → AI 自动分组分类 → 每周生成"身体觉察报告"。</p>
+
+  <div class="quote-block">
+    <p>「AI 告诉我本周最强信号 — 我身体上有一些失控，一忙的时候就有一些失控，身体在预警。5 次记录都很困累、嗓子疼、吃太饱也是一个觉察。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>他还演示了一个有趣的自动化 — <span class="highlight">番茄表单 + 自动拍照</span>：按下按钮，脚本自动打开飞书极简表单，同时调用电脑摄像头拍一张照片存到本地；提交完表单，照片自动通过飞书 CLI 上传到对应字段。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">我觉得这也算是一个优点 — 人有多大胆，AI 就有多大的可能性。有了想法之后，我就跟 AI 说一下，你帮我做一下，看能不能做到。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">你这些照片里都没有那种"尤里卡"的感觉，都是愁眉苦脸的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">这是在开始工作之前拍的。年末我可以把所有图做成一个视频联播 — 像动起来一样。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">连续拍摄 1000 天记录变化。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: NFC 手袋 -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>NFC 手袋：从公众号扒原图到非凡仙子视频</h2>
+  <p>白豆这周接了公司一个 IP 项目 — 配合一场线下市集活动。他的方案是定制<span class="accent-text">NFC 手环</span>：成本两块二、整体是可穿戴的手环、芯片缝在内侧、扫一扫直接跳转。</p>
+
+  <p>这一段的精彩，不在于手环本身，而在于<span class="highlight">他怎么说服老板、以及怎么从供应商那里"扒"到最值得学的案例</span>：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>让 AI 先把手环渲染出来</h4>
+      <p>不是拿概念说服老板，是拿看得见的实物图。渲染出来的那张图，好几个朋友都没看出来是假的。</p>
+    </div>
+    <div class="step">
+      <h4>从供应商发来的参考图里找关键词</h4>
+      <p>供应商给了一张某品牌的定制样张，白豆注意到图上有"静安、雷虎、go to red"这些字。搜一下 — 上海静安区今年的品牌活动。</p>
+    </div>
+    <div class="step">
+      <h4>去公众号找原图</h4>
+      <p>"一般这种活动办完之后都会在微信公众号发新闻稿 — 政府部门、各种机构都是以公众号为核心的。要扒信息，公众号最全。" 很快就对上了供应商给的图和公众号里的原图。</p>
+    </div>
+    <div class="step">
+      <h4>其余是 AI 生成</h4>
+      <p>把参考图喂给模型，其余不同款式的渲染图一次性生成出来，放到方案里。</p>
+    </div>
+  </div>
+
+  <p>老板被说服后，整个周末白豆做了一条<span class="accent2-text">以 IP 形象"非凡仙子"为第一视角的介绍视频</span>。他摆摊同时，在旁边的星巴克、四个小时完成：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">我先有了文字脚本 → 用新模型把脚本 + 场景实拍 + IP 形象合成一张关键图 → 动作很好但分辨率不够 → 把动作抠出来 → 用 nano banana 让 IP 模仿这个动作 → 再套上追光动画的风格参考 → 得到完整分镜。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">这个花了多长时间？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">上午摆摊没做什么，下午 4 小时左右。视频号新号发出去 200 多关注 — 视频号涨粉还是挺难的。</div>
+    </div>
+  </div>
+
+  <p>白豆最后提了一个让大家都点头的感觉：<span class="accent-text">「人的参与正是那个卡点，也是注入灵魂的东西」</span> — 和李墨玩那句呼应。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 09: Heptabase 白板 -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>Heptabase 白板 = 物料版的 SOP</h2>
+
+  <div class="image-block">
+    <img src="images/desk-materials.jpg" alt="物料与白板">
+    <div class="caption">不再从脑子里调取 — 打开白板，物料直接在那里</div>
+  </div>
+
+  <p>白豆还分享了一个新发现 — <span class="highlight">Heptabase 白板其实和摇摇、李墨玩分享的 SOP、Skill 是一类东西，只是形态不同</span>。</p>
+
+  <div class="quote-block">
+    <p>「你们分享的是标准化的操作流程。白板就相当于我把已经做好的东西放在上面 — 我不需要从脑子里把这些东西调出来，直接打开白板，项目里所有物料都在那里，直接可以引用。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>加上这次他做了快 13 个 AI 视频，开始<span class="accent-text">知道哪个模型用哪种方式让它干活</span> — 像导演一样把多个模型组合起来。</p>
+
+  <p>另一个小项目：<span class="accent2-text">测测你是什么中药材</span>。配合 MBTI 的风格，做了 36 味药对应的 36 个小人 + 科普 + "灵魂共振"点评。制作时他还让 Gemini 写了一个小网页，<span class="highlight">点一下就自动复制当前提示词 → 粘贴到即梦生成 → 减少阻力</span>，比手动选中复制快得多。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 10: Wendy 的一周 -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>Wendy 的一周：真实这件事</h2>
+  <p>轮到 Wendy 分享自己时，她有点不好意思 — "我写完的时候其实挺不满意的，没有主次之分。" 但她的分享后来成了本期最有力量的部分。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>饮食与运动：16+8 的节律</h4>
+      <p>8 小时进食窗口、早 9 晚 5、吃三餐吃饱，从春节的 68kg 掉到 65kg 稳定两周。体重没变但维度变了 — 腿细了，可能是肌肉替代了脂肪。她每天跟教练"K"汇报饮食。</p>
+    </div>
+    <div class="step">
+      <h4>学会听身体</h4>
+      <p>"点多了其实吃到一半就饱了。你越稍微少一点，它就会越随着你身体走。"</p>
+    </div>
+    <div class="step">
+      <h4>七年的仆人式复盘</h4>
+      <p>每周和几位朋友读经、分享。"除了跟老师那次以外，我都会提前准备 — 去服侍对方，看对方有什么需要。就算我状态不好，也会像摇摇说的 — 好像 biu 给自己按了一个按钮就醒来。"</p>
+    </div>
+    <div class="step">
+      <h4>练摩托、修手指</h4>
+      <p>19 岁的亲戚因骑摩托走了 — 她学一门技能同时想科普安全。今天练车发现左手大拇指弯不动了 — 20 年理发只用右手，左手长期被忽略。她决定去积水潭手外科。</p>
+    </div>
+    <div class="step">
+      <h4>女儿教她的"真实"</h4>
+      <p>女儿跟学校老师的一次对话，让她发现自己面对学校、机关会下意识迎合。"假如是不痛不痒的事无所谓，但有原则性问题，我还是应该要坚持 — 第一坚持真实，第二坚持本心。我是怎么想的，我就怎么说。"</p>
+    </div>
+  </div>
+
+  <div class="quote-block guest">
+    <p>「其实我感觉我这周过得特别糟 — 但是通过跟你们分享完，我觉得也没那么糟。」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: Wendy 三连击 -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>Wendy 的跨领域三连反馈</h2>
+
+  <div class="image-block">
+    <img src="images/scale-dandelion.jpg" alt="天平与蒲公英">
+    <div class="caption">他人视角比你自己的更宽容 — 标准可以换一个参照系</div>
+  </div>
+
+  <p>Wendy 这期最重要的贡献 — 给三个人每人一段<span class="highlight">完全跨领域的、有感而发的</span>反馈：</p>
+
+  <div class="quote-block guest">
+    <p>「摇摇，还有一个问题 — 这个 80 分是谁定义的？在我这你已经到 130 分了。你可能对自己定的太高了 — 不要着急，慢慢来。你已经很棒了。」</p>
+    <div class="speaker">— Wendy 对摇摇</div>
+  </div>
+
+  <div class="quote-block guest">
+    <p>「白豆，你分享的颜色多、有图有视频，会引起我的注意力。但你要注意一下自己的身体 — 一天做两天的事在透支你，你已经被透支掉了。把两天的事分到两天去做。」</p>
+    <div class="speaker">— Wendy 对白豆（摇摇接一句：我感觉你已经被透支掉了）</div>
+  </div>
+
+  <div class="quote-block guest">
+    <p>「李墨玩，我跟你见过面。你分享产品的时候声音有点严肃、节奏一步一步的，像产品经理，有点威严感。但实际上你本人是挺亲和的。下次要不要开一下摄像头？拍视频是更面对摄像头的事情，开摄像头也是一种无形的锻炼。」</p>
+    <div class="speaker">— Wendy 对李墨玩</div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">你是所有做客里面写得最多、分享最多的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">而且你很清晰地给了我们三个人每人一个反馈，非常的充分和贴切。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar wendy">文</div>
+      <div class="dialogue-text">我这些都是听了你们分享之后有感而发的 — 没有准备，没有计划。而且有些时候你拦也拦不住，不行，必须要说。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">有感而发的才是真实的，才是有生命力的。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 12: 启示 -->
+<div class="section">
+  <div class="section-label">Chapter 12</div>
+  <h2>本期启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>80分是谁定义的</h3>
+      <p>你的"不及格"可能是别人眼里的"超优秀"。换一个参照系，天平会倾斜。标准从来不是客观的 — 它只是某个人眼里的刻度。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>装久了就真了</h3>
+      <p>"即使是在装，我也是在做。" 但前提是：不要透支地装。装到能量见底，就该接受真实的自己 — 让真实的表达有出口。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>放心大胆做个垃圾</h3>
+      <p>米哈游 10 年才火，李墨玩 5 年才稳定每周更。想做 100 分的思想实验会让你永远不开始。想去健身房 ≠ 真的去健身房。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>密码本和密码要在一起</h3>
+      <p>光记事件不够。你还要记下当时的触动 — 不然五年后打开密码本，却发现已经没有钥匙可以打开那个时刻的房间了。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>人是最大的卡点</h3>
+      <p>AI 的效率很高，你自己变成了流程里最慢的那个节点。把能交的交给 AI，剩下真正需要注入灵魂的那一步，就是你的价值。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>人有多大胆，AI 有多大可能</h3>
+      <p>不要自己先给自己画限制。先提需求，再让 AI 告诉你能不能做到。番茄表单自动拍照、NFC 手环方案渲染 — 都是这么冒出来的。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">07</div>
+      <h3>一个好反馈从旁观者来</h3>
+      <p>熟悉的人给的反馈带着滤镜。陌生行业的旁观者，反而能用最朴素的直觉戳破你的自我迷雾。"在我这你 130 分了" — 这句话比 100 个"别焦虑"都管用。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">08</div>
+      <h3>真实才有生命力</h3>
+      <p>Wendy 说她没有准备；但最真实的表达反而最有穿透力。"不迎合、坚持本心"不是一句口号 — 是被女儿的直接教回来的一课。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 尾声 -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>散场：今天一定用起来</h2>
+
+  <p>会议临近结束的时候，Wendy 说她通过听这期，回想了自己六年的复盘 — "其实我有很多很多变化，我现在觉得我应该把它写下来。有很多很好的东西，靠脑袋靠不住。"</p>
+
+  <div class="quote-block">
+    <p>「Anki 你还一直没给我弄呢。」<br>「下一次见面我们留出一小时。」<br>「下次一定。」</p>
+    <div class="speaker">— Wendy × 白豆 × 摇摇</div>
+  </div>
+
+  <p>然后 Wendy 发现了一个彩蛋 — 摇摇的脸上突然出现了腾讯会议的花瓣特效。"你是怎么弄出来的？" 摇摇也不知道。<span class="highlight">一场深夜复盘，结束在三个人笑着道别的画面里</span>。</p>
+
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">要给自己积极的暗示。像白豆去年执行的 — 早上起来要给自己打打气。</span><br>
+    <span style="font-size:0.8rem;">— 摇摇</span>
+  </p>
+</div>
+
+<footer>
+  <div class="logo">豆摇峰</div>
+  <p>第八期 · 2026.04.19 · 80分是谁定义的？</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 × Wendy 首次做客</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
