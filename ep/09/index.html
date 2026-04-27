@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇峰 · 第九期 — 看五年，想三年，做好一年</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --accent4: #b887c7;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 25% 40%, rgba(212,168,83,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 60%, rgba(107,181,201,0.08) 0%, transparent 50%);
+    animation: drift 24s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+  .accent4-text { color: var(--accent4); font-weight: 500; }
+
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block p {
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .insight-card .number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .steps {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .step {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4.5px);
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="episode">豆摇峰 · 第九期</div>
+    <h1>看五年，想三年，<br>做好一年</h1>
+    <div class="subtitle">在 Agent 架构、老板预期与个人节奏之间 — <br>一场关于"边界"与"独自前行"的深夜复盘</div>
+    <div class="meta">2026.04.27 · 白豆 · 李墨玩 · 摇摇</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- Chapter 01: 看五年想三年做好一年 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>看五年，想三年，做好一年</h2>
+
+  <div class="image-block">
+    <img src="images/ripples.jpg" alt="三层同心涟漪">
+    <div class="caption">三层涟漪 — 远的方向、近的路径、当下的脚</div>
+  </div>
+
+  <p>摇摇这周从办公室接进会议时已经很疲惫，分享的最后他抛出了一句最近一直在脑子里回响的话：</p>
+
+  <div class="quote-block">
+    <p>「看五年，想三年，做好一年。 — 看五年我觉得不是一件难事，但你怎么想三年，然后做好一年，这件事是很难的。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>他说有一个职业叫<span class="accent-text">未来学家</span>。他们说的很多事情，按照人类科技的发展大概率会实现 — 但<span class="highlight">"看到了"和"做出来"之间，差的就是中间那段三年的想法</span>。</p>
+
+  <p>本期就是这句话的一次实证 — 三个人各自被"中间那一段"卡着：摇摇被多 agent 架构卡着、白豆被老板的预期卡着、李墨玩反而在<span class="accent2-text">把"卡"自己变成"自然而然的结果"</span>的路上。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 02: Multi-agent -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>多 Agent 架构：超出能力边界的招人</h2>
+
+  <div class="image-block">
+    <img src="images/agent-tree.jpg" alt="多层级 agent 架构">
+    <div class="caption">主 agent 是决策层，下挂二级、三级部门 — 听起来很顺，做起来很卡</div>
+  </div>
+
+  <p>摇摇这周在面试 — 部门要做一个完整的多 agent 系统，把能交给 AI 做的事情交出去。<span class="highlight">他自己很坦诚地说，"超出我的能力边界了"，所以负责出面，每天晚上面三个</span>。</p>
+
+  <div class="quote-block">
+    <p>「人家别人都有一个疑惑 — 所有人都觉得这个任务是非常好的、有挑战性、也很新。别的公司一般就是单 agent 加一个知识库，做一些问答，或者一些单一任务。多 agent 的系统也是现在业界的一个新尝试。但是他们担心 — 我们是硬件部门，他来了之后把系统搭起来了，那他在这干嘛？还能学到什么？」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>他把听起来"非常顺"的那套思路展开 — <span class="accent-text">把人类组织搬过来</span>：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>主 agent = 决策层</h4>
+      <p>不负责具体任务实施，只负责规则判断和任务发配。</p>
+    </div>
+    <div class="step">
+      <h4>二级部门 agent</h4>
+      <p>承接任务、做意图识别和拆分。</p>
+    </div>
+    <div class="step">
+      <h4>三级部门 = skill / mcp</h4>
+      <p>真正干活的工具层。挂载在二级 agent 下面。</p>
+    </div>
+  </div>
+
+  <p>摇摇说，<span class="highlight">这套思路在白板上画起来是顺的，做起来全是问题</span>：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">挂载了很多 skill 和 mcp 的话，单次对话的预加载上下文就已经很炸了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">三级部门之间流转，第一个做完传给第二个，无形的就增加了信息丢失 — 你要选择传递什么？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">同一个 skill 挂载到不同 agent 上，又会有冗余的 token 消耗。</div>
+    </div>
+  </div>
+
+  <p>除此之外，前级的<span class="accent2-text">知识库 agent（RAG）</span>也有一堆现实问题 — 摇摇举了个例子：</p>
+
+  <div class="quote-block">
+    <p>「比如有个型号是 c8065、有个型号是 c8064 — 它们在向量空间上离得特别近，但语义上完全是两个东西。检索之后的排序就会出现很大的幻觉干扰。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>他说招了一周，目前看到的做 agent 最长的人也就两年，做的都是单一任务的智能客服 — <span class="highlight">真正多 agent 架构的人还没遇到</span>。摇摇决定：把这件事的复杂度推给老板，自己承认能力边界，先把人招进来。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 03: 审作业反向消耗 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>反向消耗：AI 写文档，反而审不动了</h2>
+
+  <div class="image-block">
+    <img src="images/desk-documents.jpg" alt="深夜审阅文档">
+    <div class="caption">作业是 AI 写的，但收作业的人还是人</div>
+  </div>
+
+  <p>这是摇摇这周最具体的痛点 — 被很少人讲过的一个反直觉发现：</p>
+
+  <div class="quote-block">
+    <p>「要推数字化，所以所有人都在用 AI 写。我审核的精力变得非常消耗 — 原先大家各自写，里头的观点是非常明晰的；现在都拿 AI 写，我作为收作业的人，检查作业的成本会大幅度提升，因为里头有很多我不知所谓的上下文和我不懂的知识点。我已经看不懂了。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>这件事戳到了一个常被忽略的点 — <span class="accent-text">AI 提升了"生产侧"的效率，但"消费侧"的成本也悄悄抬高了</span>。当所有人都在用 AI 喷出大段大段的内容，那个最后要"判它对不对"的人，反而被淹没在自己看不懂的上下文里。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我基本上每天要给别人上两次课。我老板把我卖了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">既要给他们讲课，又要审核他们的作业，又要进行宏观规划。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我家里现在有很多京东卡，你们要在京东上买东西可以找我换 — 讲一次课老板给我一张。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">挺好的，你这个公司不得出名以后。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">没用，又不涨钱。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 04: Karpathy 落盘 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>该压缩的压缩，该落盘的落盘</h2>
+  <p>摇摇这两周在探索一个解药 — 他从一篇技术文章里学到了 <span class="accent-text">Karpathy 的"大圆模型 wiki"思路</span>，简单说就是：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>压缩后落盘</h4>
+      <p>不要把所有东西都塞回上下文，压缩处理后写到硬盘。</p>
+    </div>
+    <div class="step">
+      <h4>推理过程也落盘</h4>
+      <p>不只是结论，连思考的中间状态都完整保留。</p>
+    </div>
+    <div class="step">
+      <h4>用 bash + grep 检索</h4>
+      <p>下一个 agent 不需要传递完整信息，只要传"文件位置和名字"，自己用 grep 去查。</p>
+    </div>
+  </div>
+
+  <p>这个时候，李墨玩接了一句很抠字眼的话：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你这怎么跟 GPT 说话一样 — "落盘"？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">对，我也想问。落盘是什么意思？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">落盘 — 存到硬盘里头。我最近看技术文章学到的一个词。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你对外别这么说，一股 GPT 味。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">不过也挺精准的 — 落盘，落到硬盘。</div>
+    </div>
+  </div>
+
+  <p>李墨玩补了一句方向：</p>
+
+  <div class="quote-block">
+    <p>「你可以结合 grep — 像 Claude Code，它用的就是 grep。底层思路是：你既然相信 AI 是足够聪明的，那 AI 理论上知道它想检索什么样的信息。所以让它自己去翻硬盘。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>摇摇说他<span class="highlight">现阶段无法去做完善和补充</span> — "你能意识到自己的不足，知道自己该补齐哪块，去寻求帮助。可能把一些该知道的坑知道在哪里，回头检查的时候不要出错就好了。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 05: 老板的美图秀秀 -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>"我用美图秀秀做了几版"</h2>
+  <p>白豆这周的疲惫不在工作量，<span class="highlight">在于工作量背后那种被低估的感觉</span>。他举了一个最具体的例子：</p>
+
+  <p>公司在做文创周边 — 春夏秋冬四个主题的桌书签。设计师用 Adobe Illustrator + AI 生图组合，工序繁琐：先用 AI 生图，再精细化处理。设计师陪白豆加班到八九点，把成稿发给领导。</p>
+
+  <div class="quote-block">
+    <p>「领导五分钟就回复了：『我用美图秀秀做了几版，你参考一下。』我听着就心累 — 还好我没有继续再做设计了。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">是你老板说"用美图秀秀做了几版"？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">对。他可能觉得现在不是都有 AI 功能了嘛，就引入了美图秀秀。但那种图分辨率特别低，印出的书签会特别低劣。我设计的同事就有点崩了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">明白了 — 相当于你们老板不太懂业务，他感觉不到这个东西有多难。</div>
+    </div>
+  </div>
+
+  <p>李墨玩把问题抽象出来：<span class="accent-text">怎么让老板感知到你的工作的价值？</span> 摇摇也补了一句更狠的：</p>
+
+  <div class="quote-block">
+    <p>「这些老板不知道能力边界 — 不知道 AI 的边界。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>白豆把这件事拆成了三个层次：</p>
+
+  <div class="insight-grid" style="margin-top:2rem;">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>背景的不对称</h3>
+      <p>「我没有过硬的理工或者工程体系背景，老板就会觉得这事特别简单 — 随便一个人都可以试问个豆包就能得到答案。」</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>付钱者的视角</h3>
+      <p>「作为付钱的人，他就觉得『按我的想法来其实可以实现的，我都付了这么多钱给你们了，多的也就是执行』。」</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>名正言顺地拒绝</h3>
+      <p>「这周第二次活动让我去写新闻稿，我拒绝了。— 摇摇：原来老板的需求也是可以拒绝的吗？」</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 06: 三年 IPO -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>三年 IPO：被豆包写出来的宏伟</h2>
+  <p>这是本期最荒诞、也最值得记住的一段 — 李墨玩问完工资的事，话题转到了老板对未来的预期：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">感觉你们老板的预期现在被拉高了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">对，他都开始写 IPO 计划了，你知道吗？三年 IPO。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我靠 — 拿豆包写的吧。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">是拿豆包写的。我确实⋯⋯</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">IPO 可还行 — 不是主要你们营收也没那么夸张嘛。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">老板就比较宏伟，比较宏伟。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">挺能想的。难怪销售出身。不过你老板沟通确实挺强 — 真不黑不吹，值得学习。</div>
+    </div>
+  </div>
+
+  <p>白豆停顿了一下，给了一段比较冷静的总结 — 这周疲惫的根本原因：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>没有给自己留出充裕的规划空间</h4>
+      <p>「我为了凸显自己的主体性，根本原因还是在自己没有留出来一定的冗余。」</p>
+    </div>
+    <div class="step">
+      <h4>协作对象的"特别临时"</h4>
+      <p>「领导各种特别临时的东西让人很头大。」</p>
+    </div>
+    <div class="step">
+      <h4>作息被追剧打乱</h4>
+      <p>「为了放松一下，看《人民的名义》追剧，让作息受到了影响。」</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>「人总是还要放松的 — 哪里能全天做正事。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 巫师独自前行 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>巫师独自前行：Codex × 飞书 CLI 给学姐做插画</h2>
+
+  <div class="image-block">
+    <img src="images/wizard-path.jpg" alt="巫师独自前行">
+    <div class="caption">伟大的巫师独自前行 — 只要空气中的元素依旧回应着他的咒语</div>
+  </div>
+
+  <p>这是白豆这周做得最有成就感、也最具示范性的一件小事 — 给一位准备出新版书的学姐做配套插画。25 个词、每个词配一幅画。原本对方至少得做几周，<span class="highlight">他从接到求助到完整交付，只用了不到三天</span>。</p>
+
+  <p>整条链路是这样的：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>Step 1: PDF 数据清洗</h4>
+      <p>朋友给了 PDF + WPS 转的 Word，零零散散有很多图片。先让 Claude 按"每张结构基本一致"做样例化清洗。</p>
+    </div>
+    <div class="step">
+      <h4>Step 2: 配图试错（失败）</h4>
+      <p>第一遍想偷懒：让 AI 自己切割附件里的配图。"我自己在追剧休息，让 Claude 在那跑，断断续续四个小时" — 结果切出来的位置不对、零碎稀碎、还有错误。</p>
+    </div>
+    <div class="step">
+      <h4>Step 3: 改成手动截图</h4>
+      <p>「最终我直接手动截图，截完保存到一个文件夹，让 AI 一一对应 — <span class="accent-text">截图这一步只用了 18 分钟</span>。人介入的时候，效率和准确度还是相当高的。」</p>
+    </div>
+    <div class="step">
+      <h4>Step 4: Codex 内置生图 + 飞书 CLI 上传</h4>
+      <p>本地 CSV + 学姐的几张形象参考图，让 Codex 一张一张出图（30 多张跑了三个小时），出完之后它<span class="accent2-text">自己用飞书的命令行上传到飞书表格里</span>。最后白豆给对方分享一个表格就完事。</p>
+    </div>
+  </div>
+
+  <p>聊到这里，摇摇突然念了一段 — 这是他们之前看到、很喜欢的一段话：</p>
+
+  <div class="quote-block">
+    <p>「伟大的巫师总是独自前行 — 只要空气中的元素依旧回应着他的咒语和呼唤。把自己变成一个伟大的巫师 — 你现在就是伟大的巫师。」</p>
+    <div class="speaker">— 摇摇 → 白豆</div>
+  </div>
+
+  <p>李墨玩接着浇了一盆冷静的水：</p>
+
+  <div class="quote-block">
+    <p>「学姐人人也挺好的，你就不用像在工作一样 — 虽然搞得很快，但是要表现出这个东西很复杂。其一是会把你的工作难度显得很低；其二是他会给你派更多的任务。」</p>
+    <div class="speaker">— 李墨玩 + 摇摇接力</div>
+  </div>
+
+  <p>白豆顺势聊到自己原本还想给公司做<span class="accent3-text">小程序+NFC 手环的 schema 跳转</span>（碰一下不用任何点击直接拉起小程序）— 他自己摁住了这个念头：</p>
+
+  <div class="quote-block">
+    <p>「我真是给自己加太多东西了。其他人感知不到这个的价值 — 你去外边随便找一个小程序开发，再怎么也得好几万块钱。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: 用户群 10→40 -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>李墨玩：用户群从十几人涨到 40+</h2>
+  <p>李墨玩这周分享得很轻 — 但里头的信号很重。他的<span class="accent-text">公众号排版工具用户群</span>之前一直没怎么运营，最近这两天<span class="highlight">陆陆续续来了一堆人，已经涨到 40 多个</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">但是我在想，我他妈的决策有点问题 — 后面看怎么引导人家促进付费的转化。我发现我提供的那种自定义 API，他们都自己去买了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">笑声 — 你应该打包啊。</div>
+    </div>
+  </div>
+
+  <p>除此之外，他在做一件结构性更重要的事 — <span class="accent2-text">把"做产品"和"做自媒体"打通成一件事</span>：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>产品过程当内容</h4>
+      <p>"自己做产品的过程中，就可以把这个东西不断分享 — 也是给自己的专业度的背书，同时反哺自媒体。"</p>
+    </div>
+    <div class="step">
+      <h4>渠道之间互相导流</h4>
+      <p>把公众号回复、签名都改一下，把小程序二维码、公众号、GitHub 全放上去 — "管他三七二十一"。</p>
+    </div>
+    <div class="step">
+      <h4>排版工具相关文章阅读量翻倍</h4>
+      <p>"这两篇文章阅读量都比我其他文章高很多。" — 用户场景能驱动好内容。</p>
+    </div>
+    <div class="step">
+      <h4>定位逐渐清晰</h4>
+      <p>"以前比较模糊，现在就是逐渐清晰，在线上变得逐渐清晰。"</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 09: 兴趣即结果 -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>兴趣本身，就是结果</h2>
+
+  <div class="image-block">
+    <img src="images/light-clouds.jpg" alt="光穿云缝">
+    <div class="caption">不再为目标做事 — 做这件事本身就是目标</div>
+  </div>
+
+  <p>李墨玩这一段我觉得是本期的另一个高点。他周末研究了一个开源库 <span class="accent-text">3blue1brown 的 manim</span> — 那个用编程做数学科普视频的、网上很有名的频道：</p>
+
+  <div class="quote-block">
+    <p>「我用他的库随便搞了一个，解读 DeepSeek，加上开源配音 — 蛮有意思的。我下一个准备的方向就是去探索用 AI 做一些视频。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>探索到一半，他还<span class="highlight">"逆向"出了一个公开账号的工具栈</span> — 一个在小红书做产品宣传视频很厉害的博主，别人问他都不正面说。李墨玩说："我自己研究了两天，一眼就看出来 — 用的是 Remotion。"</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">现在真的很理解人家了 — 你探索出来一个东西、烧了自己的 token，别人想直接拿到，选择性不多。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">因为那是人家起号就是靠这个方式起号的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">不过我今天又关注了一个账号 — 他就是分享怎么用 Remotion 做的，甚至把自己的动效都开源出来了。也没有更多的人用这个东西去做 — 我觉得这是一个非常新的方式，值得尝试。</div>
+    </div>
+  </div>
+
+  <p>但本期最让人停下来的不是技术，是李墨玩说自己最近状态变化的原因：</p>
+
+  <div class="quote-block">
+    <p>「我找到了做这个自媒体的兴趣 — 快乐在哪里。包括做视频什么的，我觉得是一个非常好玩的事情。它不像以前说是为了赚钱什么的 — <span class="accent-text">它现在已经不是我的目标，它是一个自然而然的结果</span>。现在就是探索怎么做更有意思地去做这件事情，给别人带来一些价值。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>白豆听完说了一句简短的回应：<span class="highlight">「你的状态最近非常好，挺好的。」</span> 摇摇也接了一句："这个行为带来了一些非常不一样的变化 — 不管是执行上，还是质量的提升上。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 10: 百度 PaddleOCR -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>彩蛋：免费的 SOTA — 百度 PaddleOCR</h2>
+  <p>白豆已经下线之后的余韵 — 摇摇追问了一句：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">李墨玩，上次你给我推荐的 PDF 识别那个网站叫什么来着？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你就用百度的就好了 — 百度的 PaddleOCR / 飞桨。每天给 2 万页的免费额度，效果是最好的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">就是他们说的 SOTA 吧 — OCR 领域的第一。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">原来 SOTA 是 state of the art — 牛逼。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">百度还是讲实话能做出点东西的 — 除了文心一言比较垃圾。最让我没想到的是免费 — 填个表就好。</div>
+    </div>
+  </div>
+
+  <p><span class="accent-text">免费的 SOTA + 2 万页/天的额度</span> — 加上 GitHub 76.7k star — 是李墨玩接下来想用来做的另一件小事：把电子书导入微信读书时的乱码、PDF 图片化的内容，全部走 PaddleOCR。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: 启示 -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>本期启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>看五年，想三年，做好一年</h3>
+      <p>看远很容易，难的是把"远"翻译成"近"，再翻译成"今天动手做的事"。中间那段三年，是真正卡人的地方。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>承认能力边界</h3>
+      <p>摇摇说"我搭建不出这样的系统架构"，没有硬撑 — 而是把复杂度推给老板、把人招进来。能意识到自己缺哪一块，已经是能力的一部分。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>AI 的反向消耗</h3>
+      <p>所有人都用 AI 写时，"收作业的人"被淹没在自己看不懂的上下文里。生产侧效率提升 ≠ 整体效率提升 — 消费侧的成本悄悄变高了。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>该压缩的压缩，该落盘的落盘</h3>
+      <p>Karpathy 的思路：信息不必塞进上下文，存到硬盘 + grep 自取。AI 已经够聪明 — 让它自己去翻就行。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>老板的能力边界</h3>
+      <p>"我用美图秀秀做了几版"和"三年 IPO"，是同一个根本问题 — 老板不知道 AI 的边界，于是把所有难度都拉平到他自己看到的那一层。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>名正言顺地拒绝</h3>
+      <p>"原来老板的需求也是可以拒绝的吗？" — 把"展应该优先"摆出来，就是。给自己留出冗余空间，是工作之外最重要的工作。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">07</div>
+      <h3>独自前行 ≠ 显得很难</h3>
+      <p>巫师独自前行，但交付的时候不一定要展示得很复杂 — 干得太快又太轻松，会把工作难度显得很低，也会让别人派给你更多任务。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">08</div>
+      <h3>人介入的那 18 分钟</h3>
+      <p>白豆截图：AI 跑了 4 小时还出错，人手动只用了 18 分钟。不是所有事情都该让 AI 一干到底 — 知道哪一步该自己上，是真本事。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">09</div>
+      <h3>兴趣不是手段，是结果本身</h3>
+      <p>"它已经不是我的目标，它是一个自然而然的结果。"当做这件事本身就让你快乐，赚钱就只是顺带发生的事 — 状态会变得不一样，质量也会跟着变。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">10</div>
+      <h3>免费的 SOTA 也值得申请</h3>
+      <p>百度 PaddleOCR 76.7k star、2 万页/天免费额度 — 不是所有最好的工具都需要付钱。多翻翻"填个表就好"的角落。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 尾声 -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>散场：下周就五一了</h2>
+
+  <p>会议尾声，白豆已经在公司关着门聊完了工资的事，李墨玩问起五一的安排：</p>
+
+  <div class="quote-block">
+    <p>「5 月 4 号 5 号我要去摆摊。」<br>「那我们摆渡先回去吧。」<br>「下周见 — 下周就五一了。」</p>
+    <div class="speaker">— 白豆 × 摇摇 × 李墨玩</div>
+  </div>
+
+  <p>摇摇是从早上 7 点忙到晚上 10 点 — 中午没睡，"早上睡不着，洗洗刷刷就走了。"白豆说他从一个原本可以处理 NFC 手环网页的下午，被临时拉去开会三小时回来，也基本耗光了精力。</p>
+
+  <p>但本期最让人有信号的反而是李墨玩 — <span class="highlight">三个人一致地说，他这周状态很好</span>。状态的来源不是某个新工具，是他终于把"为什么做"换成了"做这件事本身"。</p>
+
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">看五年，想三年，做好一年。</span><br>
+    <span style="font-size:0.8rem;">— 摇摇引用的一句话，被白豆复述了一遍</span>
+  </p>
+</div>
+
+<footer>
+  <div class="logo">豆摇峰</div>
+  <p>第九期 · 2026.04.27 · 看五年，想三年，做好一年</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 本期无嘉宾</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
