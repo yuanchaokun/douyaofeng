@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇峰 · 第十二期 — 让记忆成为一种选择</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --accent4: #b887c7;
+    --accent5: #7ec488;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 35%, rgba(212,168,83,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 65%, rgba(107,181,201,0.08) 0%, transparent 50%);
+    animation: drift 24s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  .hero .guest {
+    margin-top: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--accent5);
+    letter-spacing: 0.08em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+  .accent4-text { color: var(--accent4); font-weight: 500; }
+  .accent5-text { color: var(--accent5); font-weight: 500; }
+
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block.green {
+    border-left-color: var(--accent5);
+  }
+
+  .quote-block.orange {
+    border-left-color: var(--accent3);
+  }
+
+  .quote-block p {
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+
+  .quote-block.green .speaker { color: var(--accent5); }
+  .quote-block.orange .speaker { color: var(--accent3); }
+
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+  .avatar.weilunda { background: linear-gradient(135deg, #7ec488, #5da06b); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .insight-card .number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .steps {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .step {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4.5px);
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .platform-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .platform-card .name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .platform-card .desc {
+    font-size: 0.82rem;
+    color: var(--dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="episode">豆摇峰 · 第十二期</div>
+    <h1>让记忆成为一种选择</h1>
+    <div class="subtitle">"记不住，连用的机会都没有"<br>AI 把激情吞掉之前 — 一场关于记忆、信任与原子化的复盘</div>
+    <div class="meta">2026.06.03 · 白豆 · 摇摇 · 李墨玩</div>
+    <div class="guest">— 本期做客嘉宾 · 魏伦达（在山东出差的高铁上）—</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- Chapter 01: 我感觉我人要没了 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>我感觉我人要没了</h2>
+
+  <div class="image-block">
+    <img src="images/01.jpg" alt="深夜会议室桌面与多个亮屏笔记本">
+    <div class="caption">长时间会议之后 — 屏幕还亮着，人已经空了</div>
+  </div>
+
+  <p>本期摇摇是迟到的，但她迟到的理由让人马上心疼了一下 — <span class="accent3-text">"我刚开完会"，接着是"我感觉我人要没了"</span>。</p>
+
+  <div class="quote-block orange">
+    <p>「我感觉我不管干什么、在什么城市、做什么职业、什么工作性质 — <span class="highlight">我好像总会把自己变得忙叨叨的</span>。我不知道这是为什么。</p>
+    <p>你发的任务分类很有启发 — <span class="accent3-text">我感觉我现在的任何一个事情都归类不进去</span>。让我感觉挫败感更强了。好像所有的忙碌都没有意义。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>她"今天的小会"的目的，是为了"明天的大会"。明天她要给大老板汇报一级部门 AI 数字化的阶段性成果 — <span class="highlight">这次汇报会决定她未来能获得多少资源支持、还能不能负责这个项目</span>。</p>
+
+  <p>李墨玩没有去抢救式地安慰她，而是给了一个工程视角的判断：</p>
+
+  <div class="quote-block">
+    <p>「因为你现在是在负责自己搞那个 AI 那一块事情 — 你现在面对要对接很多人，做的东西都比较琐碎，因为它还没有正式立项、还没有走入正轨。</p>
+    <p><span class="highlight">等你拿到公司内部的资源支持之后，你就知道公司领导层他们是怎么想的 — 你可能就有了方向感。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这就是本期的暗线 — <span class="accent-text">"杂事吞掉激情"的中场状态</span>。每个人这周都或多或少处在这里。剩下的章节就是大家轮流给出的"如何不被吞掉"的答案。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 02: 嘉宾从高铁上加入 -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>嘉宾从高铁上加入</h2>
+  <p>开场没多久，本期嘉宾 <span class="accent5-text">魏伦达</span>（白豆给他起的昵称 "白纸朋友"）从高铁上接进来 — 他正在山东出差，"还在给老师改 PPT，明天要汇报"。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">你也是出差吗？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar weilunda">魏</div>
+      <div class="dialogue-text">山东。还在给老师改 PPT，明天要汇报。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">没事，你可以旁听。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar weilunda">魏</div>
+      <div class="dialogue-text">没事，我来听。你们讲我听。</div>
+    </div>
+  </div>
+
+  <p>他全程"在场但不出声"，临散场又一次次说"拜拜"。这种<span class="accent5-text">"我在的，只是在背景里"</span>的存在感，是本期一个柔软的底色 — 每个人都默认"在做客的时候不打扰别人"，但每个人都希望自己是"被记得在的那个人"。</p>
+
+  <p>摇摇这一刻说出了一句很真实的话：</p>
+
+  <div class="quote-block orange">
+    <p>「我意识到一个很严重的问题 — 我家没有网。那你们两位先开始吧。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 03: 寓言故事 vs 打比方 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>寓言故事 vs 打比方</h2>
+
+  <div class="image-block">
+    <img src="images/02.jpg" alt="古老书本上浮起的金色寓言光雾">
+    <div class="caption">"很多抽象概念别人不太能理解 — 你用故事讲，他就印象深刻"</div>
+  </div>
+
+  <p>李墨玩这周准备发一篇公众号文章 — 用<span class="accent-text">寓言故事的方式去讲 GitHub 和 Git 是什么</span>。</p>
+
+  <p>这个想法来自他这周读到的<span class="accent2-text">一位独立写作者</span>的实践 — 用寓言故事去解释抽象概念。李墨玩拿这个思路问了 AI，AI 这方面的联想能力很强，给他写了一段挺好的概念雏形（"是 AI 帮我深层让我参考。这个概念是他写的，例子是 AI 写的"）。</p>
+
+  <p>摇摇紧接着提了一个超精准的问题 — <span class="highlight">两个月前你已经尝试过"打比方"了，那时和现在的思考有什么变化？</span></p>
+
+  <div class="quote-block">
+    <p>「打比方现在也有在用。但我在想 — <span class="accent-text">对于一些很难、很偏技术的概念，可以用寓言故事去讲；对于轻一些的概念，比如 token 这种，可能用打比方就够了。</span></p>
+    <p>但 GitHub、Git 这种比较重的概念 — 它牵扯到很多方面 — 就可以用寓言故事串起来。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>李墨玩顺着这个话题讲了一段对自己很诚实的话 — 关于"讲故事"是不是天分：</p>
+
+  <div class="quote-block">
+    <p>「<span class="highlight">我属于在讲故事上面没有天分的人 — 所以就得去练习。</span>它是一个很重要的通用型技能 — 不管是职场上、跟人打交道，都很重要。</p>
+    <p>你像很多脱口秀演员 — 有的人纯天分，有的人后天努力。我们假如要做一个项目要去融资 — 你得跟投资人讲故事。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>摇摇在这给了一个让人会心一笑的延伸："我又想起来吴彦祖 — '吴彦祖穿什么都帅'，所以这件衣服并没有好看或难看；但你要这么想：<span class="highlight">这件衣服对吴彦祖来说是减分，那它就是丑衣服</span>。有人就能天生这么想，但是我需要去培训这样想。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 04: 个人 AI 记忆库 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>给 AI 装上"我"的过去 — 个人 AI 记忆库</h2>
+  <p>李墨玩这周上周搭了一个 demo，但接下来他想做一件更大的事 — 给自己的 AI 工作流装上"记忆"。</p>
+
+  <div class="quote-block">
+    <p>「我准备做一个比较系统性的工程，未来都是<span class="accent-text">专门给 AI 用的</span> — 这个东西在架构上面需要想清楚之后再去动手设计。</p>
+    <p>我们现在用 Codex 这样的 Agent，<span class="highlight">它是没有我们个人的记忆的</span> — 没有我们个人以前做过的项目、踩过的坑、这些经验 — 所以它很难复用过来去干别的项目。</p>
+    <p>有了这样的一个记忆库，可能说会好一点。我看 OpenAI 里面也有工程师是这么用的。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这件事和第 3 章是一根线下来的 — <span class="accent-text">寓言故事是把"抽象的概念"翻译成"被记住的故事"；个人记忆库是把"过去的我"翻译成"AI 能用的上下文"</span>。两件事的本质都是：让"难以传递的东西"变成可以反复调用的资产。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 05: 操场上写代码 -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>白豆的移动办公探索 — 操场上写代码</h2>
+  <p>白豆这周在出差与外勤之间漂着 — 他干脆把"远程编程"探索了一遍。</p>
+
+  <p>他试了几条路线，逐个排雷：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>Cloud Code / Codex 自带远程系统</h4>
+      <p>"我尝试了 Cloud Code 跟 Codex 他们的远程系统 — 总掉线，就很难受。"</p>
+    </div>
+    <div class="step">
+      <h4>OPPO 的远程方案 → 向日葵</h4>
+      <p>"然后我就用的是 OPPO 自己的远程，最后发现用类似向日葵的远程比较方便 — <span class="highlight">无论怎么样都能够打通</span>。"</p>
+    </div>
+    <div class="step">
+      <h4>归藏做的飞书 ↔ Cloud Code 即时通讯</h4>
+      <p>"我用了一下飞书也挺方便的 — 只不过它特别慢，没有动态效果，你不知道它在干活、没有 sync 过程显示。<span class="accent3-text">给你的信息如果是一长条的话，就会挤出来屏幕。</span>"</p>
+    </div>
+    <div class="step">
+      <h4>看 levelso 推的 SSH + VPS</h4>
+      <p>"levelso 在手机上修 bug，用了 SSH 还有一些 VPS 的连接 — 他推荐的德国服务器（Hetzner，H 开头的）。一个月就赚 100 多万的产品，成本就是服务器，<span class="accent-text">几十刀特别便宜</span>。等到时候 ship 出来。"</p>
+    </div>
+  </div>
+
+  <p>对白豆来说这一段不只是"我在哪里都能写代码" — 更是一次对<span class="highlight">"工具的真实极限在哪里"</span>的盘点。向日葵看似土，但能扛住外勤场景；Cloud Code 的远程很潮，但掉线就是掉线。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 06: 微信读书 → Anki 工作流 -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>从微信读书到 Anki — 让记忆成为一种选择</h2>
+
+  <div class="image-block">
+    <img src="images/03.jpg" alt="知识被结构化为漂浮在空中的记忆卡片">
+    <div class="caption">"划线了之后，都可以直接成为可筛选、可保存、可制成 Anki 的东西"</div>
+  </div>
+
+  <p>这周白豆还打通了一条对他自己最重要的工作流 — <span class="accent-text">微信读书的划线 → Anki 卡片</span>。</p>
+
+  <div class="quote-block">
+    <p>「它打通了微信读书的划线 — 我画的线，划线了之后都可以直接成为<span class="highlight">可以筛选、可以保存、可以直接制成 Anki</span> 的东西。</p>
+    <p>之前会多好几步、还要订阅 Readwise — 我直接把 Readwise 也退订了，感觉还挺方便的。</p>
+    <p>幸运表面积还挺好的。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这是白豆最近最在意的一件事 — <span class="highlight">把"读到的好东西"转化成"以后真的会被复习到的卡片"</span>。Readwise 这种中间商被吃掉，是这条工作流第一次跑通的标志。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 付费文章 → Anki 牌组 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>把一个写作者的全部产出做成 Anki 牌组</h2>
+  <p>这周白豆做的最有产品形态的一件事是 — 把<span class="accent-text">一位独立写作者的几百篇付费文章</span>做成了一个完整的 Anki 牌组。</p>
+
+  <p>这位写作者每篇付费文章 4.9 元，今年更了十几篇；引流款基本上日更，一篇至少 1 万多人买。"每一篇都是一个产品" — 写得长、有故事、看得过去就觉得"值得"。白豆读过这位写作者的所有文章，但人脑的记忆并不清晰。</p>
+
+  <p>他的工作流：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>让 Codex 跑作者的真实时间线</h4>
+      <p>"我让 Cloud 去跑了一个真实的时间线 — 跨几百篇文章去查重、把每个故事的出处梳理出来。从他小时候到工作到现在，<span class="highlight">非常清晰，基本上没有特别明显的前后矛盾的地方</span>。"</p>
+    </div>
+    <div class="step">
+      <h4>每篇压缩成原子卡 + 配图</h4>
+      <p>"做了一百多张。配图让 Codex 帮我画，<span class="accent-text">最开始让它用 Image2Image 生图模型，给我生成几种风格，然后选一种用下去</span> — 这样每张卡的视觉就统一了。"</p>
+    </div>
+    <div class="step">
+      <h4>把小人换成自己的头像</h4>
+      <p>"为了凸显有趣 — 我截屏自己的头像告诉 Codex'你参考这个'，他就把所有图里的小人都换成了我，<span class="highlight">参与感一下子就有了</span>。"</p>
+    </div>
+    <div class="step">
+      <h4>部署到网页 + 嵌入 Anki 体验</h4>
+      <p>"我想让别人去体验一下 Anki — 就部署到了网上。打开就可以在那直接复习。"</p>
+    </div>
+  </div>
+
+  <p>摇摇看完给出了一个特别准的比喻：</p>
+
+  <div class="quote-block orange">
+    <p>「我觉得这个东西就像一根<span class="highlight">摇钱树</span> — 你只要真的把树根扎住之后，可以长出来不同能生钱的枝桠。</p>
+    <p>科学家通太阳日日 — 他在 VIP 会员里其实也是围绕着<span class="accent-text">一个逻辑、一个方法论</span>，在讲不同的故事。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>白豆说他设了密码，只给一些朋友看 — "毕竟是付费文章，<span class="accent3-text">这种二创只给一些朋友去看，不然感觉太低效</span>。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: Codex Image Gallery -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>六七百张图怎么管？一个 Codex Skill 解决</h2>
+  <p>把上面的牌组做出来之后，白豆遇到一个新问题 — <span class="accent-text">几百张图怎么找回来</span>？</p>
+
+  <p>他做的最聪明的事是没有去下载别人的图床工具：</p>
+
+  <div class="quote-block">
+    <p>「之前找图我会觉得很麻烦。我看到一个人开发了一个工具，可以用这种方式 — 我感觉直接让 Codex 做一下就行了 — <span class="highlight">就不用复制他工具、下载工具了</span>。</p>
+    <p>没想到试了一次，他一下子就真的成了。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这个 Skill 做的事：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>调用本地 Skill 启动一个浏览器服务</h4>
+      <p>"我只要跟他说'请你调用我的生成所有 image 图的 skill' — 他会启动一个本地的网页。"</p>
+    </div>
+    <div class="step">
+      <h4>Gallery 视图整理 6-700 张图</h4>
+      <p>"会有一个 Gallery 视图，能清晰看出来 — 这些图长什么样、在哪个文件夹、它的提示词是什么。"</p>
+    </div>
+    <div class="step">
+      <h4>带回原始 section、参考图、来源</h4>
+      <p>"底下会有原始指令、AI 生成的提示词、来源 section 的 ID — <span class="highlight">可以在这里面查看所有的路径</span>。"</p>
+    </div>
+  </div>
+
+  <p>李墨玩对这个方向做了一个准确的解读 — <span class="accent-text">"Codex 或者 Cloud Code，它的会话里所有内容都是存在本地，包括图片"</span>。所以一切 "图管理" 工具只是一个 Skill 的距离 — 不必装新软件。</p>
+
+  <div class="quote-block orange">
+    <p>「产品太好了，太有用了 — <span class="highlight">你这种 Skill 你都真的可以放到你的 GitHub 上去</span>。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 09: Anki 教 Anki + 原子化 -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>用 Anki 学习 Anki — 原子卡的原则</h2>
+
+  <div class="image-block">
+    <img src="images/04.jpg" alt="木质桌面上整齐排列的原子化卡片网格">
+    <div class="caption">"唐朝建于哪儿？618。唐朝开国皇帝是谁？— 拆原子卡"</div>
+  </div>
+
+  <p>白豆这周一直有的想法终于落地 — <span class="accent-text">做一套"用 Anki 来学习 Anki 本身"的牌组</span>。</p>
+
+  <p>这个东西的特别之处不是知识，是<span class="highlight">把卡片做成了带动效的 HTML</span> — 遗忘曲线动起来；纵坐标是记忆程度、横坐标是时间；不复习就一路下滑，复习一下就拉回去。</p>
+
+  <div class="quote-block">
+    <p>「让记忆成为一种 choice — <span class="highlight">Make Memory a Choice</span>。<br>
+    <span class="accent-text">记不住，连用的机会都没有。</span>」</p>
+    <div class="speaker">— 白豆（引用 Anki 的口号）</div>
+  </div>
+
+  <p>李墨玩问了一个关键问题 — "你篇越做越多，复习不过来会不会焦虑？"</p>
+
+  <div class="quote-block">
+    <p>「有一些焦虑，我现在累计挺多。但<span class="highlight">这个数可以调</span> — 我打算之后调成 300 张/天看一下。<span class="accent-text">按自己合适的程度来设计比较好，太多会复习不过来。</span>」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>最妙的一段在白豆讲制卡原则的时候 — "你看说唐朝，唐朝就堆这么多进去；<span class="accent-text">但是拆成原子卡 — 唐朝建于哪儿？618。唐朝开国皇帝是谁？— 非常的清晰</span>。"</p>
+
+  <p>摇摇当场接了一句让全场都笑了的精确隐喻：</p>
+
+  <div class="quote-block orange">
+    <p>「<span class="highlight">这玩意好像 Skill 一样 — 一个 Skill 不要装太多东西。做原子化能力。</span>」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>这一句之后，整期会议的暗线开始浮出水面 — <span class="accent-text">"原子化"是一个跨领域的通用原则</span>：知识要原子化、Skill 要原子化、任务也要原子化。摇摇这周被"任务归类不进去"折磨，根源也在这。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 10: 李墨玩的日报工程 -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>李墨玩的日报工程 — 群聊到 SVG 卡片的全自动管线</h2>
+  <p>李墨玩这周不是分享了一个工具 — 而是<span class="accent-text">把他从去年 11 月开始搭的"群聊日报系统"完整演示了一遍</span>。</p>
+
+  <p>这个东西的体量已经不是"小工具"了 — 摇摇看完的反馈是"<span class="accent-text">工程级的</span>"。它做的事情：</p>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="name">任务管理</div>
+      <div class="desc">日报 / 话题卡片 / 聊天统计 — 类型可配；卡片风格、提示词模板都可自定义。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">多模型 + 容错</div>
+      <div class="desc">配置多个模型 — 一个跑挂自动 fallback 到第二个。可设最大重试次数。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">定时作业</div>
+      <div class="desc">每日 / 工作日 / 周末 / 手动；可设聊天记录日期窗口（如 "今天 2 点到 11 点"）。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">GitHub Webhook</div>
+      <div class="desc">日报自动 push 到 GitHub → Webhook 触发 → 同步到宝塔面板，自动显示最新一期。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">ima 知识库同步</div>
+      <div class="desc">配置多账号 + 多文件夹路径，按频率自动同步到 ima 知识库的对应文件夹。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">磁盘 + 错误告警</div>
+      <div class="desc">每天 9 点巡检磁盘写入量，超过 100 兆推送飞书；执行失败也走飞书告警。</div>
+    </div>
+  </div>
+
+  <p>最让白豆兴奋的一段是 — <span class="highlight">"群聊话题卡片是怎么变成图片的"</span>：</p>
+
+  <div class="quote-block">
+    <p>「机器人用 AI 整理的，我只是手动发。<span class="accent-text">用 AI 写了个提示词，它返回的字段都是 JSON 格式 — 然后我用代码转成 SVG，再转成图。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这个系统每次执行后还会算 token、计聊天消息总数、保留执行历史时间线 — "<span class="accent-text">方便追溯问题</span>"。</p>
+
+  <p>白豆看完唯一的问题是 — "相当于你的电脑一直不关机的？" 李墨玩说："<span class="highlight">没什么影响 — 我问了一下研发，问了专业写代码的</span>。"</p>
+
+  <div class="quote-block orange">
+    <p>「你这个都能算是工程级的了，还挺厉害的 — 回头找你学习一下。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: 委派与信任 -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>不信任的难题 — 70 个人和 1 个我</h2>
+
+  <div class="image-block">
+    <img src="images/05.jpg" alt="山谷里发光的圆圈与延伸出去的光点">
+    <div class="caption">"你没有找到跟他们利益的捆绑点 — 他们的 KPI 和你的不一样"</div>
+  </div>
+
+  <p>临近散场，摇摇说了一句把会议气氛一下子压重的话：</p>
+
+  <div class="quote-block orange">
+    <p>「我自己其实可以让那 70 多个人去给我干活 — 但<span class="accent3-text">我不信任他们，我觉得他们好笨。</span></p>
+    <p>因为活最终干得好、干不好，是我的事。他们干得好、干不好，顶多有个几百块的奖金 — 他们对这个事情的上心程度也不会有那么高。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>李墨玩没有附和、也没有反驳，而是给了一个非常清晰的工程师式分析 — <span class="accent-text">"你没有找到跟他们利益的捆绑点"</span>：</p>
+
+  <div class="quote-block">
+    <p>「本来这个活不在他们的 KPI 之内 — 是你的 KPI。他们本身又有自己的活 — 凭什么帮你干？</p>
+    <p>你的事情跟白豆不太一样 — <span class="highlight">白豆是老板直接给他安排了两个人，他可以直接使唤；你是要从横向 70 多人那里"借"力</span>。</p>
+    <p>你要换个角度 — 想<span class="accent-text">你做的事情对他们的工作有什么好处</span>，他们就会去干。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>摇摇说她现在的角色"有点像小部门的老板，但我还不会做" — 她需要做的是<span class="highlight">"任务拆清 → 找到对的人 → 布置下去 → 把控进度 → 验收结果"</span>，但目前她"自己拆了很多任务，最后都挂回自己头上"。</p>
+
+  <p>李墨玩在这给了她一段他自己被信任时学到的东西：</p>
+
+  <div class="quote-block">
+    <p>「当领导特别信任你、把一个任务交给你 — <span class="highlight">特别相信你、给你充分的自主权</span>的时候，你就会有很大的动力 — 你是对这个结果去负责的，你的主体性就被打开了。</p>
+    <p>大部分人包括以前的我都是被动的、等着别人来安排。<span class="accent-text">我的领导以前也特别害怕我干不好，很多活都没有放手给我；但后面放手了之后，我的积极性高了很多。</span></p>
+    <p>你不要怕底下有人干不好 — <span class="accent-text">没有人是一开始就能干好的</span>。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这一段呼应回了 Chapter 09 的"原子化" — <span class="highlight">委派的核心，是把"任务"切成"对方能拿走的最小单元"</span>。如果一个任务大到对方不知道从哪儿下口，他就只能等你来推；如果任务清晰、能落到他的 KPI 里、他能完整对结果负责 — 你的"信任"才能落地。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 12: 激情被磨灭了 -->
+<div class="section">
+  <div class="section-label">Chapter 12</div>
+  <h2>你被点燃的激情去哪了？</h2>
+  <p>临散场，摇摇说出了一句最像"自我诊断"的话：</p>
+
+  <div class="quote-block orange">
+    <p>「我现在这种状态，会显得我有点像躁郁症一样。上个月我跟你们交流、包括我自己的状态，我觉得都非常高昂。<span class="accent3-text">情绪的上下感觉太陡峭了 — 然后我现在就很低沉。</span>」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>李墨玩没有去给她讲道理，给了一句非常准的诊断：</p>
+
+  <div class="quote-block">
+    <p>「主要是 — <span class="highlight">你之前对 AI 探索的激情，在很多琐碎的事情中磨灭了。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>摇摇笑了一下 — 这种笑是被准确说中的那种笑。她没有反驳，只说 "<span class="accent-text">等我走出状态，我希望我还可以持续进行下去，我把状态调整过来之后我们再继续</span>"。</p>
+
+  <p>白豆很轻的接了一句："早点休息。"</p>
+
+  <p>这一章和 Chapter 01 闭合 — <span class="highlight">"被点燃过的人"的真正困境不是没激情，是激情会被杂事磨掉</span>。整期会议讨论的所有"系统、原子化、自动化、委派" — 最终都是为了不让琐事吞掉最关键的那块东西。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 13: 启示 -->
+<div class="section">
+  <div class="section-label">Chapter 13</div>
+  <h2>本期启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>"我感觉我人要没了"是信号</h3>
+      <p>不是矫情，是一种工程信号 — 当一个事情连归类都归不进去的时候，问题不在你执行力，是任务体系本身需要重新拆分。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>寓言 ≠ 打比方</h3>
+      <p>轻的概念打比方就够；重的、牵扯到很多方面的概念，必须用寓言故事串起来。讲故事是后天可练的"通用型技能"。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>给 AI 装上"过去的我"</h3>
+      <p>个人 AI 记忆库 — 不是给 AI 加功能，是让 AI 能复用你以前的项目、踩过的坑。这是 Agent 的下一个真问题。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>远程能跑就行</h3>
+      <p>Cloud Code 远程很潮但掉线；向日葵土但能扛。工具选型的本质是"我外勤场景的下限是什么"，不是"哪个看起来最现代"。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>让记忆成为一种选择</h3>
+      <p>"记不住，连用的机会都没有。" 微信读书 → Anki 这条流水线一通，Readwise 就被退订了。中间商被吃掉是好事。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>把别人的产出变成你的复习</h3>
+      <p>付费文章 + Codex 配图 + Anki 牌组 — 一个二创工作流的完整原型。设个密码、只给朋友看，不是缩水，是把"分享"控制在小范围。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">07</div>
+      <h3>Skill 比软件更轻</h3>
+      <p>看到别人做的工具想用？— 先问 "Codex 能不能直接给我搓一个"。本地资产已经在那了，差的只是一个本地服务。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">08</div>
+      <h3>原子化是跨领域的通用原则</h3>
+      <p>"这玩意好像 Skill 一样 — 一个 Skill 不要装太多东西，做原子化能力。" 知识、Skill、任务 — 拆不到原子就用不动。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">09</div>
+      <h3>不信任的根源不是别人笨</h3>
+      <p>是"你没找到跟他们利益的捆绑点"。70 个人凭什么帮你扛 KPI？把"你的活"翻译成"对他们也有好处的活" — 才能真借力。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">10</div>
+      <h3>没人是一开始就干好的</h3>
+      <p>领导信任 → 自主权 → 主体性被打开 — 这条因果链不只对下属有效，对你自己也一样。你怕别人干不好的那个心情，正是你以前老板对你的心情。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">11</div>
+      <h3>琐事吞掉激情是缓慢发生的</h3>
+      <p>不会有一个时刻你突然没激情 — 是几十件小事一起把"想干的事"挤到日历空隙。最后那个空隙也满了。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">12</div>
+      <h3>"在的，只是没出声"也是一种支持</h3>
+      <p>魏伦达整场都在高铁上听 — 不发言、但拜拜时一起说"拜拜"。有时候"在场"本身就是答案。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Epilogue -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>让记忆成为一种选择</h2>
+
+  <p>白豆在 Anki 牌组里写的最后一张卡，是 Anki 自己的口号：</p>
+
+  <div class="quote-block">
+    <p><span class="accent-text">Make Memory a Choice.</span><br>
+    <span class="highlight">让记忆成为一种选择。</span><br>
+    记不住，连用的机会都没有。</p>
+    <div class="speaker">— 白豆（引述 Anki）</div>
+  </div>
+
+  <p>这一句话能贯穿本期所有讨论：</p>
+
+  <ul style="color: var(--dim); padding-left: 1.5rem; margin: 1.5rem 0; line-height: 2;">
+    <li>李墨玩的 <span class="highlight">个人 AI 记忆库</span> — 让"过去的我"成为 AI 的选择；</li>
+    <li>白豆的 <span class="highlight">划线 → Anki 工作流</span> — 让"读到的好东西"成为复习的选择；</li>
+    <li>白豆的 <span class="highlight">付费文章 → 卡片牌组</span> — 让"散落的故事"成为可调用的牌组；</li>
+    <li>白豆的 <span class="highlight">Codex Image Gallery</span> — 让"几百张图"成为可被查找的画廊；</li>
+    <li>李墨玩的 <span class="highlight">群聊日报工程</span> — 让"每天的聊天"成为可被回顾的卡片；</li>
+    <li>摇摇被点中的 <span class="accent-text">原子化原则</span> — 让"每一个最小单元"都能被找到、被组合、被委派出去。</li>
+  </ul>
+
+  <p>临散场 — 摇摇说"<span class="accent3-text">我希望我还可以持续进行下去 — 我把状态调整过来之后我们再继续</span>"。这其实就是本期"让记忆成为一种选择"的最后一层意思 — <span class="highlight">不管多疲惫，让"继续走"成为一种选择，而不是一种被动</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">早点休息。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">有波动是正常的。顺其自然就好。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar weilunda">魏</div>
+      <div class="dialogue-text">拜拜。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">拜拜。</div>
+    </div>
+  </div>
+
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">那我们今天就这样 — 朋友们早点休息。</span><br>
+    <span style="font-size:0.8rem;">— 白豆 × 摇摇 × 李墨玩 × 魏伦达，散场时</span>
+  </p>
+</div>
+
+<footer>
+  <div class="logo">豆摇峰</div>
+  <p>第十二期 · 2026.06.03 · 让记忆成为一种选择</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 本期做客嘉宾 魏伦达（白纸朋友）</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
