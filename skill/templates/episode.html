@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇峰 · 第十期 — 唱跳 Rap 都得会一点</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --accent4: #b887c7;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 35%, rgba(212,168,83,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 65%, rgba(196,115,91,0.08) 0%, transparent 50%);
+    animation: drift 24s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+  .accent4-text { color: var(--accent4); font-weight: 500; }
+
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block p {
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .insight-card .number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .steps {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .step {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4.5px);
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .platform-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .platform-card .name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .platform-card .desc {
+    font-size: 0.82rem;
+    color: var(--dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="episode">豆摇峰 · 第十期</div>
+    <h1>唱跳 Rap 都得会一点</h1>
+    <div class="subtitle">AI 把底线抬高之后 — 跨界比再深一寸更划算<br>一场关于"持续出现"与"跨界与扎实"的复盘</div>
+    <div class="meta">2026.05.12 · 白豆 · 李墨玩 · 摇摇</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- Chapter 01: 底线抬高 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>底线被抬高了</h2>
+
+  <div class="image-block">
+    <img src="images/rising-tide.jpg" alt="水位上涨淹没山头">
+    <div class="caption">水位涨上来了 — 原来的山头变成浅滩，新的高峰还在远方</div>
+  </div>
+
+  <p>本期开场摇摇就抛了一个最近卡在脑子里的观察 — <span class="highlight">AI 把"产出质量的默认水平"抬高了</span>。</p>
+
+  <p>他举了一个生图的例子：之前没有 SD 模型那会儿，要生图必须把画面、构图、镜头、光线写得很细很细；现在你简简单单一句话，<span class="accent-text">出来的结果也"不至于不能接受"</span>。如果想要更好的，再加复杂提示工程。</p>
+
+  <div class="quote-block">
+    <p>「就我也不知道怎么形容了 — 大概是说原先的时候你不好好干活，你就饿死了；现在你不好好干活，至少能不饿死。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">社会平均水平。</div>
+    </div>
+  </div>
+
+  <p>这件事乍听不重要，其实是<span class="highlight">本期所有讨论的暗线</span> — 当所有人的"默认产出"都被工具抬到一个新的中位数，你之前以为可以靠的护城河（埋头钻一点，比别人深一寸）就不太够了。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 02: 从问题出发的面试 -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>简历名词堆砌的反面</h2>
+  <p>摇摇这周继续在面试多 agent 架构的人。他发现一个很普遍的模式 — <span class="accent-text">很多简历就是名词的堆砌</span>。</p>
+
+  <div class="quote-block">
+    <p>「他在里头写了一堆 — 意图识别、任务派发、路由、RAG 知识库、LangChain、LangGraph。但你深入去问的话，反而说不清楚 — 模棱两可，像是直接用豆包翻译了一下这个词。从他这里接收不到新东西。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>他给出了一个反向的、自己以后写简历也想用的方法：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>问越多名词，越容易踩到对方的非强项</h4>
+      <p>"你把这些词问的多了，势必会命中到他的非强项或不擅长的领域，效果反而不好。"</p>
+    </div>
+    <div class="step">
+      <h4>用一个项目讲清楚整条链路</h4>
+      <p>"任务从哪里开始 → 怎么实现 → 最终产出一个什么结果 → 有什么效果上的提升 — 我觉得这样比堆十个名词管用。"</p>
+    </div>
+  </div>
+
+  <p>这其实和本期暗线呼应 — 当 AI 把每个名词的"表面熟悉度"都拉高之后，<span class="highlight">"我把一件事完整做出来"成了越来越稀缺的证明</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 03: Skill 路由 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>几百个技能包 × Skill 路由</h2>
+  <p>摇摇现在的主活是<span class="accent-text">做意图识别和 skill 管理</span>。他们大部门已经沉淀出来好几百个技能包（skills），完全没法一股脑挂上去 — 上下文会爆，描述太相近的 skill 也会分派错乱。</p>
+
+  <p>他目前的解法是：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>Skill 描述做成知识库</h4>
+      <p>把每个 skill 的 description + 全文当作可检索的知识库。</p>
+    </div>
+    <div class="step">
+      <h4>意图识别后再检索</h4>
+      <p>任务进来 → 先意图识别 → 用关键词去 skill 知识库里检索 → 调用对应 skill。</p>
+    </div>
+    <div class="step">
+      <h4>承认这是基建不够好的妥协</h4>
+      <p>"还是因为模型能力还不够强 — 等模型再强一点，可能直接挂载就好了。"</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>「最重要的还是 context 和 token 管理目前的基建还不够好，所以才需要这样的架构来做。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 04: 信息差 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>赚钱的本质是信息差</h2>
+  <p>白豆引用了最近读的一篇文章 — 关于<span class="accent-text">"赚钱 = 信息差"的四象限</span>：</p>
+
+  <div class="quote-block">
+    <p>「无论是做东西也好、做咨询也好，都需要有一个基础的信息差 — 你知道别人不知道。如果这个市场所有人都很聪明、都知道，你就卖不出去。但当你跳出这个市场，把这件事传达给那些不知道的人，那将会是非常赚钱的，而且是真的能产生价值的。」</p>
+    <div class="speaker">— 白豆（转述某博主的观点）</div>
+  </div>
+
+  <p>摇摇当场把它翻译成了一个更具体的版本：</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">是不是有点像寻找细分市场？你自己在英语国家教英语不好赚钱，但是在非英语国家、并且出国氛围比较热烈的那种国家去教英语 — 就很赚钱。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">可以这样理解。</div>
+    </div>
+  </div>
+
+  <p>核心动作只有两步 — <span class="highlight">比别人快一步，然后找到具体快于谁的那群人</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 05: AI 姓名画 -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>姓名画：70 块的市场，一次性的复刻</h2>
+  <p>开场摇摇展示了一张他刚生成的"姓名画" — 用<span class="accent-text">画鸟的风格</span>把名字拆解成构图。他在公司办公区里看到挂了一幅这样的画，售价 70 块，就试了试 AI 能不能做。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">你看，他的思考过程对于形式理解的挺到位的 — 他说他会强调这个层叠的山，用"爻"字保持组分的 legible。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">Legible 是有逻辑的、可识别的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">可以去卖钱。</div>
+    </div>
+  </div>
+
+  <p>白豆顺手用 GPT-image 的"加强风格"把图又演进了一版，群里一起赏玩了一遍。这件小事其实又回到了第 1 章的暗线 — <span class="highlight">底线被抬高了。原来要七十块的手艺，现在工具默认就能做出一个"看得过去"的版本</span>。</p>
+
+  <p>这不是"取代手艺"的故事 — 是<span class="accent2-text">"七十块"这种价格带的工艺正在被重新定义"该值多少钱"</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 06: 累得不一样 -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>比上班还累，但累得不一样</h2>
+  <p>李墨玩开场说了一句很有意思的话 — 他这周回顾了一下，发现：</p>
+
+  <div class="quote-block">
+    <p>「我现在工作强度比我上班的时候还累。但累的原因不一样 — 不是『为了只赚一份钱去干活』，是自己真的感兴趣、想干。是自愿的那种类。跟上班那种还不太一样，但身体上表现出来都是疲惫 — 原因不同。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这件事和上一期他说的"兴趣本身就是结果"是同一条线 — 当一件事的"为什么"变了，<span class="highlight">疲惫的颜色也会变</span>。但身体不会撒谎，疲惫还是会显现出来。</p>
+
+  <p>他这周想做的一件正面挑战是：<span class="accent-text">5 月份要拍一个露脸的视频</span>。</p>
+
+  <div class="quote-block">
+    <p>「我上个月不是立了个 flag 嘛 — 这个月要拍一个露脸的视频。对我来说挑战挺大的 — 每个人不一样，有的人让他直个播他表现很自然；我就不太行，不太习惯露脸，这是性格决定的。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 唱跳 Rap -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>唱跳 Rap 都得会一点</h2>
+
+  <div class="image-block">
+    <img src="images/crossroads.jpg" alt="跨界放射光">
+    <div class="caption">一个发光的圆心 — 不在某一条线上做到 0.1%，而是横向都会一点</div>
+  </div>
+
+  <p>这是本期最被点名的金句 — 李墨玩讲他这段时间做自媒体的最大体会：</p>
+
+  <div class="quote-block">
+    <p>「你去做个人的自媒体博主，有点像你是什么唱跳 Rap，什么都得会一点 — 你懂我意思不？但你不一定要把它做的非常精。至少懂得怎么去做视频、怎么写、怎么演讲。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>他把这件事拍到了职场里：</p>
+
+  <div class="quote-block">
+    <p>「我觉得上班来说，职场必备的两个技能 — 一个是写作，一个是演讲能力。我虽然没有上班，但这两个我已经都在练。以前没那么觉得，现在越来越觉得这个东西很重要 — 而且还挺不好干，你没有一定的实践积累，是干不好的。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>之前已经有人给他反馈 — <span class="highlight">"我去看你去年发的文章，你进步挺多的"</span>。这种来自陌生人的、隔了一年的回头看，是他最有动力的那种回响。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: 平台逻辑 -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>四个平台，四种逻辑</h2>
+  <p>李墨玩这段把他这段时间观察各个平台的体感梳理了一遍 — 同一份内容在不同平台命运截然不同：</p>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="name">小红书</div>
+      <div class="desc">推流权重看内容、不看粉丝；强调真实感、素人；不希望任何一个博主做成山头。商业化克制。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">B 站</div>
+      <div class="desc">鼓励"做大的 UP 主"；扶持新人；视频要"精雕细琢"；数据看板做得好。封面要用心，<span class="accent-text">同样的封面在小红书是爆款逻辑，在 B 站可能只有 9 个阅读</span>。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">抖音</div>
+      <div class="desc">分发优先粉丝、再到推荐；体量大；鼓励博主积累粉丝、做电商和直播；扶持计划多。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">公众号</div>
+      <div class="desc">粉丝权重最高 — <span class="highlight">一个公众号粉丝 ≈ 十几个抖音粉丝</span>。连接墙最紧密，跟微信直接打通。</div>
+    </div>
+  </div>
+
+  <p>他给了一个反直觉的判断 — <span class="accent-text">"几十万粉丝的博主一年到头赚不了多少钱，真正能转化的是那些只有几万粉丝、但黏性极强的账号。"</span> 粉丝数有时候是虚荣指标，转化能力才是真硬通货。</p>
+
+  <div class="quote-block">
+    <p>「DontBeSilent 那种，几万粉丝，一年收入比很多百万粉丝博主都高 — 而且看起来还更轻松。但他的活也不好干 — 运营社群、给别人解答问题，是脑力劳动。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 09: 选题库 -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>走路时截图：碎片化的选题库</h2>
+
+  <div class="image-block">
+    <img src="images/footprints.jpg" alt="脚印延伸">
+    <div class="caption">不是某一次大块的努力 — 是每天散落的零碎积累</div>
+  </div>
+
+  <p>李墨玩拆解了他<span class="accent-text">"零碎时间堆素材"</span>的工作流 — 不要一次性憋一整篇文章，而是平时分散积累：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>定个选题 — 不急写</h4>
+      <p>比如最近想写一篇"小程序怎么上线"，先把这个选题挂在选题库里。</p>
+    </div>
+    <div class="step">
+      <h4>每做一步就截图扔进对应文档</h4>
+      <p>"我今天每做一步申请，我就截图放过来。最后我再去写这篇文章的时候，素材就积累的差不多了。"</p>
+    </div>
+    <div class="step">
+      <h4>走路时的小红书截图也是素材</h4>
+      <p>"我刚刚的截图都是走路时刷小红书顺手截的 — 不是用额外的大块时间去专门做这件事情。"</p>
+    </div>
+    <div class="step">
+      <h4>陌生人打赏也是选题</h4>
+      <p>"我顺手把这个东西记录下来 — 万一后面成了个什么大 V，我回顾的时候可以用上这些素材。梦想还是要有的。"</p>
+    </div>
+  </div>
+
+  <p>他还有一个更细的产品取舍 — <span class="accent-text">十几个主题里只把两个做成付费，剩下都是免费</span>。"做这种东西要有取舍，不能为爱发电，但也不要把所有都收费 — 大部分人来说免费的够用。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 10: DHH × 37signals -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>白豆的 DHH 时间</h2>
+
+  <div class="image-block">
+    <img src="images/vintage-race.jpg" alt="复古赛车与代码">
+    <div class="caption">25 岁才学编程的赛车手 — 99% → 99.5% 太贵，跨界更划算</div>
+  </div>
+
+  <p>白豆这周最沉迷的是 DHH 的 Lex Fridman 访谈（六小时）。DHH 是 Ruby on Rails 的作者、37signals 的合伙人、勒芒 24 小时拉力赛的冠军、好几本书的作者、丹麦人。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>25 岁才正式开始学编程</h4>
+      <p>"之前会有一些接触，但觉得非常受挫 — 因为他觉得自己并不像那些天才一样。直到邂逅了 Ruby — 觉得这东西很优雅，像写诗一样，比其他编程语言更让他上头。"</p>
+    </div>
+    <div class="step">
+      <h4>跨界比再深一寸更划算</h4>
+      <p><span class="highlight">"你不一定要在一个领域做到前 1% 或者 0.1%。99% → 99.5% 那一点点需要付出几倍的努力 — 但你可以跨界做很多其他的事情。"</span></p>
+    </div>
+    <div class="step">
+      <h4>跨界做到极致：赛车 + 商业 + 工程 + 写作 + 家庭</h4>
+      <p>他既是赛车冠军、又是合伙人、又是顶级工程师，写过 Rework、Remote 等几本书 — "家庭也非常和睦，又是一个非常好的父亲。"</p>
+    </div>
+    <div class="step">
+      <h4>4.6 模型出来之前：坚持古法手工编程；出来之后：积极拥抱 agent</h4>
+      <p>"他对每件事都有他自己的判断 — 不是为了反对工具而反对，是为了真的觉得 Ruby 写得像诗才用 Ruby。"</p>
+    </div>
+  </div>
+
+  <p>白豆说看完这两个视频，"<span class="accent-text">获取一种很好的感染力</span>"。这种感染力其实和摇摇说的"底线被抬高"是同一件事 — 当工具把"勉强能做"的边界扩到所有人都覆盖时，<span class="highlight">真正稀缺的反而是「同时能在好几件事上做得很好」的人</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: HEY × Basecamp -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>37signals 的产品哲学</h2>
+
+  <div class="image-block">
+    <img src="images/calm-desk.jpg" alt="极简桌面与信件">
+    <div class="caption">买断终身、开源、强制休假 — 一种刻意被克制的商业模式</div>
+  </div>
+
+  <p>白豆顺势体验了 37signals 旗下的几个产品 — 邮箱、日历、看板。他被打动的不是某个具体功能，而是这套<span class="accent-text">产品哲学的一致性</span>：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>邮箱 HEY：第一封信就是 "Block Sender"</h4>
+      <p>新邮件来时不直接进收件箱 — 你先决定是"拉黑这个人"还是"继续接收"。验证码、发票自动归到一类，跟人的邮件分开。</p>
+    </div>
+    <div class="step">
+      <h4>日历：没有月视图，只有周和年</h4>
+      <p>"我觉得这很符合人类的第一反应 — 以一周的视角去看待最近发生的事情。" 年视图打开后会有一种"很震撼"的感觉。</p>
+    </div>
+    <div class="step">
+      <h4>看板：每次只能打开两列</h4>
+      <p>"打开多了会让你过载。" 引导卡片做得非常舒服，每张卡片都教你下一步该做什么。</p>
+    </div>
+    <div class="step">
+      <h4>买断 + 开源 + 强制休假</h4>
+      <p>"一个公司付 99 刀就可以用了。" 几乎所有产品都开源，部署到自己服务器免费。强制休假 + 利润 10-15% 分给员工。</p>
+    </div>
+  </div>
+
+  <p>更狠的还在后面 — 白豆翻到他们最近的一篇博客 <span class="accent2-text">"逃离云端"</span>：他们算过账，自购服务器加运维一年比 AWS 省好几百万美元。<span class="highlight">AWS 利润率 60% 以上 — 这个数字本身就是答案。</span></p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">为什么国外会有这么多这种公司，国内做不了？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">国内也有 — 只是不知道、或者宣传少。氛围还是有点不一样 — 国内表达不多的是闷声发大财，表达多的就是那种特别浮夸的。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 12: Anki + 几千天前 -->
+<div class="section">
+  <div class="section-label">Chapter 12</div>
+  <h2>把"被记住"做成礼物</h2>
+  <p>这周白豆参加了公司年会和团建。他做了一件让同事们都"挺震撼、挺吃惊"的事 — <span class="accent-text">在年会上用 Anki 复盘几年前、几千天前的具体瞬间</span>。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>让 AI 筛选过去几年的工作安表</h4>
+      <p>"现场效果非常好 — 因为几年前、四年前的事，几百天、几千天前的那个东西，我还特意加了『多少千多少天前』。"</p>
+    </div>
+    <div class="step">
+      <h4>每个人身上都有可以学的</h4>
+      <p>"我专门让 AI 筛选了一下，专门挑出我从每位同事或领导身上学到的东西 — 因为确实每个人身上都有一点点可以学的。"</p>
+    </div>
+    <div class="step">
+      <h4>把"我记得你"做成礼物</h4>
+      <p>摇摇接了一句："挺好的 — 让别人感觉到自己被记住，对那个人来说也是很感动的。"</p>
+    </div>
+  </div>
+
+  <p>另一个更具体的小活 — <span class="accent2-text">团建期间的出勤表</span>。白豆给同事做了一个手机就能操作的表格，点一下"未到"，这个人就从总表消失。表底关联了 Notion 的人员数据库，下次别人协作只要打开这个表，就能看到这个人的联系方式、吃饭习惯等等。</p>
+
+  <div class="quote-block">
+    <p>「让别人感觉到自己被记住 — 对那个人来说也是很感动的。」</p>
+    <div class="speaker">— 摇摇 → 白豆</div>
+  </div>
+
+  <p>白豆给自己总结了一句："不管有时候你去吐槽也好、怎么也好 — <span class="highlight">每个人都会有值得学习的地方</span>。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 13: 启示 -->
+<div class="section">
+  <div class="section-label">Chapter 13</div>
+  <h2>本期启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>底线被抬高了</h3>
+      <p>原来不好好干活就饿死，现在不好好干活也不饿死。当所有人的"默认产出"都被工具抬高，原来你以为可以靠的护城河 — 比别人深一寸 — 就不太够了。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>名词堆砌的反面</h3>
+      <p>当 AI 让每个名词的表面熟悉度都拉高，"我能把一件事完整做出来"成了越来越稀缺的证明。一个项目讲清楚 > 十个名词的简历。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>赚钱 = 信息差 × 找对人</h3>
+      <p>不是绝对的快，是相对的快。"在非英语国家教英语"比"在英语国家教英语"赚钱 — 找到具体快于谁的那群人，才是关键。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>唱跳 Rap 都得会一点</h3>
+      <p>当单点能力的中位数被工具抬高，跨界比再深一寸更划算。写作 + 演讲 + 视频 + 工程 — 不一定每一项都顶尖，但每一项都不能短板。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>99% → 99.5% 太贵</h3>
+      <p>DHH 用最直白的方式说：从 99% 到 99.5% 要付出几倍的努力。把那几倍的精力拿去做另一件事，可能就是另一个 90% — 总价值反而更高。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>累得不一样</h3>
+      <p>同样是疲惫，"自愿的累"和"为了一份钱的累"颜色不同。身体还是会表现疲惫，但是底色不一样 — 这件事自己心里清楚就好。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">07</div>
+      <h3>持续出现 = 击败放弃的人</h3>
+      <p>很多平台的算法不是奖励"做得多好"，是奖励"还在做"。坚持出现就比一半人强 — 哪怕只是走路时顺手截一张图。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">08</div>
+      <h3>粉丝数 ≠ 转化能力</h3>
+      <p>百万粉丝赚不到几万粉丝的钱。公众号一个粉丝抵十几个抖音粉丝。选平台不是看体量 — 是看你的内容和平台逻辑是否匹配。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">09</div>
+      <h3>碎片化积累胜过整段时间</h3>
+      <p>素材不是大块时间堆出来的，是走路时、申请小程序时、看见有意思东西时一点一点扔进库的。最后回头写文章的时候，素材已经在那儿。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">10</div>
+      <h3>把"被记住"做成礼物</h3>
+      <p>"每个人都会有值得学习的地方" — 把它记下来，几千天后还能调出来。最有杀伤力的不是新颖的工具，是"原来你还记得"。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Epilogue -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>Got My Back · 豆瓣墙重启</h2>
+
+  <p>临散场前，摇摇翻出来一张几年前的截图 — 一个产品页面，背景是一面"豆瓣电影墙"。"你们还记得这个吗？这是谁做的？"</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">有印象 — 这是我做的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">是你做的？这就是我刚刚做的 — 豆瓣开始做反弹了？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">豆瓣有那个墙了 — 本地 HTML 他都不让你直接做了，但是微信可以。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我就是看到这个了，想着再用一下。挺好的 — 我刚做了一个，好玩。</div>
+    </div>
+  </div>
+
+  <p>白豆穿着今天身上这件衣服 — 背后写着 <span class="accent-text">"Those on my back have my back"</span>（背上的人，是支持我的人）— 一位朋友帮他做的衣服。</p>
+
+  <div class="quote-block">
+    <p>「『Those on my back have my back』 — 用了一个双关。在我背上的，got my back，支持我。背上就是那个朋友帮我做的。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这件事和本期开头摇摇说"底线被抬高了"奇妙地呼应 — <span class="highlight">真正不被工具替代的，是"被人记住、被人支持"这种事</span>。</p>
+
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">那我们今天先到这里 — 11 点了。</span><br>
+    <span style="font-size:0.8rem;">— 摇摇 × 白豆 × 李墨玩，散场时</span>
+  </p>
+</div>
+
+<footer>
+  <div class="logo">豆摇峰</div>
+  <p>第十期 · 2026.05.12 · 唱跳 Rap 都得会一点</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 本期无嘉宾</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
