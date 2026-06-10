@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇锋 · 第六期 · 2026.04.07</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0a0a0f;--card:#14141f;--accent:#f59e0b;--accent2:#8b5cf6;--accent3:#10b981;--text:#e2e8f0;--muted:#64748b;--border:#1e293b}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC','Inter',system-ui,sans-serif;line-height:1.8;overflow-x:hidden}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.08),transparent 70%);top:-100px;right:-200px}
+  .hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.06),transparent 70%);bottom:-50px;left:-100px}
+  .hero-badge{display:inline-block;padding:.4rem 1.2rem;border:1px solid var(--border);border-radius:50px;font-size:.8rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.2;margin-bottom:1rem;background:linear-gradient(135deg,#f59e0b,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .subtitle{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted);max-width:600px;font-weight:300}
+  .hero .date{margin-top:2rem;font-size:.85rem;color:var(--muted);letter-spacing:.2em}
+  .scroll-hint{position:absolute;bottom:2rem;animation:bounce 2s infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+  .scroll-hint svg{width:24px;height:24px;stroke:var(--muted);fill:none;stroke-width:2}
+
+  /* Sections */
+  .section{max-width:800px;margin:0 auto;padding:6rem 1.5rem;opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.22,1,.36,1)}
+  .section.visible{opacity:1;transform:translateY(0)}
+
+  .section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem}
+  .section-label .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+  .section h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;line-height:1.3;margin-bottom:1.5rem}
+  .section h2 .highlight{color:var(--accent)}
+  .section h2 .highlight2{color:var(--accent2)}
+  .section h2 .highlight3{color:var(--accent3)}
+
+  /* Image */
+  .img-wrap{margin:2rem -1.5rem;border-radius:12px;overflow:hidden;position:relative}
+  .img-wrap img{width:100%;display:block;filter:brightness(.9) saturate(1.1)}
+  .img-wrap .caption{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.5rem;background:linear-gradient(transparent,rgba(0,0,0,.7));font-size:.8rem;color:rgba(255,255,255,.7)}
+
+  /* Quote */
+  .quote{border-left:3px solid var(--accent);padding:1.5rem 2rem;margin:2rem 0;background:rgba(245,158,11,.04);border-radius:0 8px 8px 0}
+  .quote p{font-size:1.15rem;font-style:italic;color:var(--text)}
+  .quote .author{margin-top:.8rem;font-size:.85rem;color:var(--muted);font-style:normal}
+  .quote.purple{border-left-color:var(--accent2);background:rgba(139,92,246,.04)}
+  .quote.green{border-left-color:var(--accent3);background:rgba(16,185,129,.04)}
+
+  /* Avatar */
+  .avatar-row{display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem}
+  .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:#fff;flex-shrink:0}
+  .avatar.baidou{background:linear-gradient(135deg,#f59e0b,#f97316)}
+  .avatar.limo{background:linear-gradient(135deg,#8b5cf6,#6366f1)}
+  .avatar.yaoyao{background:linear-gradient(135deg,#10b981,#14b8a6)}
+  .avatar-name{font-size:.9rem;font-weight:600}
+  .avatar-desc{font-size:.75rem;color:var(--muted)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:2rem 0}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center}
+  .stat .num{font-size:2rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .label{font-size:.8rem;color:var(--muted);margin-top:.3rem}
+
+  /* Cards */
+  .cards{display:grid;grid-template-columns:1fr;gap:1.2rem;margin:2rem 0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;transition:border-color .3s}
+  .card:hover{border-color:var(--accent)}
+  .card .card-num{font-size:.7rem;color:var(--accent);letter-spacing:.15em;margin-bottom:.5rem}
+  .card h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+  .card p{font-size:.9rem;color:var(--muted);line-height:1.7}
+
+  /* Timeline */
+  .timeline{position:relative;padding-left:2rem;margin:2rem 0}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),var(--accent3))}
+  .timeline-item{position:relative;margin-bottom:2rem;padding-left:1rem}
+  .timeline-item::before{content:'';position:absolute;left:-2.35rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+  .timeline-item .time{font-size:.75rem;color:var(--accent);letter-spacing:.1em}
+  .timeline-item h4{font-size:1rem;margin:.3rem 0}
+  .timeline-item p{font-size:.85rem;color:var(--muted)}
+
+  /* Divider */
+  .divider{width:60px;height:2px;background:linear-gradient(to right,var(--accent),transparent);margin:4rem auto}
+
+  /* Footer */
+  footer{text-align:center;padding:4rem 1.5rem;border-top:1px solid var(--border)}
+  footer p{font-size:.8rem;color:var(--muted)}
+  footer .logo{font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#f59e0b,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+
+  /* Responsive */
+  @media(max-width:600px){
+    .section{padding:4rem 1.2rem}
+    .img-wrap{margin:1.5rem -1.2rem}
+    .stats{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <span class="hero-badge">豆摇锋 · Weekly · EP.06</span>
+  <h1>Regenerate</h1>
+  <p class="subtitle">当AI帮你写出完美的文章，你还能在脑中重新生成它吗？</p>
+  <p class="date">2026 年 4 月 7 日 · 周一夜话</p>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- 1. 开场 -->
+<div class="section" id="s1">
+  <span class="section-label"><span class="dot"></span>CHAPTER 01</span>
+  <h2>三天加了 <span class="highlight">25小时</span> 班的人</h2>
+  <p>周一夜晚，三个人陆续上线。摇摇还在回家的路上，戴着耳机就先听着——过去三天，他加了25个小时的班，交付了四份报告。「马云要是不给我升职，真是对不起我。」</p>
+  <p style="margin-top:1rem">白豆也在公司。明天要去参加卡兹克的大会，后天还要自己再去一天。李墨玩倒是清闲一些，准备好了投屏。</p>
+  <div class="stats">
+    <div class="stat"><div class="num">25h</div><div class="label">摇摇三天加班</div></div>
+    <div class="stat"><div class="num">4份</div><div class="label">交付报告</div></div>
+    <div class="stat"><div class="num">13h</div><div class="label">单日最长</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 2. 李墨玩的公众号爆发 -->
+<div class="section" id="s2">
+  <span class="section-label"><span class="dot"></span>CHAPTER 02</span>
+  <h2>800阅读，<span class="highlight2">133转发</span>，进了微信推荐池</h2>
+  <div class="avatar-row">
+    <div class="avatar limo">李</div>
+    <div><div class="avatar-name">李墨玩</div><div class="avatar-desc">AI公众号 · 持续输出者</div></div>
+  </div>
+  <p>AI排版工具那篇文章爆了。800多阅读、133个转发——20%的转发率，直接进了微信推荐池。一天涌入20个新关注者。</p>
+  <div class="img-wrap">
+    <img src="images/01-voice-writing.jpg" alt="语音写作">
+    <span class="caption">声音变成文字，文字变成文章</span>
+  </div>
+  <p>上周更新4篇，这周要更新5篇。节奏是：2篇蹭热点思考文 + 2-3篇实操教程。「发出来比完美更重要」，这是他录第一条小红书视频后最大的感悟——磕磕绊绊，但有人从录屏的地址栏里找到网站，充了十块钱去用。</p>
+  <div class="quote">
+    <p>「发出来比完美更重要。在刚开始的时候，管他三七二十一，随便剪两下，先发出来再说。」</p>
+    <div class="author">— 李墨玩</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="num">800+</div><div class="label">阅读量</div></div>
+    <div class="stat"><div class="num">20%</div><div class="label">转发率</div></div>
+    <div class="stat"><div class="num">5篇/周</div><div class="label">更新节奏</div></div>
+    <div class="stat"><div class="num">20+</div><div class="label">日新增关注</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 3. 语音写作方法论 -->
+<div class="section" id="s3">
+  <span class="section-label"><span class="dot"></span>CHAPTER 03</span>
+  <h2>语音写作：<span class="highlight">嘴比手快</span>的创作革命</h2>
+  <p>李墨玩分享了他的创作流程：先写大纲提纲 → 打开豆包输入法语音转文字 → 一段一段录入 → 复制到 Obsidian 里用 AI 润色 → 手动精修。</p>
+  <p style="margin-top:1rem">「以前用 Get笔记，苹果本地语音识别率特别低，每次都要改很久。现在用豆包输入法效率提升了很多，早上就能把当天的文章全搞完，下午干别的事。」</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="time">STEP 1</span>
+      <h4>手写大纲</h4>
+      <p>列出要表达的观点、每段写一句话提纲</p>
+    </div>
+    <div class="timeline-item">
+      <span class="time">STEP 2</span>
+      <h4>豆包输入法 · 语音录入</h4>
+      <p>打开语音，一段一段口述，自动转成文字</p>
+    </div>
+    <div class="timeline-item">
+      <span class="time">STEP 3</span>
+      <h4>AI 润色</h4>
+      <p>复制到 IDE / Obsidian，让 AI 整理口水词、调整风格</p>
+    </div>
+    <div class="timeline-item">
+      <span class="time">STEP 4</span>
+      <h4>人工精修</h4>
+      <p>思想和灵感不能交给AI——自己再改一遍</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 4. Regenerate 核心讨论 -->
+<div class="section" id="s4">
+  <span class="section-label"><span class="dot"></span>CHAPTER 04</span>
+  <h2><span class="highlight">Regenerate</span>：AI辅助的知识，能内化吗？</h2>
+  <div class="img-wrap">
+    <img src="images/02-regenerate.jpg" alt="Regenerate">
+    <span class="caption">完美的结构 vs 真实的笔迹——哪个能留在脑中？</span>
+  </div>
+  <p>这是本期最核心的讨论。三个人从不同角度碰撞出了同一个结论。</p>
+
+  <div class="avatar-row" style="margin-top:2rem">
+    <div class="avatar yaoyao">摇</div>
+    <div><div class="avatar-name">摇摇 · 发起质疑</div></div>
+  </div>
+  <div class="quote green">
+    <p>「写作 Skill 只能学到语言结构，我的思想和灵感它学不到。最近火了很多前同事 skill、老板 skill，这些东西并没有继承这些人的技能和灵感，价值值得商榷。」</p>
+    <div class="author">— 摇摇</div>
+  </div>
+
+  <div class="avatar-row" style="margin-top:2rem">
+    <div class="avatar baidou">白</div>
+    <div><div class="avatar-name">白豆 · Regenerate 理论</div></div>
+  </div>
+  <div class="quote">
+    <p>「我发现 AI 的回复每一条都很丝滑、有结构性，但我很难再次记起它们。当我要跟朋友讲某个东西时，能流畅讲出来的，都是自己花了很长时间写出来的。AI 协助的那些内容，我的状态还停留在写之前的原始状态。」</p>
+    <div class="author">— 白豆</div>
+  </div>
+  <p style="margin-top:1rem">白豆提出了一个概念：<strong>Regenerate</strong>——不是 Generate（生成），而是能否在你的脑子里<strong>再次生成</strong>这个东西。来自 Anki 卡片的启发：如果你不能脱离笔记把一个观点完整讲出来，那它还没有真正属于你。</p>
+
+  <div class="avatar-row" style="margin-top:2rem">
+    <div class="avatar yaoyao">摇</div>
+    <div><div class="avatar-name">摇摇 · 虚假繁荣</div></div>
+  </div>
+  <div class="quote green">
+    <p>「AI 输出了很多东西，但和我想让它输出的东西完全不一样。很多人抨击 vibe coding 也是这样——跑出来一堆看似能跑的东西，但你要重新梳理和修改的时间并没有缩短。它给你的一些虚假繁荣，可能会造成不正常的正向引导。」</p>
+    <div class="author">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 5. 白豆的商业化 -->
+<div class="section" id="s5">
+  <span class="section-label"><span class="dot"></span>CHAPTER 05</span>
+  <h2>律师私教课 × <span class="highlight2">小程序项目</span></h2>
+  <div class="avatar-row">
+    <div class="avatar baidou">白</div>
+    <div><div class="avatar-name">白豆</div><div class="avatar-desc">商业化加速中</div></div>
+  </div>
+  <p>白豆的商业化在推进。两条线同时走：</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">项目 A</div>
+      <h3>律师 AI 私教课</h3>
+      <p>一小时一节的深度私教。目前上了两节，对方反馈「特别好」。还为学员做了飞书表单等周边工具，以后做线上课可以直接复用。</p>
+    </div>
+    <div class="card">
+      <div class="card-num">项目 B</div>
+      <h3>一个小程序项目</h3>
+      <p>已签合同推进中。李墨玩建议先找后端程序员「把脉」架构设计，别急着开干。</p>
+    </div>
+  </div>
+  <div class="quote">
+    <p>「即使没有钱的话，我也想尝试一下，它确实很可以投入到实际应用的一个东西。」</p>
+    <div class="author">— 白豆</div>
+  </div>
+  <p style="margin-top:1rem">白豆还聊到老板的同学——完全赶上了AI风口，一个月完成全年目标，课程销量和收入都相当可观。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- 6. AI视频制作 -->
+<div class="section" id="s6">
+  <span class="section-label"><span class="dot"></span>CHAPTER 06</span>
+  <h2>400元拍一部<span class="highlight3">1分钟短片</span></h2>
+  <div class="img-wrap">
+    <img src="images/03-ai-video.jpg" alt="AI视频制作">
+    <span class="caption">分镜画布上的微缩电影宇宙</span>
+  </div>
+  <p>白豆展示了他用 AI 制作的族谱主题短片——灵感来自一句话：<em>「Your ancestors have lived in you」</em>。你的身体中住过很多你的祖宗，不只是你自己。</p>
+  <p style="margin-top:1rem">工作流是 <strong>Heptabase 画布 + 即梦生图 + 图生视频</strong>。核心优势：在同一个画布上统一管理角色三视图、场景、分镜、提示词，可以引用多张参考图进行重绘。</p>
+  <div class="stats">
+    <div class="stat"><div class="num">¥400</div><div class="label">总成本（不含人力）</div></div>
+    <div class="stat"><div class="num">1分钟</div><div class="label">成片时长</div></div>
+    <div class="stat"><div class="num">1版过</div><div class="label">老板直接通过</div></div>
+  </div>
+  <p style="margin-top:1.5rem">白豆还推荐了《纸手机》——深圳大学毕业生两人三天制作，全网两三千万播放。「主要是故事做的好，不是视频做的好。」Heptabase 还开源了这些优秀创作者的完整画布过程。</p>
+  <div class="quote purple">
+    <p>「对于企业来说，这个成本非常能接受了。而且一下子就能让老板看出工作量——你的整个故事框架，在一个界面上统一操作。」</p>
+    <div class="author">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 7. 摇摇的Skill化实践 -->
+<div class="section" id="s7">
+  <span class="section-label"><span class="dot"></span>CHAPTER 07</span>
+  <h2>硬件工程师的<span class="highlight3">Skill化</span>革命</h2>
+  <div class="avatar-row">
+    <div class="avatar yaoyao">摇</div>
+    <div><div class="avatar-name">摇摇</div><div class="avatar-desc">把白豆的模板带进了公司</div></div>
+  </div>
+  <p>摇摇把白豆做的滚动叙事 HTML 和 Skill 创建模板，带进了公司。让 Claude Code 读取模板后，结合自己对硬件工程领域的理解，输出了一套「什么工作值得 Skill 化」的判断框架。</p>
+  <div class="img-wrap">
+    <img src="images/04-stage.jpg" alt="舞台演讲">
+    <span class="caption">从辩论赛到百人讲台——Connecting the dots</span>
+  </div>
+  <p>效果：三层分级——全自动（脚本100%稳定） / AI辅助（大语言模型推算） / 人工判断（需要人介入太多，不值得Skill化）。</p>
+  <p style="margin-top:1.5rem">更让人惊叹的是——明天，摇摇要飞重庆，给100多人做 AI 分享。</p>
+  <div class="quote green">
+    <p>「我大一的时候在人面前话都说不出来。从初赛二三十人，打到半决赛七八十人，打到决赛二三百人。后来去人大附中底下好几千人。你慢慢就习惯了。」</p>
+    <div class="author">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 8. 滚动叙事 -->
+<div class="section" id="s8">
+  <span class="section-label"><span class="dot"></span>CHAPTER 08</span>
+  <h2>滚动叙事：人是<span class="highlight">主动的</span>，不是被动接收</h2>
+  <p>白豆展示了自己做的滚动叙事 HTML 产品——也是现在你正在看的这种形式。它来自大量优秀网站的积累、Anki 的反复激活、和二白（Claude Code）一起打磨出来的。</p>
+  <div class="quote">
+    <p>「它很适合人类去互动、去阅读。它是动态的东西——人有参与感，人是主动的，不是被动的在接收。」</p>
+    <div class="author">— 白豆 & 李墨玩</div>
+  </div>
+  <p style="margin-top:1rem">李墨玩也发现 Twitter 上很火的 Claude Code 教程用了类似的形式。「创意很好」「确实挺好的」。</p>
+  <p style="margin-top:1rem">白豆推荐了一本书——《网络人的未来》，2015年出版，100个预言大部分都准了。来自公司老板的同学，也是一位程序员。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- 9. 折叠屏 & 生活 -->
+<div class="section" id="s9">
+  <span class="section-label"><span class="dot"></span>CHAPTER 09</span>
+  <h2>OPPO N6：<span class="highlight2">比换电脑收获还大</span></h2>
+  <div class="img-wrap">
+    <img src="images/05-roundtable.jpg" alt="圆桌">
+    <span class="caption">深夜圆桌——从AI聊到折叠屏，从重庆聊到五一</span>
+  </div>
+  <p>白豆入了 OPPO N6 折叠屏，1万出头。用上后的感受：「完全是不同介质上的东西——以前换手机只是速度快了一些，这次是信息量完全不一样。」</p>
+  <p style="margin-top:1rem">iPad 直接退役了。微信读书、Anki 复习、Heptabase 白板……折叠屏上全能干。被 Don't Be Silent 和江卓尔种草，线下体验后果断入手。「哪怕花三四千买个最便宜的折叠屏体验一下，你就知道这是完全不同的感受。」</p>
+  <p style="margin-top:1.5rem">最后聊到了五一——摇摇5月要在重庆待一个月做共创项目，「你们去重庆吗？我们可以相约重庆。」李墨玩说「等你老板走了我们就来」，全场笑声。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- 10. 启示 -->
+<div class="section" id="s10">
+  <span class="section-label"><span class="dot"></span>INSIGHTS</span>
+  <h2>本期<span class="highlight">五个启示</span></h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">启示 01</div>
+      <h3>Regenerate > Generate</h3>
+      <p>AI帮你生成的不算你的。能脱离笔记、在别人面前流畅讲出来的，才是真正内化了的知识。写作的价值不在于输出，在于「再次生成」的能力。</p>
+    </div>
+    <div class="card">
+      <div class="card-num">启示 02</div>
+      <h3>发出来 > 完美</h3>
+      <p>李墨玩录视频磕磕绊绊，但有人从地址栏找到网站充了钱。先跑起来，哪里有 bug 哪里再改。你说的越流畅，后期剪辑工作量越小——但第一步是「先发出来」。</p>
+    </div>
+    <div class="card">
+      <div class="card-num">启示 03</div>
+      <h3>定制化 → 标品</h3>
+      <p>摇摇的洞察：律师课和小程序并不相悖。从定制化里做信息脱密，就变成了标品——这是一套可复用的思路和流程。</p>
+    </div>
+    <div class="card">
+      <div class="card-num">启示 04</div>
+      <h3>故事 > 技术</h3>
+      <p>《纸手机》全网三千万播放，不是因为AI视频做得好，而是因为故事好。AI降低了制作门槛，但创意和叙事仍然是人的护城河。</p>
+    </div>
+    <div class="card">
+      <div class="card-num">启示 05</div>
+      <h3>舞台是练出来的</h3>
+      <p>摇摇从大一说不出话，到辩论赛二三十人 → 七八十人 → 二三百人 → 人大附中几千人。Connecting the dots——录视频、写文章、做分享，都是在练同一块肌肉。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="logo">豆摇锋</div>
+  <p>第六期 · 2026.04.07 · Regenerate</p>
+  <p style="margin-top:.5rem">白豆 × 李墨玩 × 摇摇</p>
+  <p style="margin-top:1rem;font-size:.7rem">三个人的周一夜话 · 在AI的浪潮中寻找自己的锚点</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+}, { threshold: 0.15 });
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

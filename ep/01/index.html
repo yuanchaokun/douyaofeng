@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇锋 · 当AI浪潮退去，我们还剩什么</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --text-dim: #8a8580;
+    --accent-gold: #c9a84c;
+    --accent-blue: #4a7fb5;
+    --accent-purple: #8b6bb5;
+    --accent-warm: #d4886b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('images/hero.jpg') center/cover no-repeat;
+    opacity: 0.35;
+    filter: blur(2px);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.9) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .hero-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+
+  .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 1s 1.6s forwards;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--accent-gold);
+    margin: 0 auto;
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ===== Sections ===== */
+  .section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Full-bleed image ===== */
+  .full-image {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .full-image.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .full-image img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .full-image .caption {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  /* ===== Typography ===== */
+  h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    line-height: 1.35;
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-gold);
+  }
+
+  p {
+    margin-bottom: 1.3rem;
+    font-size: 1.02rem;
+  }
+
+  /* ===== Blockquote ===== */
+  .quote-block {
+    border-left: 3px solid var(--accent-gold);
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(201,168,76,0.05);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  /* ===== Insight cards ===== */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .insight-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-gold);
+  }
+
+  .insight-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .insight-card h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card p {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    margin-bottom: 0;
+    line-height: 1.65;
+  }
+
+  /* ===== Divider ===== */
+  .divider {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    letter-spacing: 1em;
+    opacity: 0;
+    transition: opacity 0.8s;
+  }
+
+  .divider.visible { opacity: 1; }
+
+  /* ===== Person profile ===== */
+  .profile-row {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    align-items: flex-start;
+  }
+
+  .profile-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .profile-avatar.baidou { background: linear-gradient(135deg, #c9a84c, #e8c86a); color: #1a1a1a; }
+  .profile-avatar.linfeng { background: linear-gradient(135deg, #4a7fb5, #6ba3d6); color: #fff; }
+  .profile-avatar.yaoyao { background: linear-gradient(135deg, #8b6bb5, #b08fd6); color: #fff; }
+
+  .profile-content { flex: 1; }
+
+  .profile-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text-dim);
+  }
+
+  /* ===== Timeline ===== */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-gold), var(--accent-purple), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.4);
+  }
+
+  .timeline-item h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-item p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 0;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 4rem 1.5rem 3rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  .footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Highlight ===== */
+  .highlight {
+    color: var(--accent-gold);
+    font-weight: 500;
+  }
+
+  .highlight-blue { color: var(--accent-blue); font-weight: 500; }
+  .highlight-purple { color: var(--accent-purple); font-weight: 500; }
+
+  /* ===== Number callout ===== */
+  .number-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .number-item {
+    text-align: center;
+  }
+
+  .number-item .num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+  }
+
+  .number-item .label {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.2rem; }
+    .profile-row { flex-direction: column; align-items: center; text-align: center; }
+    .profile-tags { justify-content: center; }
+    .number-row { gap: 1.5rem; }
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">豆摇锋 · 周报夜话</div>
+    <h1 class="hero-title">当AI浪潮退去<br>我们还剩<em>什么</em></h1>
+    <p class="hero-sub">三个人，一场关于工具、能力与不可替代性的深夜对话。不是答案，而是比答案更重要的——提问本身。</p>
+    <div class="hero-meta">
+      <span>2026.03.22</span>
+      <span>白豆 · 李墨 · 摇摇</span>
+      <span>92 分钟</span>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- ===== SECTION 1: Opening ===== -->
+<div class="section" data-animate>
+  <h2>好久不见的重逢，从一支麦克风开始</h2>
+  <p>摇摇说白豆的声音有一种"录音室的感觉"，李墨接话说麦克质量确实好。一通关于硬件、溢价和品牌生态的闲聊之后，三个人笑着进入了今晚的正题。</p>
+  <p>没有人知道，这场从周报出发的对话，会一路聊到 <span class="highlight">武功心法</span>、<span class="highlight-blue">学术论文方法论</span>、甚至 <span class="highlight-purple">人生关键词</span>。</p>
+</div>
+
+<!-- ===== DIVIDER ===== -->
+<div class="divider" data-animate>· · ·</div>
+
+<!-- ===== SECTION 2: 李墨的分享 ===== -->
+<div class="section" data-animate>
+  <h2>李墨：从写一篇 3000 字开始</h2>
+  <p>李墨说自己好久没有手写这么长的文章了。这篇关于胖东来和沃尔玛的分析，数据由 AI 自动检索——国家统计局的数字、泡泡玛特的市值、全国门店覆盖——他只需要校对一遍。</p>
+
+  <div class="quote-block">
+    <p>「用AI是一个手段，但其实还不太对。关键不是怎么做的，而是——你这个产品满足了别人什么需求？有没有人用？找需求的能力，跟AI没有关系。」</p>
+    <div class="speaker">—— 李墨</div>
+  </div>
+
+  <p>他讲起毛选小程序的故事：因为看到有人在拼多多买纸质版，灵感一闪，做了电子版，现在已经接近 <span class="highlight">5000个用户</span>。又讲起小红书上一个做孩子作业统计工具的人——产品粗糙、"AI味"特别重，但卖了 <span class="highlight">60多万</span>。</p>
+
+  <p>关键不在做工精美，而在于——<strong>你找到了别人没找到的那个需求</strong>。</p>
+</div>
+
+<!-- ===== IMAGE: SWORD ===== -->
+<div class="full-image" data-animate>
+  <img src="images/sword.jpg" alt="倚天剑与磨刀石">
+  <div class="caption">「自己没有剑法，拿着倚天剑，只能砍瓜切菜」</div>
+</div>
+
+<!-- ===== SECTION 3: 摇摇的核心论点 ===== -->
+<div class="section" data-animate>
+  <h2>摇摇：倚天剑与砍瓜切菜</h2>
+  <p>摇摇的分享从一个观察开始：他在公司部署了 OpenClaw，每天发行业资讯、总结聊天记录——但用户越来越少了。这让他开始思考一个根本问题：</p>
+
+  <div class="quote-block">
+    <p>「AI这把剑确实很利，但如果你在自己没有思考清楚、能力没有固化的情况下去用它，你找到的钉子还是别人的钉子。」</p>
+    <div class="speaker">—— 摇摇</div>
+  </div>
+
+  <p>他用了一个武侠比喻，精准到令人心颤：</p>
+
+  <div class="quote-block">
+    <p>「武功心法，你自己没有剑法，拿着倚天剑，你就只能砍瓜切菜。跟别人比武的时候，你一定会输。」</p>
+    <div class="speaker">—— 摇摇</div>
+  </div>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="icon">&#x1f50d;</div>
+      <h4>路径一：洞察新需求</h4>
+      <p>发现别人从未洞察的点，快速用AI落地，抢占先机。这是效率的胜利。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f4a1;</div>
+      <h4>路径二：放大深积累</h4>
+      <p>在自己深耕多年的领域，借AI之力做到别人做不到的深度。这是壁垒的胜利。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DIVIDER ===== -->
+<div class="divider" data-animate>· · ·</div>
+
+<!-- ===== SECTION 4: 磨刀石 ===== -->
+<div class="section" data-animate>
+  <h2>不要把磨刀石当成要砍的柴</h2>
+  <p>摇摇提出了一个犀利的判断标准：<span class="highlight">时间成本 vs 付费意愿</span>。</p>
+
+  <p>OpenClaw 收费100块，他会买——因为三个月也做不出来。但如果只是一个Skill集合收费100块？大概率不会——因为随着模型能力发展，这些东西迟早会变得唾手可得。</p>
+
+  <div class="quote-block">
+    <p>「不要把用AI的能力当成自己的能力。这个能力会逐渐变得廉价。要想的是——怎么用AI实现价值兑现、能力提升、边界扩展。」</p>
+    <div class="speaker">—— 摇摇</div>
+  </div>
+
+  <p>摇摇回忆起白豆早年间说过的一句话：<strong>不要做一个给牦牛刮毛的剃刀。</strong>今天的对话，是这句话的2026版注脚。</p>
+</div>
+
+<!-- ===== IMAGE: DEEP WELL ===== -->
+<div class="full-image" data-animate>
+  <img src="images/well.jpg" alt="深井与星河">
+  <div class="caption">打一口井——短平快的小文章不断发表，但主线要持续往下挖</div>
+</div>
+
+<!-- ===== SECTION 5: 学术隐喻 ===== -->
+<div class="section" data-animate>
+  <h2>深挖一口井</h2>
+  <p>摇摇借用了学术界的方法论来类比：</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>投递一篇</h4>
+      <p>持续有短平快的小作品输出，建立影响力。就像李墨的公众号文章和Skill分享。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>发表一篇</h4>
+      <p>把做过的事情整理、打磨、公开。写下来的过程本身就是思考的深化。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>深挖一篇</h4>
+      <p>在所有小文章的背后，一定要有一条往下挖掘的主线——那才是你的代表作。</p>
+    </div>
+  </div>
+
+  <p>李墨的Skill迭代了七八百次，每天复盘。这把刀已经磨得很利，但摇摇提醒：<span class="highlight">磨刀的时间不能超过砍柴的时间</span>。要么用它去砍出成果，要么把磨刀本身变成可以分享的产品。</p>
+</div>
+
+<!-- ===== DIVIDER ===== -->
+<div class="divider" data-animate>· · ·</div>
+
+<!-- ===== IMAGE: LANTERN ===== -->
+<div class="full-image" data-animate>
+  <img src="images/lantern.jpg" alt="灯笼与未来城市">
+  <div class="caption">在AI浪潮中举起自己的灯——寻找那个只属于你的方向</div>
+</div>
+
+<!-- ===== SECTION 6: 白豆的故事 ===== -->
+<div class="section" data-animate>
+  <h2>白豆：在30亿身价面前即兴演讲</h2>
+  <p>白豆讲了一个"被推上台"的故事。</p>
+  <p>在某知名企业家的别墅里，吃完饭，老板小声说了句："白豆，你分享一下你最近做的知识库和智能体。"</p>
+  <p>没有准备，没有PPT。但白豆站了起来，连上大屏，即兴开讲。</p>
+
+  <div class="quote-block">
+    <p>「我发现自己尝试过的事情，加上今年开始的语音写作锻炼，表达顺了不少。声音、内容都很果断，掌控感很强。那一刻非常有成就感。」</p>
+    <div class="speaker">—— 白豆</div>
+  </div>
+
+  <p>他没有讲"知识库能干什么"——而是先描述了痛点：新入职的销售在面对科室主任时，无法快速组织专业信息。然后才展示工具如何解决这个具体场景。</p>
+
+  <div class="number-row">
+    <div class="number-item">
+      <div class="num">30亿+</div>
+      <div class="label">听众总身价</div>
+    </div>
+    <div class="number-item">
+      <div class="num">0</div>
+      <div class="label">张PPT</div>
+    </div>
+    <div class="number-item">
+      <div class="num">1000+</div>
+      <div class="label">本读过的书</div>
+    </div>
+  </div>
+
+  <p>白豆展示了自己用AI做的照片墙——1000本书拼成的图片，视觉冲击极强。如果你口头说"我读了一千本书"，像是自夸。但当一面墙出现在大屏上，说服力不言自明。</p>
+</div>
+
+<!-- ===== SECTION 7: 信息差 ===== -->
+<div class="section" data-animate>
+  <h2>信息茧房的另一面</h2>
+  <p>李墨说了一句很清醒的话：</p>
+
+  <div class="quote-block">
+    <p>「我们属于在一个信息的茧房里面。我们觉得周边的人都用AI很强，但其实大部分人都不太懂这个东西。这是真的。」</p>
+    <div class="speaker">—— 李墨</div>
+  </div>
+
+  <p>白豆在那次饭局上的经历验证了这一点——在座的高管们，对NotebookLM都不熟悉。当白豆现场演示让他们自己动手时，<span class="highlight">"他们特别震惊"</span>。</p>
+
+  <p>摇摇也分享了类似的故事：他在公司装了OpenClaw，第二天就带电脑给同事看。结果——公司给他配了一台Mac、报销了大模型费用，还给了一个"理论上不限量"的API额度。</p>
+
+  <div class="quote-block">
+    <p>「show, get things done——把东西做出来，让人看见。」</p>
+    <div class="speaker">—— 白豆</div>
+  </div>
+</div>
+
+<!-- ===== DIVIDER ===== -->
+<div class="divider" data-animate>· · ·</div>
+
+<!-- ===== IMAGE: THREE FLAMES ===== -->
+<div class="full-image" data-animate>
+  <img src="images/flames.jpg" alt="三团火焰的连接">
+  <div class="caption">三团不同颜色的火焰，在星空中互相照亮</div>
+</div>
+
+<!-- ===== SECTION 8: 人生关键词 ===== -->
+<div class="section" data-animate>
+  <h2>你会用什么词形容自己？</h2>
+  <p>对话的最后一段，白豆提出了一个出人意料的问题：<strong>你的人生关键词是什么？</strong></p>
+  <p>不是简历上的标签，而是——当别人向第三个人介绍你时，会用哪几个词。</p>
+
+  <div class="profile-row">
+    <div class="profile-avatar baidou">白</div>
+    <div class="profile-content">
+      <div class="profile-name">白豆 · 在别人眼中</div>
+      <p style="font-size:0.9rem;color:var(--text-dim);">善于发现工具、表达能力强、愿意帮助别人、热爱世界、有落地能力</p>
+      <div class="profile-tags">
+        <span class="tag">工具探索者</span>
+        <span class="tag">语言天赋</span>
+        <span class="tag">社群构建</span>
+        <span class="tag">AI布道师</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-row">
+    <div class="profile-avatar linfeng">李</div>
+    <div class="profile-content">
+      <div class="profile-name">李墨 · 在别人眼中</div>
+      <p style="font-size:0.9rem;color:var(--text-dim);">爱读书的人、精力旺盛的特种兵、能从历史中获得能量、持续输出的写作者</p>
+      <div class="profile-tags">
+        <span class="tag">阅读千卷</span>
+        <span class="tag">精力充沛</span>
+        <span class="tag">插件开发者</span>
+        <span class="tag">持续写作</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-row">
+    <div class="profile-avatar yaoyao">摇</div>
+    <div class="profile-content">
+      <div class="profile-name">摇摇 · 在别人眼中</div>
+      <p style="font-size:0.9rem;color:var(--text-dim);">思考深度惊人、六边形战士、沟通让人舒服、勇敢跳出舒适圈</p>
+      <div class="profile-tags">
+        <span class="tag">深度思考</span>
+        <span class="tag">学术底蕴</span>
+        <span class="tag">好奇心</span>
+        <span class="tag">文学表达</span>
+      </div>
+    </div>
+  </div>
+
+  <p>白豆说，他希望别人看到的不只是"会用AI的人"，而是一个 <span class="highlight">对世界充满热爱、愿意帮助别人的人</span>。工具只是手段，发现朋友的需求、记住别人关心的事情——这才是他想被记住的方式。</p>
+</div>
+
+<!-- ===== SECTION 9: 启示 ===== -->
+<div class="section" data-animate>
+  <h2>今晚的五个启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="icon">&#x2694;</div>
+      <h4>剑法先于宝剑</h4>
+      <p>AI是倚天剑，但没有内功心法，只能砍瓜切菜。先修炼自己的领域能力。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f4a7;</div>
+      <h4>打一口深井</h4>
+      <p>小工具持续输出建立影响力，但背后一定要有一条持续往下挖的主线。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f6d1;</div>
+      <h4>别把工厂当产品</h4>
+      <p>磨刀是为了砍柴。如果磨刀的时间超过砍柴，要么把磨刀石也卖了。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f441;</div>
+      <h4>用场景说服人</h4>
+      <p>一个具体的痛点场景，永远比一百个抽象概念更打动人心。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f31f;</div>
+      <h4>做出来，让人看见</h4>
+      <p>洞察了需求却无人知晓，就是白忙。show, get things done。</p>
+    </div>
+    <div class="insight-card">
+      <div class="icon">&#x1f525;</div>
+      <h4>认识你自己</h4>
+      <p>自我认知与他人认知之间的gap，就是你下一步要走的路。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 10: 未来 ===== -->
+<div class="section" data-animate>
+  <h2>下一步：把豆摇锋开源</h2>
+  <p>在对话的尾声，李墨提出了一个想法：把"豆摇锋"两年多的周报实践做成一个 <span class="highlight">开源项目</span>。</p>
+  <p>身边的朋友已经开始效仿——二白、Bingo和Judy的"Jingle Bell"复盘小组，据说"让人生都变得更好了"。</p>
+  <p>摇摇说，下次可以邀请更多朋友加入。小蝴蝶已经在问"今晚还开不开会"了。</p>
+
+  <div class="quote-block">
+    <p>「我们已经实践了两年多，国内好像很少有这样的。把这个东西做出去，一定会有人感兴趣。」</p>
+    <div class="speaker">—— 李墨</div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="logo">豆摇锋</div>
+  <p>三个人的周报夜话 · 第 N 次</p>
+  <p style="margin-top:0.5rem;font-size:0.72rem;opacity:0.5;">2026.03.22 · 92min · 基于腾讯会议转录整理</p>
+</footer>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('[data-animate]').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

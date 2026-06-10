@@ -3,146 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>豆摇锋 · 当AI浪潮退去，我们还剩什么</title>
+<title>豆摇锋 · 第七期 — 你真的懂，还是你以为你懂？</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --bg: #0a0a0f;
     --text: #e8e4df;
-    --text-dim: #8a8580;
-    --accent-gold: #c9a84c;
-    --accent-blue: #4a7fb5;
-    --accent-purple: #8b6bb5;
-    --accent-warm: #d4886b;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
   }
-
-  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 300;
     line-height: 1.8;
     overflow-x: hidden;
   }
 
-  /* ===== Hero ===== */
   .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
   }
 
-  .hero-bg {
+  .hero::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background: url('images/hero.jpg') center/cover no-repeat;
-    opacity: 0.35;
-    filter: blur(2px);
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(212,168,83,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(107,181,201,0.06) 0%, transparent 50%);
+    animation: drift 20s ease-in-out infinite;
   }
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.9) 100%);
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 0 2rem;
-  }
+  .hero-content { position: relative; z-index: 1; }
 
-  .hero-label {
-    font-size: 0.8rem;
-    letter-spacing: 0.4em;
-    color: var(--accent-gold);
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
   }
 
-  .hero-title {
+  .hero h1 {
     font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: 900;
-    font-size: clamp(2.2rem, 6vw, 4.5rem);
-    line-height: 1.25;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.6s forwards;
-  }
-
-  .hero-title em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--text-dim);
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.9s forwards;
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto 2rem;
   }
 
-  .hero-meta {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    opacity: 0;
-    animation: fadeUp 1s 1.2s forwards;
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
   }
-
-  .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
 
   .scroll-hint {
     position: absolute;
-    bottom: 2.5rem;
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
-    opacity: 0;
-    animation: fadeUp 1s 1.6s forwards;
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
   }
 
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 40px;
-    background: var(--accent-gold);
-    margin: 0 auto;
-    animation: scrollPulse 2s infinite;
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
   }
 
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
-    50% { opacity: 1; transform: scaleY(1); }
-  }
-
-  /* ===== Sections ===== */
   .section {
-    max-width: 720px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 6rem 1.5rem;
+    padding: 6rem 2rem;
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .section.visible {
@@ -150,68 +125,49 @@
     transform: translateY(0);
   }
 
-  /* ===== Full-bleed image ===== */
-  .full-image {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    opacity: 0;
-    transform: scale(0.96);
-    transition: opacity 1s ease, transform 1s ease;
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
   }
 
-  .full-image.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .full-image img {
-    width: 100%;
-    border-radius: 8px;
-    display: block;
-  }
-
-  .full-image .caption {
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    margin-top: 0.8rem;
-    font-style: italic;
-  }
-
-  /* ===== Typography ===== */
-  h2 {
+  .section h2 {
     font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
     font-weight: 700;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    line-height: 1.35;
     margin-bottom: 1.5rem;
+    line-height: 1.4;
   }
 
-  h3 {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 600;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    color: var(--accent-gold);
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
   }
 
-  p {
-    margin-bottom: 1.3rem;
-    font-size: 1.02rem;
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
   }
 
-  /* ===== Blockquote ===== */
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+
   .quote-block {
-    border-left: 3px solid var(--accent-gold);
-    padding: 1.2rem 1.5rem;
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
     margin: 2rem 0;
-    background: rgba(201,168,76,0.05);
-    border-radius: 0 6px 6px 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
   }
 
   .quote-block p {
+    color: var(--text);
     font-family: 'Noto Serif SC', serif;
     font-size: 1.1rem;
     font-weight: 400;
@@ -220,555 +176,604 @@
   }
 
   .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
     font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    font-weight: 400;
+    font-weight: 500;
   }
 
-  /* ===== Insight cards ===== */
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
   .insight-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
   }
 
   .insight-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px;
-    padding: 1.5rem;
-    transition: transform 0.3s, border-color 0.3s;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
   }
 
   .insight-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent-gold);
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
 
-  .insight-card .icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .insight-card h4 {
+  .insight-card .number {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
     margin-bottom: 0.5rem;
   }
 
-  .insight-card p {
-    font-size: 0.88rem;
-    color: var(--text-dim);
-    margin-bottom: 0;
-    line-height: 1.65;
-  }
-
-  /* ===== Divider ===== */
-  .divider {
-    text-align: center;
-    padding: 3rem 0;
-    color: var(--text-dim);
-    font-size: 1.2rem;
-    letter-spacing: 1em;
-    opacity: 0;
-    transition: opacity 0.8s;
-  }
-
-  .divider.visible { opacity: 1; }
-
-  /* ===== Person profile ===== */
-  .profile-row {
-    display: flex;
-    gap: 1.5rem;
-    margin: 2rem 0;
-    align-items: flex-start;
-  }
-
-  .profile-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
+  .insight-card h3 {
+    font-size: 1.1rem;
     font-weight: 700;
-    font-family: 'Noto Serif SC', serif;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
   }
 
-  .profile-avatar.baidou { background: linear-gradient(135deg, #c9a84c, #e8c86a); color: #1a1a1a; }
-  .profile-avatar.linfeng { background: linear-gradient(135deg, #4a7fb5, #6ba3d6); color: #fff; }
-  .profile-avatar.yaoyao { background: linear-gradient(135deg, #8b6bb5, #b08fd6); color: #fff; }
-
-  .profile-content { flex: 1; }
-
-  .profile-name {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
   }
 
-  .profile-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-  }
-
-  .tag {
-    font-size: 0.72rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--text-dim);
-  }
-
-  /* ===== Timeline ===== */
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
+  .steps {
     margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
   }
 
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--accent-gold), var(--accent-purple), transparent);
-  }
-
-  .timeline-item {
-    position: relative;
+  .step {
     margin-bottom: 2rem;
-    padding-left: 1rem;
+    position: relative;
   }
 
-  .timeline-item::before {
+  .step::before {
     content: '';
     position: absolute;
-    left: -2.35rem;
+    left: -2rem;
     top: 0.5rem;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--accent-gold);
-    box-shadow: 0 0 10px rgba(201,168,76,0.4);
+    background: var(--accent);
+    transform: translateX(-4.5px);
   }
 
-  .timeline-item h4 {
-    font-family: 'Noto Serif SC', serif;
+  .step h4 {
     font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
   }
 
-  .timeline-item p {
+  .step p {
     font-size: 0.9rem;
-    color: var(--text-dim);
-    margin-bottom: 0;
+    color: var(--dim);
+    font-weight: 300;
   }
 
-  /* ===== Footer ===== */
-  .footer {
+  footer {
     text-align: center;
-    padding: 4rem 1.5rem 3rem;
-    color: var(--text-dim);
+    padding: 4rem 2rem;
+    color: var(--dim);
     font-size: 0.8rem;
   }
 
-  .footer .logo {
+  footer .logo {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    color: var(--accent-gold);
+    color: var(--accent);
     margin-bottom: 0.5rem;
   }
 
-  /* ===== Animations ===== */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ===== Highlight ===== */
-  .highlight {
-    color: var(--accent-gold);
-    font-weight: 500;
-  }
-
-  .highlight-blue { color: var(--accent-blue); font-weight: 500; }
-  .highlight-purple { color: var(--accent-purple); font-weight: 500; }
-
-  /* ===== Number callout ===== */
-  .number-row {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    margin: 2.5rem 0;
-    flex-wrap: wrap;
-  }
-
-  .number-item {
-    text-align: center;
-  }
-
-  .number-item .num {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 2.8rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.1;
-  }
-
-  .number-item .label {
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    margin-top: 0.3rem;
-  }
-
-  /* ===== Responsive ===== */
   @media (max-width: 600px) {
-    .section { padding: 4rem 1.2rem; }
-    .profile-row { flex-direction: column; align-items: center; text-align: center; }
-    .profile-tags { justify-content: center; }
-    .number-row { gap: 1.5rem; }
-    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+<div class="hero">
   <div class="hero-content">
-    <div class="hero-label">豆摇锋 · 周报夜话</div>
-    <h1 class="hero-title">当AI浪潮退去<br>我们还剩<em>什么</em></h1>
-    <p class="hero-sub">三个人，一场关于工具、能力与不可替代性的深夜对话。不是答案，而是比答案更重要的——提问本身。</p>
-    <div class="hero-meta">
-      <span>2026.03.22</span>
-      <span>白豆 · 李墨 · 摇摇</span>
-      <span>92 分钟</span>
+    <div class="episode">豆摇锋 · 第七期</div>
+    <h1>你真的懂，<br>还是你以为你懂？</h1>
+    <div class="subtitle">机场候机厅的键盘声、重庆深夜的公司灯光、北京柳絮下的反思 — 三个人关于「浅层知识」的一场自我拷问</div>
+    <div class="meta">2026.04.12 · 白豆 · 李墨玩 · 摇摇</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- 第一章：重庆深夜 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>重庆深夜，一个人的办公室</h2>
+  <p>摇摇刚落地重庆。飞机延误，八点半才出机场。公司安排拼房住，室友是谁还不知道 — <span class="highlight">「开盲盒」</span>，到16号都是跟人拼。</p>
+  <p>怕开会吵到未知室友，他选择先去公司。深夜的办公室只有他一个人，打开电脑连上会议 — <span class="accent-text">这是一场从三座城市同时接入的对话</span>。</p>
+
+  <div class="quote-block">
+    <p>「我在重庆的公司里，因为我出机场已经八点快半了，我担心回酒店拼屋睡吵到人，我就先来公司了。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>与此同时，白豆刚到家、刚写完周报。李墨玩在北方吐槽柳絮。<span class="highlight">三个人，三座城，同一个深夜时间窗口</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">幸好我不过敏，这要是过敏，不能活。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">我脸上会起那种大包。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">是的...</div>
     </div>
   </div>
-  <div class="scroll-hint"></div>
-</section>
-
-<!-- ===== SECTION 1: Opening ===== -->
-<div class="section" data-animate>
-  <h2>好久不见的重逢，从一支麦克风开始</h2>
-  <p>摇摇说白豆的声音有一种"录音室的感觉"，李墨接话说麦克质量确实好。一通关于硬件、溢价和品牌生态的闲聊之后，三个人笑着进入了今晚的正题。</p>
-  <p>没有人知道，这场从周报出发的对话，会一路聊到 <span class="highlight">武功心法</span>、<span class="highlight-blue">学术论文方法论</span>、甚至 <span class="highlight-purple">人生关键词</span>。</p>
 </div>
 
-<!-- ===== DIVIDER ===== -->
-<div class="divider" data-animate>· · ·</div>
+<div class="divider">· · ·</div>
 
-<!-- ===== SECTION 2: 李墨的分享 ===== -->
-<div class="section" data-animate>
-  <h2>李墨：从写一篇 3000 字开始</h2>
-  <p>李墨说自己好久没有手写这么长的文章了。这篇关于胖东来和沃尔玛的分析，数据由 AI 自动检索——国家统计局的数字、泡泡玛特的市值、全国门店覆盖——他只需要校对一遍。</p>
+<!-- 第二章：摇摇的新山头 -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>抢占山头：AI替代的先行者困境</h2>
+  <p>摇摇来重庆不是出差，是<span class="accent-text">负责整个大部门的AI数字化业务</span>。公司要开设三级部门，他是最有可能坐上那个位置的人。</p>
+  <p>但他心里忐忑。<span class="highlight">干好了，同事的工作量缩减，人会被优化掉 — 白眼相向。干不好，机会转瞬即逝。</span></p>
 
   <div class="quote-block">
-    <p>「用AI是一个手段，但其实还不太对。关键不是怎么做的，而是——你这个产品满足了别人什么需求？有没有人用？找需求的能力，跟AI没有关系。」</p>
-    <div class="speaker">—— 李墨</div>
+    <p>「干好了会导致其他同事的工作量缩减，然后就会优化一些人。人家会白眼相向，你知道吗？」</p>
+    <div class="speaker">— 摇摇</div>
   </div>
 
-  <p>他讲起毛选小程序的故事：因为看到有人在拼多多买纸质版，灵感一闪，做了电子版，现在已经接近 <span class="highlight">5000个用户</span>。又讲起小红书上一个做孩子作业统计工具的人——产品粗糙、"AI味"特别重，但卖了 <span class="highlight">60多万</span>。</p>
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你跟同事就是敌人，你跟你的直系领导才是朋友。你跟同事本来就有利益冲突，但你跟领导利益是一致的。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">这没办法，这是趋势。你不优化掉他们，他们也会被别人优化掉。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你这个相当于抢占一个新的山头。你老板也想看这个业务，不然你原来那个业务也不好看。</div>
+    </div>
+  </div>
 
-  <p>关键不在做工精美，而在于——<strong>你找到了别人没找到的那个需求</strong>。</p>
+  <p>好消息是：<span class="accent2-text">不管工作上研不研究，这些东西都要了解。现在还有人付钱让你研究</span>。摇摇说他现在原先的活都不怎么干了，每天就在公司看 Claude 的博客。</p>
 </div>
 
-<!-- ===== IMAGE: SWORD ===== -->
-<div class="full-image" data-animate>
-  <img src="images/sword.jpg" alt="倚天剑与磨刀石">
-  <div class="caption">「自己没有剑法，拿着倚天剑，只能砍瓜切菜」</div>
+<div class="divider">· · ·</div>
+
+<!-- 第三章：浅层知识 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>墙头芦苇：头重脚轻根底浅</h2>
+
+  <div class="image-block">
+    <img src="images/shallow-knowledge.jpg" alt="浅层知识的隐喻">
+    <div class="caption">知识的易得性让我们以为自己懂了，但那些概念只是从大脑浅表流过</div>
+  </div>
+
+  <p>这是摇摇今晚最想聊的主题。起因是上周有人问他：<span class="highlight">「什么是 Skill？」</span></p>
+  <p>他发现自己仿佛知道，但说不清楚。不是因为 Skill 复杂，而是<span class="accent3-text">这种「知道」从一开始就是虚的</span>。</p>
+
+  <div class="quote-block">
+    <p>「知识变得非常易得，你刷过一下之后，它就是只从大脑的浅表流过去了，留下几个标签词 — Harness、Agent、Skill。我都知道，但你让我现在讲什么是 Harness，我很难讲出来。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>他在登机口写下了这些反思 — <span class="highlight">那种在机场啪啪敲键盘的精英感</span>，和内容的空洞形成了讽刺的对比。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>反向正反馈循环</h4>
+      <p>因为知识易得 → 只停留在关键词层面 → 对外讲述时别人觉得你懂 → 正反馈闭环 → 没有动力深入 → 下次继续停留在关键词层面</p>
+    </div>
+    <div class="step">
+      <h4>缺失的追问</h4>
+      <p>这个东西成立的前提是什么？和相近概念的区别？它的边界条件？— 这些追问从来没有发生过</p>
+    </div>
+    <div class="step">
+      <h4>看太多，写太少</h4>
+      <p>信息摄入量巨大，但从不输出。根据记忆曲线三五天就遗忘，你甚至开始是看懂的，过了一段时间就讲不出来了</p>
+    </div>
+    <div class="step">
+      <h4>虚假的满足</h4>
+      <p>「我很享受在别人面前表现出我知道的形象。和 AI 聊一轮，大概知道框架走势，就拿出去讲。因为是新东西你比别人多一点点，就会留下那个印象。然后 — 停步于此。」</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>「整个人就像小时候学的那种 — 墙头芦苇，头重脚轻根底浅。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
 </div>
 
-<!-- ===== SECTION 3: 摇摇的核心论点 ===== -->
-<div class="section" data-animate>
-  <h2>摇摇：倚天剑与砍瓜切菜</h2>
-  <p>摇摇的分享从一个观察开始：他在公司部署了 OpenClaw，每天发行业资讯、总结聊天记录——但用户越来越少了。这让他开始思考一个根本问题：</p>
+<div class="divider">· · ·</div>
 
-  <div class="quote-block">
-    <p>「AI这把剑确实很利，但如果你在自己没有思考清楚、能力没有固化的情况下去用它，你找到的钉子还是别人的钉子。」</p>
-    <div class="speaker">—— 摇摇</div>
+<!-- 第四章：知识框架 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>知识框架：你知道新东西该往哪块放吗？</h2>
+
+  <div class="image-block">
+    <img src="images/knowledge-tree.jpg" alt="知识框架之树">
+    <div class="caption">学东西快的人，一定有自己的框架 — 新知识来了，他知道该往哪块放</div>
   </div>
 
-  <p>他用了一个武侠比喻，精准到令人心颤：</p>
+  <p>摇摇和李墨玩展开了一场深入的讨论。<span class="highlight">学东西快的人，一定有自己的知识框架</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">学东西快的人一定有自己的框架。来了新知识，他知道往哪块放，在自己体系的什么位置。就像历史好的人掌握一整套分析框架，新事件来了知道该放进哪个框里。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">还有另一个角度 — 有些东西就是新瓶装旧酒。有的人要建立自己的影响力，最好的方式就是创造一个属于自己的新概念，像一个 meme 一样扩散出去。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">即使是新瓶装旧酒，我讲不出来，说明我对「旧酒」也只是了解一个大概。</div>
+    </div>
+  </div>
+
+  <p>关键区分：<span class="accent-text">用具象的事情解释抽象概念 = 言之有物</span>。只停留在抽象概念上 = 别人觉得你在忽悠。而具象化能力来自实践 — <span class="highlight">偏实践类的东西你不去实践，表述就只能停留在框架和概念层面</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第五章：Agent 是什么 -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>「Agent 是有 Agency 的 AI」</h2>
+  <p>白豆分享了一次成功的概念解释经验。一位英语老师朋友问他什么是 Agent。</p>
 
   <div class="quote-block">
-    <p>「武功心法，你自己没有剑法，拿着倚天剑，你就只能砍瓜切菜。跟别人比武的时候，你一定会输。」</p>
-    <div class="speaker">—— 摇摇</div>
+    <p>「Agent 是有 Agency 的 AI。当这个 AI 不只是在对话框里回答问题，而是理解你的意图，有主动性，甚至作为一个机构去带领你调用别的工具帮你完成任务。」</p>
+    <div class="speaker">— 白豆</div>
   </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">之前 Kimi 的老板杨植麟举了一个例子 — 大模型就是缸中之脑，没有手没有脚啥也不能干。Agent 其实就是赛博义体，有手有脚。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">对，Agency 在英文里是「主动性」。AI 时代什么样的人会受欢迎？都提到一个共同词 — Agency。</div>
+    </div>
+  </div>
+
+  <p>白豆由此提出了一个新的机制：<span class="accent-text">每周一次「名词解释」环节</span>。每人针对核心概念讲一遍，其他人追问。不是当场搞明白，而是带着真实问题去实践，下周再来聊。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">不一定是新的时髦词。AI 发展很快，很多东西转瞬即逝。要分享的是那些不太容易过时的核心概念。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第六章：李墨玩商业化 -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>李墨玩：从营业执照到公众号排版市场</h2>
+
+  <div class="image-block">
+    <img src="images/business-path.jpg" alt="商业化之路">
+    <div class="caption">稀里糊涂注册了营业执照，发现这个市场远比想象的大</div>
+  </div>
+
+  <p>李墨玩上周「稀里糊涂」注册了营业执照。本来只是为了小红书接支付 — <span class="highlight">支付宝费率只有 0.6%，中转平台要 1%-3%</span>。</p>
+  <p>结果发现注册过程比想象简单得多：清明节申请，第二天审批，第三天终审完成。<span class="accent-text">淘宝上代注册一两百，其实分分钟自己搞定</span> — 又是一个信息差。</p>
+
+  <div class="quote-block">
+    <p>「我发现没想到这个市场这么大。好多公司在做 AI 一键排版，而且都是收费的。最贵的一个月25块多，一半是一年189。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>他的公众号排版 Skill 已经成型：<span class="highlight">每次排完版自动生成个人品牌区 — 公众号、小红书、关于作者</span>。学的是花叔 — 每个仓库底下都放自己的社交链接。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">你可以加个提示「以下部分不会复制到文章里面」。不然有人会担心 — 我用你工具图方便，你最后放个二维码，那我就不用了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">我看别人 Skill 也这么做，宝玉的 Skill 前面就叫「宝玉」什么对吧？</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">创作的东西留下你的印记，无可厚非。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第七章：白豆的实践 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>白豆：不碰手机的咒语与 AI 作品集</h2>
+  <p>白豆这周没有更新周报 — 下午在帮朋友做 AI 作品集，回来后又预估错时间了。</p>
+
+  <p>但他分享了两个有意思的实践：</p>
+
+  <div class="quote-block">
+    <p>「I do not touch my phone in the morning because it messes my mind up. — 当我说出来这句话的时候，我真的就不想再去碰手机了。」</p>
+    <div class="speaker">— 白豆，受李笑来「语言劫持大脑」播客启发</div>
+  </div>
+
+  <p>关键要素：<span class="highlight">用自己的声音说出来，用另一种语言，有明确的后果描述</span>。李笑来戒烟时用的是：「I do not smoke because it stinks.」</p>
+
+  <p>另一个实践：<span class="accent2-text">帮朋友做 HTML 作品集</span>。一个简单的页面，有 TOC、经历陈列、可点击展开 — 大家会觉得「很不一样」。白豆发现：<span class="highlight">做跟朋友相关的、能帮到他的东西，会让对方对 AI 的兴趣一下子提升</span>。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">你下次可以换个思路 — 教了一个人之后，让那个人去教另一个人。别人也在输出嘛，输出就是最好的学习，你还省了时间。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">可以，我回去让他试试。不过有些东西他一次性吸收不了这么多。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">那很正常啊，谁能一次性吸收那么多？那就得练。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第八章：Anki -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>知识蒸馏：Anki + Claude Code 的魔法时刻</h2>
+
+  <div class="image-block">
+    <img src="images/anki-constellation.jpg" alt="Anki 知识星座">
+    <div class="caption">把外界知识蒸馏成直觉 — 你知道，不是因为查过，而是因为它本来就在那里</div>
+  </div>
+
+  <p>这是本期的 live demo 环节。白豆打开 Claude Code，现场演示：<span class="accent-text">一句话指令 → 访问 Claude 官方博客 → 提取核心概念 → 自动生成 50 张 Anki 卡片</span>。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>安装 AnkiConnect 插件</h4>
+      <p>在 Anki 客户端安装桥接插件，让 Claude Code 能通过 API 直接写入卡片</p>
+    </div>
+    <div class="step">
+      <h4>一句话建牌组</h4>
+      <p>「你是小白，想了解 AI 基础概念。去访问 Claude 博客，提取30个核心概念，建立一个叫'AI学习'的牌组，生成50张正反卡片。」</p>
+    </div>
+    <div class="step">
+      <h4>正面引出问题，反面100字以内精解</h4>
+      <p>卡片可以嵌套折叠层级 — 正面问题、反面精简解释、折叠层放类比和例子，本质就是 HTML</p>
+    </div>
+    <div class="step">
+      <h4>模板可复用</h4>
+      <p>内容是数据，样式是模板。改界面不用重新生成所有内容，不炸 Token</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>「一两周可能没有太大明显。一两年之后，你看到那个概念的时候，会有一种真的就是由你知道的感觉 — 不是查过所以知道，而是知识蒸馏成了直觉。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>白豆还引用了 B 站 UP 主「Y dango 建构」的理论：<span class="highlight">人类文明大爆发的两个条件 — 多元的元素 + 元素之间紧密的联系</span>。Anki 在个人层面做的就是这件事：经历、触动、知识都放进去，频繁复习让它们联系越来越紧，直到<span class="accent-text">你能导一出好戏 — 因为所有演员都在舞台上等着你</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第九章：小方法 -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>两个小方法，立即可用</h2>
+
+  <p><span class="accent-text">方法一：念全称</span></p>
+  <p>记 Linux 命令最好的方式 — 每次用的时候把全称念出来。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">你不要念 diff，你要念 difference。ls 不要念 ls，要念 list。cd 不要念 cd，要念 change directory。这样记得就很快。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">太好了！我之前只是好奇查过一下，「念出来」这个方法我决定试一试。</div>
+    </div>
+  </div>
+
+  <p><span class="accent-text">方法二：问「为什么叫这个」</span></p>
+  <p>白豆的习惯：看到任何术语，问 AI 为什么叫这个名字。<span class="highlight">grep 是 Global Regular Expression Print，URL 是 Uniform Resource Locator</span>。Cloudflare 叫 R2，阿里云叫 OSS，AWS 叫 S3 — 本质都一样，起不同名字一是造词卖贵，二是体现公司文化。</p>
+
+  <div class="quote-block">
+    <p>「我会特别好奇地问 AI：你这个命令啥意思？为什么叫这个单词？背后有什么故事？然后会发现很多还挺有趣的。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第十章：启示 -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>本期启示</h2>
 
   <div class="insight-grid">
     <div class="insight-card">
-      <div class="icon">&#x1f50d;</div>
-      <h4>路径一：洞察新需求</h4>
-      <p>发现别人从未洞察的点，快速用AI落地，抢占先机。这是效率的胜利。</p>
+      <div class="number">01</div>
+      <h3>警惕反向正反馈</h3>
+      <p>AI 时代知识太容易获得，最危险的不是无知，而是「你以为你懂」。知道关键词、知道大概结论、从别人那里拿到正反馈 — 然后停步于此。</p>
     </div>
     <div class="insight-card">
-      <div class="icon">&#x1f4a1;</div>
-      <h4>路径二：放大深积累</h4>
-      <p>在自己深耕多年的领域，借AI之力做到别人做不到的深度。这是壁垒的胜利。</p>
+      <div class="number">02</div>
+      <h3>框架决定深度</h3>
+      <p>学东西快的人有自己的知识框架。新知识来了知道往哪放、和已有知识怎么连接。没有框架，每个概念都是孤岛。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>具象化 = 真正懂了</h3>
+      <p>能用具体例子解释抽象概念，说明你真的内化了。「Agent 是有 Agency 的 AI」「大模型是缸中之脑」— 一句话让外行恍然大悟。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>Anki = 个人知识蒸馏器</h3>
+      <p>Claude Code + AnkiConnect 打通：一句话生成 50 张卡片。复习一两年后，知识不再是查过所以知道，而是成为直觉。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>先占山头</h3>
+      <p>AI 数字化是新赛道，有先发优势就先抢过来。不管研不研究，这些东西都要了解 — 现在还有人付钱让你研究，这是最好的局面。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>用语言劫持大脑</h3>
+      <p>用自己的声音、用另一种语言、有明确后果地说出行为宣言。「I do not touch my phone in the morning because it messes my mind up.」— 说出来的那一刻，行为就变了。</p>
     </div>
   </div>
 </div>
 
-<!-- ===== DIVIDER ===== -->
-<div class="divider" data-animate>· · ·</div>
+<div class="divider">· · ·</div>
 
-<!-- ===== SECTION 4: 磨刀石 ===== -->
-<div class="section" data-animate>
-  <h2>不要把磨刀石当成要砍的柴</h2>
-  <p>摇摇提出了一个犀利的判断标准：<span class="highlight">时间成本 vs 付费意愿</span>。</p>
+<!-- 尾声 -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>下周：蜜雪冰城与名词解释</h2>
 
-  <p>OpenClaw 收费100块，他会买——因为三个月也做不出来。但如果只是一个Skill集合收费100块？大概率不会——因为随着模型能力发展，这些东西迟早会变得唾手可得。</p>
+  <div class="image-block">
+    <img src="images/roundtable-night.jpg" alt="圆桌夜话">
+    <div class="caption">三座城市，一个深夜，下周继续</div>
+  </div>
+
+  <p>会议结束时，摇摇说要等白豆发来 AnkiConnect 的安装方法再回酒店 — <span class="highlight">「我就在公司弄好了再回去」</span>。</p>
+  <p>下周预告：李墨玩请喝蜜雪冰城，以及<span class="accent-text">新机制「名词解释」首次开启</span> — 每人准备一个核心概念，提前发群，其他人负责追问。</p>
 
   <div class="quote-block">
-    <p>「不要把用AI的能力当成自己的能力。这个能力会逐渐变得廉价。要想的是——怎么用AI实现价值兑现、能力提升、边界扩展。」</p>
-    <div class="speaker">—— 摇摇</div>
+    <p>「感觉每次都很有收获。」</p>
+    <div class="speaker">— 摇摇</div>
   </div>
 
-  <p>摇摇回忆起白豆早年间说过的一句话：<strong>不要做一个给牦牛刮毛的剃刀。</strong>今天的对话，是这句话的2026版注脚。</p>
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">也真的要用一用。今天一定用起来，感受很不一样的。</span><br>
+    <span style="font-size:0.8rem;">— 白豆，对摇摇说</span>
+  </p>
 </div>
 
-<!-- ===== IMAGE: DEEP WELL ===== -->
-<div class="full-image" data-animate>
-  <img src="images/well.jpg" alt="深井与星河">
-  <div class="caption">打一口井——短平快的小文章不断发表，但主线要持续往下挖</div>
-</div>
-
-<!-- ===== SECTION 5: 学术隐喻 ===== -->
-<div class="section" data-animate>
-  <h2>深挖一口井</h2>
-  <p>摇摇借用了学术界的方法论来类比：</p>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <h4>投递一篇</h4>
-      <p>持续有短平快的小作品输出，建立影响力。就像李墨的公众号文章和Skill分享。</p>
-    </div>
-    <div class="timeline-item">
-      <h4>发表一篇</h4>
-      <p>把做过的事情整理、打磨、公开。写下来的过程本身就是思考的深化。</p>
-    </div>
-    <div class="timeline-item">
-      <h4>深挖一篇</h4>
-      <p>在所有小文章的背后，一定要有一条往下挖掘的主线——那才是你的代表作。</p>
-    </div>
-  </div>
-
-  <p>李墨的Skill迭代了七八百次，每天复盘。这把刀已经磨得很利，但摇摇提醒：<span class="highlight">磨刀的时间不能超过砍柴的时间</span>。要么用它去砍出成果，要么把磨刀本身变成可以分享的产品。</p>
-</div>
-
-<!-- ===== DIVIDER ===== -->
-<div class="divider" data-animate>· · ·</div>
-
-<!-- ===== IMAGE: LANTERN ===== -->
-<div class="full-image" data-animate>
-  <img src="images/lantern.jpg" alt="灯笼与未来城市">
-  <div class="caption">在AI浪潮中举起自己的灯——寻找那个只属于你的方向</div>
-</div>
-
-<!-- ===== SECTION 6: 白豆的故事 ===== -->
-<div class="section" data-animate>
-  <h2>白豆：在30亿身价面前即兴演讲</h2>
-  <p>白豆讲了一个"被推上台"的故事。</p>
-  <p>在某知名企业家的别墅里，吃完饭，老板小声说了句："白豆，你分享一下你最近做的知识库和智能体。"</p>
-  <p>没有准备，没有PPT。但白豆站了起来，连上大屏，即兴开讲。</p>
-
-  <div class="quote-block">
-    <p>「我发现自己尝试过的事情，加上今年开始的语音写作锻炼，表达顺了不少。声音、内容都很果断，掌控感很强。那一刻非常有成就感。」</p>
-    <div class="speaker">—— 白豆</div>
-  </div>
-
-  <p>他没有讲"知识库能干什么"——而是先描述了痛点：新入职的销售在面对科室主任时，无法快速组织专业信息。然后才展示工具如何解决这个具体场景。</p>
-
-  <div class="number-row">
-    <div class="number-item">
-      <div class="num">30亿+</div>
-      <div class="label">听众总身价</div>
-    </div>
-    <div class="number-item">
-      <div class="num">0</div>
-      <div class="label">张PPT</div>
-    </div>
-    <div class="number-item">
-      <div class="num">1000+</div>
-      <div class="label">本读过的书</div>
-    </div>
-  </div>
-
-  <p>白豆展示了自己用AI做的照片墙——1000本书拼成的图片，视觉冲击极强。如果你口头说"我读了一千本书"，像是自夸。但当一面墙出现在大屏上，说服力不言自明。</p>
-</div>
-
-<!-- ===== SECTION 7: 信息差 ===== -->
-<div class="section" data-animate>
-  <h2>信息茧房的另一面</h2>
-  <p>李墨说了一句很清醒的话：</p>
-
-  <div class="quote-block">
-    <p>「我们属于在一个信息的茧房里面。我们觉得周边的人都用AI很强，但其实大部分人都不太懂这个东西。这是真的。」</p>
-    <div class="speaker">—— 李墨</div>
-  </div>
-
-  <p>白豆在那次饭局上的经历验证了这一点——在座的高管们，对NotebookLM都不熟悉。当白豆现场演示让他们自己动手时，<span class="highlight">"他们特别震惊"</span>。</p>
-
-  <p>摇摇也分享了类似的故事：他在公司装了OpenClaw，第二天就带电脑给同事看。结果——公司给他配了一台Mac、报销了大模型费用，还给了一个"理论上不限量"的API额度。</p>
-
-  <div class="quote-block">
-    <p>「show, get things done——把东西做出来，让人看见。」</p>
-    <div class="speaker">—— 白豆</div>
-  </div>
-</div>
-
-<!-- ===== DIVIDER ===== -->
-<div class="divider" data-animate>· · ·</div>
-
-<!-- ===== IMAGE: THREE FLAMES ===== -->
-<div class="full-image" data-animate>
-  <img src="images/flames.jpg" alt="三团火焰的连接">
-  <div class="caption">三团不同颜色的火焰，在星空中互相照亮</div>
-</div>
-
-<!-- ===== SECTION 8: 人生关键词 ===== -->
-<div class="section" data-animate>
-  <h2>你会用什么词形容自己？</h2>
-  <p>对话的最后一段，白豆提出了一个出人意料的问题：<strong>你的人生关键词是什么？</strong></p>
-  <p>不是简历上的标签，而是——当别人向第三个人介绍你时，会用哪几个词。</p>
-
-  <div class="profile-row">
-    <div class="profile-avatar baidou">白</div>
-    <div class="profile-content">
-      <div class="profile-name">白豆 · 在别人眼中</div>
-      <p style="font-size:0.9rem;color:var(--text-dim);">善于发现工具、表达能力强、愿意帮助别人、热爱世界、有落地能力</p>
-      <div class="profile-tags">
-        <span class="tag">工具探索者</span>
-        <span class="tag">语言天赋</span>
-        <span class="tag">社群构建</span>
-        <span class="tag">AI布道师</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="profile-row">
-    <div class="profile-avatar linfeng">李</div>
-    <div class="profile-content">
-      <div class="profile-name">李墨 · 在别人眼中</div>
-      <p style="font-size:0.9rem;color:var(--text-dim);">爱读书的人、精力旺盛的特种兵、能从历史中获得能量、持续输出的写作者</p>
-      <div class="profile-tags">
-        <span class="tag">阅读千卷</span>
-        <span class="tag">精力充沛</span>
-        <span class="tag">插件开发者</span>
-        <span class="tag">持续写作</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="profile-row">
-    <div class="profile-avatar yaoyao">摇</div>
-    <div class="profile-content">
-      <div class="profile-name">摇摇 · 在别人眼中</div>
-      <p style="font-size:0.9rem;color:var(--text-dim);">思考深度惊人、六边形战士、沟通让人舒服、勇敢跳出舒适圈</p>
-      <div class="profile-tags">
-        <span class="tag">深度思考</span>
-        <span class="tag">学术底蕴</span>
-        <span class="tag">好奇心</span>
-        <span class="tag">文学表达</span>
-      </div>
-    </div>
-  </div>
-
-  <p>白豆说，他希望别人看到的不只是"会用AI的人"，而是一个 <span class="highlight">对世界充满热爱、愿意帮助别人的人</span>。工具只是手段，发现朋友的需求、记住别人关心的事情——这才是他想被记住的方式。</p>
-</div>
-
-<!-- ===== SECTION 9: 启示 ===== -->
-<div class="section" data-animate>
-  <h2>今晚的五个启示</h2>
-
-  <div class="insight-grid">
-    <div class="insight-card">
-      <div class="icon">&#x2694;</div>
-      <h4>剑法先于宝剑</h4>
-      <p>AI是倚天剑，但没有内功心法，只能砍瓜切菜。先修炼自己的领域能力。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon">&#x1f4a7;</div>
-      <h4>打一口深井</h4>
-      <p>小工具持续输出建立影响力，但背后一定要有一条持续往下挖的主线。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon">&#x1f6d1;</div>
-      <h4>别把工厂当产品</h4>
-      <p>磨刀是为了砍柴。如果磨刀的时间超过砍柴，要么把磨刀石也卖了。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon">&#x1f441;</div>
-      <h4>用场景说服人</h4>
-      <p>一个具体的痛点场景，永远比一百个抽象概念更打动人心。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon">&#x1f31f;</div>
-      <h4>做出来，让人看见</h4>
-      <p>洞察了需求却无人知晓，就是白忙。show, get things done。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon">&#x1f525;</div>
-      <h4>认识你自己</h4>
-      <p>自我认知与他人认知之间的gap，就是你下一步要走的路。</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SECTION 10: 未来 ===== -->
-<div class="section" data-animate>
-  <h2>下一步：把豆摇锋开源</h2>
-  <p>在对话的尾声，李墨提出了一个想法：把"豆摇锋"两年多的周报实践做成一个 <span class="highlight">开源项目</span>。</p>
-  <p>身边的朋友已经开始效仿——二白、Bingo和Judy的"Jingle Bell"复盘小组，据说"让人生都变得更好了"。</p>
-  <p>摇摇说，下次可以邀请更多朋友加入。小蝴蝶已经在问"今晚还开不开会"了。</p>
-
-  <div class="quote-block">
-    <p>「我们已经实践了两年多，国内好像很少有这样的。把这个东西做出去，一定会有人感兴趣。」</p>
-    <div class="speaker">—— 李墨</div>
-  </div>
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
+<footer>
   <div class="logo">豆摇锋</div>
-  <p>三个人的周报夜话 · 第 N 次</p>
-  <p style="margin-top:0.5rem;font-size:0.72rem;opacity:0.5;">2026.03.22 · 92min · 基于腾讯会议转录整理</p>
+  <p>第七期 · 2026.04.12 · 你真的懂，还是你以为你懂？</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 从三座城市接入</p>
 </footer>
 
 <script>
-// Intersection Observer for scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, {
-  threshold: 0.15,
-  rootMargin: '0px 0px -50px 0px'
-});
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('[data-animate]').forEach(el => {
-  observer.observe(el);
-});
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>

@@ -47,7 +47,58 @@ a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
 a:hover { opacity: 0.8; }
 
 .container { max-width: 720px; margin: 0 auto; padding: 0 2rem; }
-section { padding: 4rem 0; }
+section { padding: 2.5rem 0; }
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 2rem 0 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--accent);
+  opacity: 0.3;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.timeline-date {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.timeline-title {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+.timeline-desc {
+  font-size: 0.8rem;
+  color: var(--text2);
+}
 
 /* Nav */
 nav {
@@ -125,7 +176,7 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
   background: var(--bg2);
   border: 1px solid rgba(184,152,90,0.15);
   border-radius: 8px;
-  font-size: 0.85rem; color: var(--text2); line-height: 1.9;
+  font-size: 0.85rem; color: var(--text2); line-height: 2.4;
 }
 .invite strong { color: var(--accent); font-weight: 500; }
 .invite code {
@@ -140,8 +191,12 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
 }
 
 .sh {
-  font-size: 0.65rem; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--accent);
+  font-size: 1.1rem; letter-spacing: 0.15em;
+  color: var(--accent); font-family: 'Noto Serif SC', serif;
+  font-weight: 600; margin-bottom: 0.4rem;
+}
+.sh-sub {
+  font-size: 0.8rem; color: var(--text2);
   margin-bottom: 1.5rem;
 }
 
@@ -236,6 +291,40 @@ nav .nav-links a:hover { color: var(--text); opacity:1; }
 .article-block .ab-source a { font-size: 0.7rem; }
 
 /* Team */
+.team-grid {
+  display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap;
+}
+.team-member {
+  text-align: center; text-decoration: none; color: var(--text);
+}
+.team-member .team-qr,
+.team-qr-item .team-qr {
+  width: 140px; height: 140px; border-radius: 10px; object-fit: cover;
+  background: var(--bg2); border: 1px solid var(--border); display: block;
+}
+.team-member .team-name,
+.team-member-group .team-name {
+  display: block; margin-top: 10px;
+  font-family: 'Noto Serif SC', serif; font-weight: 700; font-size: 0.95rem;
+}
+.team-member .team-account {
+  display: block; margin-top: 4px; font-size: 0.75rem; color: var(--text2);
+}
+.team-member-group {
+  text-align: center;
+}
+.team-qr-row {
+  display: flex; gap: 1rem;
+}
+.team-qr-item {
+  text-align: center; text-decoration: none; color: var(--text);
+}
+.team-accounts-row {
+  display: flex; gap: 1rem; justify-content: center;
+}
+.team-accounts-row .team-account {
+  font-size: 0.75rem; color: var(--text2);
+}
 .team-list { display: flex; flex-direction: column; gap: 1.5rem; }
 .tm-card {
   display: flex; gap: 1.5rem; align-items: flex-start;
@@ -300,9 +389,9 @@ footer .f-logo {
   <div class="container">
     <div class="logo">豆摇峰</div>
     <div class="nav-links">
-      <a href="#episodes">每周回顾</a>
-      <a href="#about">关于</a>
-      <a href="#writings">文章</a>
+      <a href="#about">怎么玩的</a>
+      <a href="#writings">我们的收获</a>
+      <a href="#episodes">每周聊什么</a>
       <a href="#team">成员</a>
     </div>
     <button class="theme-toggle" id="themeToggle" aria-label="切换主题">☀</button>
@@ -328,74 +417,35 @@ footer .f-logo {
       <div class="lbl">年</div>
     </div>
   </div>
-  <div class="since">自 2024.01.01 起</div>
+  <div class="since">自 2023.07.01 起</div>
+  <div class="timeline fi">
+    <div class="timeline-item">
+      <div class="timeline-date">2023.07</div>
+      <div class="timeline-title">墨玩 × 摇摇开始双人复盘</div>
+      <div class="timeline-desc">个人复盘容易偷懒，两个人互相监督</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2024.01</div>
+      <div class="timeline-title">白豆加入，三人成队</div>
+      <div class="timeline-desc">像引入鲶鱼，激活了整个小队的活力</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026.03</div>
+      <div class="timeline-title">开始对外开放做客名额</div>
+      <div class="timeline-desc">每期一位嘉宾，一起聊一周的收获</div>
+    </div>
+  </div>
   <div class="invite fi">
     <strong>2026 年，周复盘开放迎客了，欢迎来玩儿！</strong><br>
-    添加微信 <code>cupaibaidou</code> 报名做客。
-  </div>
-</section>
-
-<!-- Episodes -->
-<section id="episodes">
-  <div class="sh fi">每周回顾</div>
-  <div class="ep-list">
-    <a class="ep fi" href="/ep/13/">
-      <span class="ep-n">EP13</span>
-      <span class="ep-t">把流程当作产品</span>
-      <span class="ep-d">06.07</span>
-    </a>
-    <a class="ep fi" href="/ep/12/">
-      <span class="ep-n">EP12</span>
-      <span class="ep-t">让记忆成为一种选择 × 魏伦达做客</span>
-      <span class="ep-d">06.03</span>
-    </a>
-    <a class="ep fi" href="/ep/11/">
-      <span class="ep-n">EP11</span>
-      <span class="ep-t">巫师独自前行 × Wendy 做客</span>
-      <span class="ep-d">05.18</span>
-    </a>
-    <a class="ep fi" href="/ep/10/">
-      <span class="ep-n">EP10</span>
-      <span class="ep-t">唱跳 Rap 都得会一点</span>
-      <span class="ep-d">05.12</span>
-    </a>
-    <a class="ep fi" href="/ep/09/">
-      <span class="ep-n">EP09</span>
-      <span class="ep-t">看五年，想三年，做好一年</span>
-      <span class="ep-d">04.27</span>
-    </a>
-    <a class="ep fi" href="/ep/08/">
-      <span class="ep-n">EP08</span>
-      <span class="ep-t">80分是谁定义的？ × Wendy 做客</span>
-      <span class="ep-d">04.19</span>
-    </a>
-    <a class="ep fi" href="/ep/07/">
-      <span class="ep-n">EP07</span>
-      <span class="ep-t">你真的懂，还是你以为你懂？</span>
-      <span class="ep-d">04.12</span>
-    </a>
-    <a class="ep fi" href="/ep/06/">
-      <span class="ep-n">EP06</span>
-      <span class="ep-t">Regenerate — AI创作的虚假繁荣与真实内化</span>
-      <span class="ep-d">04.07</span>
-    </a>
-    <a class="ep fi" href="/ep/05/">
-      <span class="ep-n">EP05</span>
-      <span class="ep-t">能力地图 × 长板理论 × 德州扑克哲学</span>
-      <span class="ep-d">03.29</span>
-    </a>
-    <a class="ep fi" href="/ep/04/">
-      <span class="ep-n">EP04</span>
-      <span class="ep-t">AI时代，我们的不可替代性在哪里</span>
-      <span class="ep-d">03.22</span>
-    </a>
+    添加微信 <code>cupaobaidou</code> 报名做客。<br>
+    <a href="/join.html" target="_blank" style="font-size: 0.85rem; color: var(--accent); margin-top: 0.3rem; display: inline-block;">查看入驻指引 →</a>
   </div>
 </section>
 
 <div class="divider"></div>
 
 <section id="about">
-  <div class="sh fi">关于</div>
+  <div class="sh fi">我们怎么玩的</div>
   <div class="about-text fi">
     豆摇峰，谐音「都要疯」——不复盘，都要疯。每周一次线上复盘会，会前各自写文档、互相评阅，会上直接讨论。参考亚马逊飞阅会的方式，不复述，只碰撞。
   </div>
@@ -427,17 +477,18 @@ footer .f-logo {
 
 <!-- Writings -->
 <section id="writings">
-  <div class="sh fi">我们写过的</div>
+  <div class="sh fi">我们收获了什么</div>
+  <div class="sh-sub fi">三个人，各自的答案</div>
   <div class="articles">
 
     <!-- 李墨玩 -->
     <div class="article-block fi">
       <div class="ab-author">李墨玩</div>
       <div class="ab-title">高质量的复盘，从找到"队友"开始</div>
-      <div class="ab-excerpt">这件事情始于23年的8月，我和朋友摇摇聊天时提到，如何能够更好的提升自己？我想到自己每天都在做复盘，但个人复盘容易偷懒，于是提议：「我们是不是可以每周末一起开个复盘会？」——一拍即合。</div>
+      <div class="ab-excerpt">这件事情始于23年的7月，我和朋友摇摇聊天时提到，如何能够更好的提升自己？我想到自己每天都在做复盘，但个人复盘容易偷懒，于是提议：「我们是不是可以每周末一起开个复盘会？」——一拍即合。</div>
       <div class="ab-full" id="article-limo">
         <h3>一、缘起</h3>
-        <p>这件事情始于23年的8月，我和朋友摇摇聊天时提到，如何能够更好的提升自己，让自己快速成长？我想到自己每天都在做复盘，但是发现个人复盘容易偷懒，导致复盘质量不高，因此提议说："我们是不是可以在每周末一起开个复盘会？"于是，一拍即合，复盘会就这样开始了。</p>
+        <p>这件事情始于23年的7月，我和朋友摇摇聊天时提到，如何能够更好的提升自己，让自己快速成长？我想到自己每天都在做复盘，但是发现个人复盘容易偷懒，导致复盘质量不高，因此提议说："我们是不是可以在每周末一起开个复盘会？"于是，一拍即合，复盘会就这样开始了。</p>
 
         <h3>二、为什么要结对复盘？</h3>
         <p>复盘自己也能进行，为什么一定要多人呢？对比单人复盘，与他人讨论可以弥补自己的思维盲区，同时让外部的力量监督自己的复盘，提升复盘的质量。</p>
@@ -466,7 +517,7 @@ footer .f-logo {
         <p>希望能对大家有启发，如果有合适的朋友，也可以像我们这样，做一些结对复盘的尝试，即使最后失败了也没关系。</p>
       </div>
       <button class="ab-toggle" onclick="toggleArticle('article-limo', this)">展开全文 ↓</button>
-      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">李墨玩</a></div>
+      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/vyZBi-u6NskYq2tRdu4IYw" target="_blank">李墨玩</a></div>
     </div>
 
     <!-- 摇摇 -->
@@ -507,7 +558,7 @@ footer .f-logo {
         </ul>
       </div>
       <button class="ab-toggle" onclick="toggleArticle('article-yaoyao', this)">展开全文 ↓</button>
-      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">自供能前站</a></div>
+      <div class="ab-source">公众号 · <a href="https://mp.weixin.qq.com/s/aMKoP_Ac1fOOZtN58itI8A" target="_blank">搖摇链接</a></div>
     </div>
 
     <!-- 白豆 -->
@@ -540,22 +591,91 @@ footer .f-logo {
 
 <div class="divider"></div>
 
+
+<!-- Episodes -->
+<section id="episodes">
+  <div class="sh fi">每周聊什么</div>
+  <div class="sh-sub fi">三个人的碰撞，一期一主题</div>
+  <div class="ep-list">
+    <a class="ep fi" href="/ep/10/">
+      <span class="ep-n">EP10</span>
+      <span class="ep-t">把流程当作产品</span>
+      <span class="ep-d">2026.06.07</span>
+    </a>
+    <a class="ep fi" href="/ep/09/">
+      <span class="ep-n">EP09</span>
+      <span class="ep-t">让记忆成为一种选择 × 魏伦达做客</span>
+      <span class="ep-d">2026.06.03</span>
+    </a>
+    <a class="ep fi" href="/ep/08/">
+      <span class="ep-n">EP08</span>
+      <span class="ep-t">巫师独自前行 × Wendy 做客</span>
+      <span class="ep-d">2026.05.18</span>
+    </a>
+    <a class="ep fi" href="/ep/07/">
+      <span class="ep-n">EP07</span>
+      <span class="ep-t">唱跳 Rap 都得会一点</span>
+      <span class="ep-d">2026.05.12</span>
+    </a>
+    <a class="ep fi" href="/ep/06/">
+      <span class="ep-n">EP06</span>
+      <span class="ep-t">看五年，想三年，做好一年</span>
+      <span class="ep-d">2026.04.27</span>
+    </a>
+    <a class="ep fi" href="/ep/05/">
+      <span class="ep-n">EP05</span>
+      <span class="ep-t">80分是谁定义的？ × Wendy 做客</span>
+      <span class="ep-d">2026.04.19</span>
+    </a>
+    <a class="ep fi" href="/ep/04/">
+      <span class="ep-n">EP04</span>
+      <span class="ep-t">你真的懂，还是你以为你懂？</span>
+      <span class="ep-d">2026.04.12</span>
+    </a>
+    <a class="ep fi" href="/ep/03/">
+      <span class="ep-n">EP03</span>
+      <span class="ep-t">Regenerate — AI创作的虚假繁荣与真实内化</span>
+      <span class="ep-d">2026.04.07</span>
+    </a>
+    <a class="ep fi" href="/ep/02/">
+      <span class="ep-n">EP02</span>
+      <span class="ep-t">能力地图 × 长板理论 × 德州扑克哲学</span>
+      <span class="ep-d">2026.03.29</span>
+    </a>
+    <a class="ep fi" href="/ep/01/">
+      <span class="ep-n">EP01</span>
+      <span class="ep-t">AI时代，我们的不可替代性在哪里</span>
+      <span class="ep-d">2026.03.22</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- Team -->
 <section id="team">
   <div class="sh fi">成员</div>
-  <div class="team-row fi">
-    <div class="tm">
-      <div class="tm-name">白豆</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">公众号 · 醋泡白豆</a>
-    </div>
-    <div class="tm">
-      <div class="tm-name">摇摇</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/dLmRvHxL00c33GJky45Y0A" target="_blank">公众号 · 自供能前站</a>
-    </div>
-    <div class="tm">
-      <div class="tm-name">李墨玩</div>
-      <a class="tm-link" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">公众号 · 李墨玩</a>
-    </div>
+  <div class="team-grid fi">
+    <a class="team-member" href="https://mp.weixin.qq.com/s/piFIBrXj7Hhtqgp58zTXLg" target="_blank">
+      <img class="team-qr" src="https://pic.mowan.work/%E7%99%BD%E8%B1%86%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="醋泡白豆公众号">
+      <span class="team-name">白豆</span>
+      <span class="team-account">公众号 · 醋泡白豆</span>
+    </a>
+    <a class="team-member" href="https://mp.weixin.qq.com/s/aMKoP_Ac1fOOZtN58itI8A" target="_blank">
+      <img class="team-qr" src="https://pic.mowan.work/%E6%91%87%E6%91%87%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="搖摇链接公众号">
+      <span class="team-name">摇摇</span>
+      <span class="team-account">公众号 · 搖摇链接</span>
+    </a>
+    <a class="team-member" href="https://mp.weixin.qq.com/s/Mae4C3nVqY03B9s9cck1EQ" target="_blank">
+      <img class="team-qr" src="https://pic.mowan.work/李墨玩_账号二维码.jpg" alt="李墨玩公众号">
+      <span class="team-name">李墨玩</span>
+      <span class="team-account">公众号 · 李墨玩</span>
+    </a>
+    <a class="team-member" href="https://mp.weixin.qq.com/s/nuDvsyOaxIcj1j1MUQ1GCQ" target="_blank">
+      <img class="team-qr" src="https://pic.mowan.work/墨玩AI_账号二维码.jpg" alt="墨玩AI公众号">
+      <span class="team-name">李墨玩</span>
+      <span class="team-account">公众号 · 墨玩AI</span>
+    </a>
   </div>
 </section>
 
@@ -563,12 +683,12 @@ footer .f-logo {
 
 <footer>
   <div class="f-logo">豆摇峰</div>
-  <p>不复盘，豆摇峰 · 自 2024.01.01 起 · 每周一次</p>
+  <p>不复盘，豆摇峰 · 自 2023.07.01 起 · 每周一次</p>
 </footer>
 
 <script>
 function updateCounter() {
-  const start = new Date('2024-01-01T00:00:00+08:00');
+  const start = new Date('2023-07-01T00:00:00+08:00');
   const now = new Date();
   const diff = now - start;
   const days = Math.floor(diff / (1000*60*60*24));

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇锋周报会 · 2026.03.29</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e6e3;
+    --muted: #8a8a9a;
+    --accent: #f0c040;
+    --accent2: #40b0f0;
+    --accent3: #f06060;
+    --accent4: #60f0a0;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(240,192,64,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(64,176,240,0.06) 0%, transparent 50%);
+  }
+  .hero-date {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    position: relative;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 500px;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .hero-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--accent);
+    opacity: 0.7;
+    max-width: 600px;
+    position: relative;
+    margin-top: 2rem;
+  }
+  .hero-people {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .person-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    font-size: 0.9rem;
+  }
+  .person-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Sections */
+  .section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+  .section p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  /* Image */
+  .section-img {
+    width: 100%;
+    border-radius: 12px;
+    margin: 2rem 0;
+    opacity: 0.9;
+  }
+
+  /* Highlight */
+  .highlight {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .highlight-blue { color: var(--accent2); font-weight: 500; }
+  .highlight-red { color: var(--accent3); font-weight: 500; }
+  .highlight-green { color: var(--accent4); font-weight: 500; }
+
+  /* Quote block */
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: rgba(240,192,64,0.04);
+    border-radius: 0 8px 8px 0;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 2;
+  }
+  .quote-block.blue { border-color: var(--accent2); background: rgba(64,176,240,0.04); }
+  .quote-block.red { border-color: var(--accent3); background: rgba(240,96,96,0.04); }
+  .quote-block.green { border-color: var(--accent4); background: rgba(96,240,160,0.04); }
+
+  .quote-author {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    font-style: normal;
+  }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+  }
+  .card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* Divider */
+  .divider {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+  }
+
+  /* Speaker badge */
+  .speaker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .speaker-baidou { background: rgba(240,192,64,0.15); color: var(--accent); }
+  .speaker-limo { background: rgba(64,176,240,0.15); color: var(--accent2); }
+  .speaker-yaoyao { background: rgba(240,96,96,0.15); color: var(--accent3); }
+  .speaker-tuffy { background: rgba(96,240,160,0.15); color: var(--accent4); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .footer-logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Fullwidth image section */
+  .wide-img-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .wide-img-wrap img {
+    width: 100%;
+    border-radius: 12px;
+    opacity: 0.85;
+  }
+
+  /* Insight list */
+  .insight-list {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .insight-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .insight-list li:last-child { border-bottom: none; }
+  .insight-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 2rem;
+    line-height: 1.4;
+  }
+  .insight-text {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .insight-text strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Guest section */
+  .guest-banner {
+    background: linear-gradient(135deg, rgba(96,240,160,0.08) 0%, rgba(64,176,240,0.05) 100%);
+    border: 1px solid rgba(96,240,160,0.15);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .guest-banner h3 {
+    color: var(--accent4);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-date">豆摇锋 · 周报会</div>
+  <h1>Be Useful<br>不要追逐荣耀，追逐工作</h1>
+  <div class="hero-subtitle">
+    三个 builder 的周度交流 + 一位做客嘉宾的旁观者视角<br>
+    2026 年 3 月 29 日 · 第五期
+  </div>
+  <div class="hero-quote">
+    "Be useful. Don't aspire to glory. Aspire to work."
+  </div>
+  <div class="hero-people">
+    <div class="person-tag"><span class="person-dot" style="background:var(--accent)"></span>白豆</div>
+    <div class="person-tag"><span class="person-dot" style="background:var(--accent2)"></span>李墨玩</div>
+    <div class="person-tag"><span class="person-dot" style="background:var(--accent3)"></span>摇摇</div>
+    <div class="person-tag"><span class="person-dot" style="background:var(--accent4)"></span>Tuffy · 做客嘉宾</div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</div>
+
+<!-- Section 1: 白豆 - 能力地图 -->
+<div class="section">
+  <div class="section-label">白豆篇 · 能力构架地图</div>
+  <h2>让 AI 给自己画一张<span class="highlight">能力地图</span></h2>
+  <p>白豆让 AI 爬取了自己所有的文章，写了一份「侧写」，然后模仿摇摇年初提出的七层构架地图，做了一个属于自己的版本。</p>
+  <img src="images/capability.jpg" alt="能力构架地图" class="section-img">
+  <div class="quote-block">
+    底层驱动是好奇心。根能力是阅读、信息处理、语言能力、自学能力和行动力。然后产品的差异化——我要赶紧把之前做的那些小工具都上线，因为大家都在说「用 AI」，但没人拿出做成的东西。
+    <div class="quote-author">—— 白豆</div>
+  </div>
+  <p>关于 AI 对自己的形容——「极度自律」，白豆说他不喜欢这个词。他更希望被描述为 <span class="highlight">helpful、热情驱动</span>的人，因为做这些事情的内在感受不是苦行，而是兴奋。</p>
+  <div class="quote-block">
+    别人说自律，可能是因为没有达到自己想要的状态。但如果用这个词形容我，我会觉得我已经在那种状态里了。我跟别人不一样——我是真的很兴奋，做这些东西不会感觉到累。
+    <div class="quote-author">—— 白豆</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 2: 白豆 - 项目 -->
+<div class="section">
+  <div class="section-label">白豆篇 · 产品落地</div>
+  <h2>知识库项目，<span class="highlight">5 分钟的演示</span></h2>
+  <p>白豆去某企业高管家演示了 IMA + NotebookLM，对方一下子震惊了——新招的产品经理一两个月做的幻灯片，还没有 NotebookLM 五分钟做的好。高管当场说：<span class="highlight-red">开掉。</span></p>
+  <p>回来之后，白豆用 Claude Code 搭建了原型，核心洞察是：</p>
+  <div class="quote-block blue">
+    个人做产品的优势在于——我可以集合不同的 API。视觉模型用阿里的，语义理解用豆包的，在不同场景下用不同模型。整体产品反而比单一平台更好。
+    <div class="quote-author">—— 白豆</div>
+  </div>
+  <p>合同预计 15-20 万，这周末对方已经在谈具体条款了。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 3: 白豆 - 学习工具 -->
+<div class="section">
+  <div class="section-label">白豆篇 · 互动学习</div>
+  <h2>马斯克的声音读英文，<span class="highlight">每个词都能高亮</span></h2>
+  <p>白豆用 MiniMax 最贵的模型克隆了马斯克的播客声音，然后把一整本书（40 万字符，花了 140 元）做成了一个交互式英语学习工具：点哪句话念哪句话，每个词实时高亮。</p>
+  <p>技术路径很巧妙：先用 MiniMax TTS 生成音频，再用 Whisper 反向获取词级时间戳，最后用原书文本替换 Whisper 的转录错误——两套元数据拼合，就有了精准的逐词高亮播放器。</p>
+  <div class="quote-block">
+    我问 AI 怎么实现，它告诉我 MiniMax 本身就有时间戳功能。我说你怎么能不提醒我呢？然后让它更新到全局 memory 里——下次遇到类似的事，它就会自动问我要不要加上。
+    <div class="quote-author">—— 白豆</div>
+  </div>
+  <p>另一个项目是用 Claude Code 做的 <span class="highlight">HTML5 互动教学页面</span>——给学员解释「什么是互联网」「什么是浏览器」，带模拟搜索引擎、DNS 解析动画、画板互动，比纯文本的理解效率高出一个量级。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 4: 李墨玩 -->
+<div class="section">
+  <div class="section-label">李墨玩篇</div>
+  <h2>公众号排版的<span class="highlight-blue">端到端革命</span></h2>
+  <p>李墨玩做了一个 AI 公众号排版工具：把文章复制粘贴进去，AI 一键直出排版好的效果，直接复制到公众号就行。跟秀米的区别是——<span class="highlight-blue">端到端</span>，不用手动微调。</p>
+  <p>已经有真实用户在用了。「别有所思」和他老婆都给了正面反馈，说解决了很大的实际问题。老婆以前要先转 Markdown，再用扣子处理，再粘贴到排版网站——现在一步到位。</p>
+  <div class="quote-block blue">
+    我从去年 3 月 16 号恢复更新，从每周两篇到每周四篇，坚持了一年，写了 20 万个字。回头去看的时候有一种震撼感——以前觉得做不到的事，居然没有断更过。
+    <div class="quote-author">—— 李墨玩</div>
+  </div>
+  <p>关于写作风格，李墨玩承认之前太「绷着」了——写公众号和聊天的风格不一样，会隐藏、装饰。这周的反思是：<span class="highlight-blue">要有更多自然情绪的流露</span>，这样更能打动人。</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 5: 摇摇 - AI 蒸馏 -->
+<div class="section">
+  <div class="section-label">摇摇篇 · AI 蒸馏同事</div>
+  <h2>50% 的 KPI，<span class="highlight-red">9 个人的团队</span></h2>
+  <img src="images/ai-replace.jpg" alt="AI替代" class="section-img">
+  <p>摇摇今年被挂了 50% 的 KPI 做 AI 替代工作。老板的措辞很讲究：<span class="highlight-red">「只是在做技能的固化和经验的复用，要避免使用岗位和工作盘点这种词。」</span></p>
+  <p>目前统筹一个 9 人小团队，推动并行开发（而非线性等待），按「简单高频 → 复杂低频」排优先级。最大的挑战不是技术——是团队对这件事的认知还不充分。</p>
+  <div class="quote-block red">
+    周五我现场给他们编了一个 skill 和脚本，一边问一边做，然后展示效果。具象化的演示，比抽象地告诉他们怎么做，效果好得多。
+    <div class="quote-author">—— 摇摇</div>
+  </div>
+  <p>有趣的细节：跟摇摇一起做 skill 的同事问——<span class="highlight-red">「回头到了我们这一步，要不要给里头埋一些什么东西？」</span></p>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 6: 摇摇 - 长板理论 -->
+<div class="section">
+  <div class="section-label">摇摇篇 · 深层思考</div>
+  <h2>木桶的<span class="highlight-red">长板</span>决定你的上限</h2>
+  <img src="images/barrel.jpg" alt="木桶长板理论" class="section-img">
+  <p>摇摇引用了白豆分享的那张图（来自李继刚的一席演讲）：AI 时代，短板都被补齐到同一水平线了，<span class="highlight">决定你上限的是你自己的长板</span>。</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>搜索引擎类比</h3>
+      <p>很多人知道怎么用搜索引擎，但不知道该搜索什么。AI 也一样——你要问到问题的核心。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧱</div>
+      <h3>体系化思维</h3>
+      <p>你可以用 AI 写代码了，但你不知道代码怎么 run 起来的。一直点 accept，别人也能做。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>踩坑就是修炼</h3>
+      <p>在 bug 中知道问题的根因，下次就会敏感。持续做出来东西，才能培育这种敏感度。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>自己也是模型</h3>
+      <p>把重复性工作解放出来之后，你的时间应该用来提升自己的 SOTA 能力。</p>
+    </div>
+  </div>
+
+  <div class="quote-block red">
+    被离职的同事——你要看让什么样的人离职。让优秀的人离职，他们蒸馏出来的知识就很强。但往往被离职的人，蒸馏出来的知识又不那么强。就很矛盾。
+    <div class="quote-author">—— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 7: Tuffy 做客 -->
+<div class="section">
+  <div class="section-label">做客嘉宾 · Tuffy</div>
+  <h2>你们好<span class="highlight-green">重</span>啊</h2>
+
+  <div class="guest-banner">
+    <h3>第三位做客嘉宾</h3>
+    <p style="color:var(--muted);margin:0;">自由职业者 · 投资人 · 每周录视频做周会 · 昨晚才第一次开机 Mac Mini 装 OpenClaw</p>
+  </div>
+
+  <p>Tuffy 这周的三件事很「轻」：</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>自动化交易</h3>
+      <p>脉冲式的链上交易，因事件驱动有人工延迟，所以直接自动化——A 到 B，非常轻。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>信息流整理</h3>
+      <p>每天推荐 30-60 家公司，穿越周期。连接 1000 家公司，覆盖中美韩港台日。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧹</div>
+      <h3>信息面板</h3>
+      <p>一个没有特定人物和特定战争新闻的信息面板——过滤噪音，只看信号。</p>
+    </div>
+  </div>
+
+  <img src="images/poker.jpg" alt="德州扑克" class="section-img">
+
+  <div class="quote-block green">
+    德州扑克教我一件事：碰到疯子，最好的办法是走。但如果你必须留在这个游戏里，就用最小的成本代价，保持最好的状态，一直耗到把他熬走。等他露出破绽——一击即溃。
+    <div class="quote-author">—— Tuffy · 从德州扑克悟出的投资哲学</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 8: Tuffy 的旁观者洞察 -->
+<div class="section">
+  <div class="section-label">旁观者清</div>
+  <h2>在 Builder 和消费者之间<br><span class="highlight-green">搭一座桥</span></h2>
+  <img src="images/bridge.jpg" alt="桥梁" class="section-img">
+
+  <div class="quote-block green">
+    你们玩的很重，背的很多，你们自己都没有力气再跟别人解释你们在干什么了。但消费者一旦选中了一个东西，他会一直用下去。如果我能把你们搞明白，在你们和消费者之间搭一个桥梁——这就够了。
+    <div class="quote-author">—— Tuffy</div>
+  </div>
+
+  <p>Tuffy 对白豆说了一句很直接的话：</p>
+  <div class="quote-block">
+    你高考英语 150 满分考了 146，专八裸考通过。你只要把脑子里那些东西系统整理出来，就可以做一个 AI 产品了。你自己有矿，但你还在外面找矿。
+    <div class="quote-author">—— Tuffy</div>
+  </div>
+
+  <p>关于「重」vs「轻」的反思：</p>
+  <div class="quote-block green">
+    你们太快地把兴奋消耗掉了。像我昨天凌晨三四点还在兴奋——哇塞这个小东西做出来了！我还是蛮珍惜这种兴奋的。
+    <div class="quote-author">—— Tuffy</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Section 9: 启示 -->
+<div class="section">
+  <div class="section-label">本周启示</div>
+  <h2>六个值得记住的<span class="highlight">瞬间</span></h2>
+
+  <ul class="insight-list">
+    <li>
+      <span class="insight-num">01</span>
+      <div class="insight-text"><strong>不要用「自律」来定义自己</strong><br>如果你是因为热情和兴奋在做事，那不叫自律——那叫驱动力。用精准的情绪词来描述自己，是了解自己的工具。</div>
+    </li>
+    <li>
+      <span class="insight-num">02</span>
+      <div class="insight-text"><strong>集合不同 API 就是个人的护城河</strong><br>模型厂商只有自家的模型。但你可以在视觉场景用阿里的，在语义场景用豆包的——组合出比单一平台更好的产品。</div>
+    </li>
+    <li>
+      <span class="insight-num">03</span>
+      <div class="insight-text"><strong>具象演示 > 抽象说教</strong><br>无论是推动团队采纳 AI，还是教小白理解技术概念——现场演示、互动页面、一步步做给他看，效果远远好于文档。</div>
+    </li>
+    <li>
+      <span class="insight-num">04</span>
+      <div class="insight-text"><strong>坚持 > 天赋</strong><br>李墨玩一年 20 万字，没有断更过。回头看才发现：以前觉得做不到的事情，居然做到了。自信是累积出来的副产品。</div>
+    </li>
+    <li>
+      <span class="insight-num">05</span>
+      <div class="insight-text"><strong>被蒸馏的悖论</strong><br>优秀的人蒸馏出来的知识更强，但他们往往不是被裁的那批人。真正被替代的人，他们的知识本身就不够扎实——这是一个结构性矛盾。</div>
+    </li>
+    <li>
+      <span class="insight-num">06</span>
+      <div class="insight-text"><strong>轻一点</strong><br>Tuffy 的提醒：不要太快消耗掉兴奋感。保持对新事物的惊喜，比堆砌更多技术栈更重要。有时候，做 builder 和消费者之间的翻译者，比做 builder 本身更有价值。</div>
+    </li>
+  </ul>
+</div>
+
+<div class="divider"></div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-logo">豆摇锋</div>
+  <p>三个 builder + 一位做客朋友 · 每周六晚</p>
+  <p style="margin-top:1rem;opacity:0.5;">2026.03.29 · 第五期</p>
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

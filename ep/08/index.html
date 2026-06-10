@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>豆摇峰 · 第八期 — 80分是谁定义的？</title>
+<title>豆摇峰 · 第十一期 — 巫师独自前行</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
@@ -48,8 +48,8 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at 25% 40%, rgba(184,135,199,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 75% 60%, rgba(212,168,83,0.07) 0%, transparent 50%);
+    background: radial-gradient(ellipse at 30% 35%, rgba(184,135,199,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 65%, rgba(212,168,83,0.08) 0%, transparent 50%);
     animation: drift 24s ease-in-out infinite;
   }
 
@@ -86,7 +86,7 @@
     font-size: 1.1rem;
     color: var(--dim);
     font-weight: 300;
-    max-width: 560px;
+    max-width: 580px;
     margin: 0 auto 2rem;
   }
 
@@ -97,14 +97,10 @@
   }
 
   .hero .guest {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.3rem 1rem;
-    border: 1px solid var(--accent4);
-    border-radius: 20px;
+    margin-top: 1.2rem;
+    font-size: 0.85rem;
     color: var(--accent4);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.08em;
   }
 
   .scroll-hint {
@@ -179,7 +175,7 @@
     border-radius: 0 8px 8px 0;
   }
 
-  .quote-block.guest {
+  .quote-block.purple {
     border-left-color: var(--accent4);
   }
 
@@ -199,7 +195,7 @@
     font-weight: 500;
   }
 
-  .quote-block.guest .speaker {
+  .quote-block.purple .speaker {
     color: var(--accent4);
   }
 
@@ -256,7 +252,7 @@
   .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
   .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
   .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
-  .avatar.wendy { background: linear-gradient(135deg, #b887c7, #9768a6); color: #1a1a1a; }
+  .avatar.wendy { background: linear-gradient(135deg, #b887c7, #9a6ba8); color: #1a1a1a; }
 
   .dialogue-text {
     background: var(--card-bg);
@@ -359,6 +355,35 @@
     font-weight: 300;
   }
 
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .platform-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .platform-card .name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .platform-card .desc {
+    font-size: 0.82rem;
+    color: var(--dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
   footer {
     text-align: center;
     padding: 4rem 2rem;
@@ -385,535 +410,684 @@
 
 <div class="hero">
   <div class="hero-content">
-    <div class="episode">豆摇峰 · 第八期</div>
-    <h1>80分是谁定义的？</h1>
-    <div class="subtitle">一场关于扮演与真实、关于「放心做个垃圾」、关于<br>人自己成为卡点的深夜对话</div>
-    <div class="meta">2026.04.19 · 白豆 · 李墨玩 · 摇摇</div>
-    <div class="guest">× 本期嘉宾 · Wendy 首次做客</div>
+    <div class="episode">豆摇峰 · 第十一期</div>
+    <h1>巫师独自前行</h1>
+    <div class="subtitle">从游牧到流水线 — 每个人都在 AI 时代搭好自己的洞穴<br>信息系统、节奏、Taste —— 一场跨越疲惫与远方的复盘</div>
+    <div class="meta">2026.05.18 · 白豆 · 摇摇 · 李墨玩</div>
+    <div class="guest">— 本期做客嘉宾 · Wendy —</div>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </div>
 
-<!-- Chapter 01: Wendy 做客 -->
+<!-- Chapter 01: 开拓性业务的疲惫 -->
 <div class="section">
   <div class="section-label">Chapter 01</div>
-  <h2>穿过摄像头：Wendy 第一次来旁听</h2>
-  <p>Wendy 手忙脚乱地试了两台设备才接进会议 — <span class="highlight">「我想用电脑试一下，我怎么手机加进来了？」</span> 她是通过白豆认识的朋友，20 年经验的发型师，上个月刚和一位朋友一起报了摩托车驾照，还没考下来。</p>
+  <h2>开拓性业务的疲惫</h2>
 
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar wendy">文</div>
-      <div class="dialogue-text">你们会议是不开摄像头的？</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">我们一直都随缘。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar wendy">文</div>
-      <div class="dialogue-text">好，你你们开始我我观摩。</div>
-    </div>
+  <div class="image-block">
+    <img src="images/01.jpg" alt="深夜书桌的暖光台灯与笔记">
+    <div class="caption">长夜伏案 — 累，但累的方向不同</div>
   </div>
 
-  <p>三个人，一个旁观者。一场原以为平静的复盘会，<span class="accent4-text">后来被 Wendy 的跨领域反馈三连击，变成了今年最有回响的一期</span>。</p>
+  <p>本期会议开场，白豆抛出一个被工作磨得很真实的感叹：</p>
+
+  <div class="quote-block">
+    <p>「做开拓性的业务确实非常的耗人 — 对盈利模式还有一个稳定的产出，真的太疲惫了。主要是有一些人事的安排，我感觉有时候分配过来的人力让我去教他们，还不如我自己干。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这一类抱怨在新点群里反复出现过。李墨玩接住了这个话头：</p>
+
+  <div class="quote-block">
+    <p>「你主要是教过程比较耗费时间。但是如果别人真的搞起来之后 — <span class="highlight">别人的 KPI 是算到你的头上的</span>，对你自己来讲是有很大帮助的，这个时间还是挺值得去花的。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>但李墨玩补了一刀关于"什么人值得带"的判断标准 — <span class="accent-text">能力不行、态度好可以；态度不好、能力还不行，可以开</span>。</p>
+
+  <p>白豆紧接着讲到今天公司开的一个升迁/复盘的沟通会上的暗流：</p>
+
+  <div class="quote-block">
+    <p>「真的能感觉到人事的剑拔弩张，都隐藏在里面。可能因为老板不在，我之前那个上司表面上他会先叠很多甲 —『我这话我这人说话就这样并不是反对大家什么的』— 然后就会提出来很多个疑问，其实有的并不是问题，是一种因缘关系。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>李墨玩很冷静地一句话总结了原因：<span class="highlight">"挺正常的，因为你影响到人家的利益。"</span></p>
+
+  <p>这一章其实是本期所有讨论的暗线 — 当一个人开始往新的方向走，<span class="accent-text">既要面对开拓的疲惫，也要面对原有秩序的反弹</span>。剩下能怎么办？正好接下来的几章里大家轮流给出了自己的答案。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 02: 抢占山头 -->
+<!-- Chapter 02: 一位朋友的"老师 IP" -->
 <div class="section">
   <div class="section-label">Chapter 02</div>
-  <h2>意外之喜：被破格提拔的先行者</h2>
+  <h2>一位朋友的"老师 IP"</h2>
+  <p>白豆这周和<span class="accent-text">一位老师朋友</span>聊天，对方原本在一家头部教培公司做名师，组里"三王一后"中的"后"，后来出来自己干，做得风生水起。</p>
 
-  <div class="image-block">
-    <img src="images/summit-flag.jpg" alt="山顶旗帜">
-    <div class="caption">先行者抢占的，是一个全新的山头</div>
-  </div>
-
-  <p>摇摇从飞机上下来就直接去了公司 — 不是为了加班，是<span class="highlight">怕回拼房酒店吵到室友</span>。深夜空荡的办公室接入会议，他分享了一件意外的好消息：被破格升了一级。</p>
+  <p>白豆讲他从对方身上看到的东西，并不是"她做对了什么项目"，而是更本质的一件事：</p>
 
   <div class="quote-block">
-    <p>「这种怎么说呢，意外的，或者是破格提拔的更给人动力，因为出乎意料。」</p>
+    <p>「她出来做也是被当时的领导穿了小鞋。但她出来之后特别顺 — <span class="highlight">因为所有的学生都是跟着老师走的，而不是跟着平台走的</span>。所以她出来的时候，能够做很多的积累。</p>
+    <p>哪怕一些管理、用 AI 工具优化流程这些事她没做那么好，也没有太大影响 — 因为别人可以帮她完成这件事。<span class="accent-text">但核心的个人影响力这一方面，她做的很好，而且持续输出。</span>」</p>
     <div class="speaker">— 白豆</div>
   </div>
 
-  <p>李墨玩借此把一个话题挑起来：<span class="accent-text">占住生态位</span>。</p>
+  <p>更让白豆有触动的，是这位朋友在跟他聊到 CRM 系统的时候 — 她公司用的是某教培行业的竞品 SaaS，一年两万。白豆顺势展示了一下自己用飞书搭的 CRM（之前还拿过奖），对方反应是：<span class="highlight">"看起来比她们用的还好用一些。"</span></p>
 
   <div class="dialogue">
     <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">比如白豆最近在做公司的 AI 视频，公司没人做过这件事。他做了之后形成了 SOP，就等于他们公司在这个领域的先行者，抢住了先机。以后别人再想做，就是跟着你的脚步走了。</div>
-    </div>
-    <div class="dialogue-item">
       <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">我不是上周跟你们分享了被问到"AI 数字化"那件事吗？现在想来和生态位这件事高度相关。在硬件部门做这些确实是有独特生态位的。</div>
+      <div class="dialogue-text">这就是你之前各种实践的一次又一次证明 — 你之前做的很多东西，拿出来都是很惊艳的。自己多多分享。</div>
     </div>
     <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">就算以后来了有经验的人，他不懂你们公司的业务，他要改你的东西，需要说服其他业务部门，还要获得老板同意 — 这不是件容易事。</div>
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">是的，等我找一个时间去帮她推、帮她改一下。</div>
     </div>
   </div>
 
-  <p>摇摇笑：<span class="highlight">一年 52 次，从 2024 年 1 月到现在已经 100 多期了</span> — 加上中间 gap 的那些，至少这个数。</p>
+  <p>白豆抓住的不只是"我以前做的东西可以变现"，更是 — <span class="highlight">一个长期累积的个人 IP（无论是『老师』还是『某种工具的搭建者』），它的复利来自于"被记住"，不来自于"换平台"</span>。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 03: 80分 -->
+<!-- Chapter 03: 从游牧到流水线 -->
 <div class="section">
   <div class="section-label">Chapter 03</div>
-  <h2>80分是谁定义的？</h2>
+  <h2>从游牧到流水线 — 一种关于信息的文明史</h2>
 
   <div class="image-block">
-    <img src="images/sprout-draft.jpg" alt="嫩芽与草稿纸">
-    <div class="caption">所有尝试都是在训练你，从 5 斤的哑铃开始</div>
+    <img src="images/02.jpg" alt="三联意象：荒野 / 田园 / 流水线">
+    <div class="caption">游牧 → 农耕 → 工业化 — 三种处理信息的姿态</div>
   </div>
 
-  <p>摇摇本来昨天想去重庆溜达，却被一件「未完成的事」拦住 — 他想在 2026 年 5 月 1 号发一篇关于去年一整年转折的文章。</p>
+  <p>白豆这周读到的最让他兴奋的一篇文章，来自一位<span class="accent-text">长期低调写作的独立创作者</span> — 这个人 2017 年前后就开始系统地写"个人信息管理系统"。他和少数派前编辑一起做了一个独立网站，"一个人相当于两个全职编辑的产能"。</p>
+
+  <p>白豆顺手用 manus 搜了他的 GitHub 和文章，他甚至同时是国内一线的<span class="highlight">律师</span>：</p>
 
   <div class="quote-block">
-    <p>「我甚至不是想做一个 80 分的，我就是一直在做一个 100 分的思想实验。在我的想法里头，这像是我的一个鸿篇巨作一样，一定要非常认真地去对待它 — 然后我就一直不敢写。」</p>
-    <div class="speaker">— 摇摇</div>
+    <p>「他提到的一件事很有意思 — 他在这些平台上的发文收入，相对他的主业来说基本可以忽略不计。」</p>
+    <div class="speaker">— 白豆</div>
   </div>
 
-  <p>最后他承认自己<span class="highlight">拖拖拉拉地把它写出来了</span>。他发现：</p>
+  <p>这位创作者最打动白豆的，是他对"信息管理"做的一个文明史式的隐喻：</p>
 
   <div class="steps">
     <div class="step">
-      <h4>接受自己是普通人</h4>
-      <p>世界上普通人挺多的，我也是普通人，干嘛要给自己那么大的希冀呢？期待着不训练不锻炼就直接能变成非常优秀的选手，那是在痴人说梦。</p>
+      <h4>游牧式 — 用了即弃</h4>
+      <p>"我们在豆包、DeepSeek 这种 chatbox 里随便聊一段、用完就扔 — 这个层级是游牧式的，没有任何系统沉淀下来。"</p>
     </div>
     <div class="step">
-      <h4>想去健身房 ≠ 真的去健身房</h4>
-      <p>所有的尝试都是在训练你。你期望举 100 斤的哑铃，那你就要先从 5 斤的开始举。</p>
+      <h4>农耕式 — 必须亲手整理</h4>
+      <p><span class="highlight">"农耕式这一步是必须亲自完成的。"</span> 自动化一个流程之前必须先手动 — 你要知道这个过程中发生了什么。如果自己没有一个清楚的体系或者架构，有再多的自动化工具也好、AI 工具也好，其实都不会加速这个过程。</p>
     </div>
     <div class="step">
-      <h4>面子工程</h4>
-      <p>不记录的一个重要原因 — 觉得写出来的东西不够好，怕丢脸。但其实根本没有那么多人会关注你发生的每一件事。</p>
-    </div>
-    <div class="step">
-      <h4>容错率比想象的大</h4>
-      <p>人生的容错率其实是蛮大的，大到你难以想象。社会是鼓励你犯错的，每一个坑都是现在还造不成严重后果时的宝贵积累。</p>
+      <h4>工业化流水线 — 多 Agent 协同</h4>
+      <p>"农耕的框架搭起来之后，就开始引入一些自动化工具 — 文件重命名、自动化分类，再往上一层就成了多 agent 的协同。"</p>
     </div>
   </div>
 
-  <p>Wendy 听到这里，<span class="accent4-text">说了一句后来让摇摇记住整晚的话</span>：</p>
+  <p>白豆顺势把这个三阶段总结放进了今天公司内部的 AI 大会分享 — 反响很好。他自己分析：<span class="accent-text">"今天分享的效果，越来越自如了。也有可能是自己真的尝试过这些事情，然后其他人有一个信息差在这。"</span></p>
 
-  <div class="quote-block guest">
-    <p>「还有一个问题 — 这个 80 分是谁定义的？你可能是你自己定义的，但是在我这，你已经到 130 分了。」</p>
-    <div class="speaker">— Wendy</div>
+  <div class="quote-block">
+    <p>「因为你可能每天都在琢磨、在用这个。」</p>
+    <div class="speaker">— 李墨玩</div>
   </div>
+
+  <p>这一段的精神底色和上一期"唱跳 Rap 都得会一点"完全一致 — <span class="highlight">真正稀缺的不是工具的使用方法，是"亲手把一件事走过一遍"留下的判断力</span>。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 04: 扮演与真实 -->
+<!-- Chapter 04: 浏览器作为 Token 持有者 -->
 <div class="section">
   <div class="section-label">Chapter 04</div>
-  <h2>装乐观的人，维持不住了</h2>
+  <h2>浏览器作为 Token 持有者</h2>
+  <p>白豆顺手分享了一个他这周新打通的<span class="accent-text">付费文章下载工作流</span> — 把一整个付费专栏导入到 Heptabase 的思路。</p>
 
-  <div class="image-block">
-    <img src="images/mask-water.jpg" alt="面具与水下真实面孔">
-    <div class="caption">我不知道我是不是在装，但即使是在装，我也是在做</div>
-  </div>
+  <p>核心痛点：付费文章直接破解很麻烦；但浏览器已经登录账号了，这就是"天然持有 token 的客户端"。</p>
 
-  <p>摇摇从上高中起就看「感动中国」。有一期讲大连化工厂爆炸，消防局长被评为感动中国人物。记者问他：很多人说你是在装。他回答 —</p>
-
-  <div class="quote-block">
-    <p>「我不知道我是不是在装。但即使是在装，我也是在做。对这件真正有意义的事情，你装我也装，这个世界就会变得很美好。装久了，你自己本身就是这样的人了。」</p>
-    <div class="speaker">— 摇摇转述的故事</div>
-  </div>
-
-  <p>十几年过去，摇摇说他<span class="highlight">一直都是一个状态偏低的人，但一直在装一个积极向上、乐观开朗的角色</span>。他希望别人看到的是「我没有什么烦心事」「这个人还挺厉害的」。</p>
-
-  <div class="quote-block">
-    <p>「一直在维持一个高能量的状态，是一件非常疲惫的事情。内心其实有很多负能量还没有被消化，又没有办法往外展示。这个情绪总是找不到出口。可能也是最近累积到一个度了 — 起伏已经浮到底了。」</p>
-    <div class="speaker">— 摇摇</div>
-  </div>
-
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">它也不是一个不好的事情，你不用把它想成是不好的事情，它就是一个正常的事情。</div>
+  <div class="steps">
+    <div class="step">
+      <h4>SinglePage 下载当前页面</h4>
+      <p>点一下就能把当前付费页面整体存为 HTML — 浏览器是登录态，所以付费内容就被合法地"渲染"进来了。</p>
     </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">我明白。但是不能不计成本地维持，我现在有点维持不住了。</div>
+    <div class="step">
+      <h4>用 Pokemon 插件爬目录页所有链接</h4>
+      <p>"那个宝可梦插件之前拼图墙的时候也跟大家分享过 — 点一下就能爬到目录页所有文章链接。"</p>
     </div>
-    <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">没关系。你就表现你真实的自己，没有人会在意这个东西。</div>
+    <div class="step">
+      <h4>把链接列表转 HTML 收藏夹</h4>
+      <p>关键一步 — 链接列表不能批量打开，但浏览器的 <span class="highlight">"打开整个收藏夹文件夹"</span> 可以。让 AI 把 CSV 链接写成一个 HTML 收藏夹文件，导入浏览器收藏夹，一键全部打开。</p>
+    </div>
+    <div class="step">
+      <h4>用快捷键调起 SinglePage 批量保存</h4>
+      <p>"打开了之后我只需要用快捷键、下载、关闭，基本上不用动光标 — 这个确定性还是很高的。"</p>
+    </div>
+    <div class="step">
+      <h4>Cloud + MCP 自动入库 Heptabase</h4>
+      <p>"下载到本地之后让 Cloud 再去处理一下，调用 Heptabase 的 MCP 直接批量上传就行。"</p>
     </div>
   </div>
 
-  <p>摇摇最后说了一段很重要的话 — 关于<span class="accent-text">密码本和密码</span>：</p>
+  <p>白豆把这个工作流问 AI 总结了一下，回来一个特别贴切的描述：</p>
 
   <div class="quote-block">
-    <p>「我今天跟朋友说，你要去找一找自己生活的触动点。他说有时候像丢掉了那把解锁的密钥 — 你记了事，却记不起当时的感受。所以你不光要记录事情，你还要记录自己在当下这个时间有什么样的触动 — 把密码本和密码放在一起。」</p>
-    <div class="speaker">— 摇摇</div>
+    <p>「最核心的就是『<span class="accent2-text">浏览器作为 token 持有者</span>』— 这是可复用的资产。最关键的是『<span class="highlight">对约束位置的精确识别</span>』。」</p>
+    <div class="speaker">— Cloud（总结白豆的思路）</div>
   </div>
+
+  <p>白豆补了一句很克制的话 — 这件事完全可以再用 Keyboard Maestro 把"快捷键操作"也自动化，但他这次没做：<span class="accent-text">"因为太复杂了，所以没必要。这件事其实没有那么多次数。"</span> — 和上一章"农耕式必须亲手"是同一个判断逻辑。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 05: 把 token 打开 -->
+<!-- Chapter 05: 狭路相逢的复习 -->
 <div class="section">
   <div class="section-label">Chapter 05</div>
-  <h2>李墨玩：把 token 上限打开到 65536</h2>
-  <p>李墨玩这周的关键一步，是<span class="accent-text">把 AI 输出的长度限制手动拧大</span>。他的公众号排版工具之前只能处理两三千字的文章 — 到了 7000 字的长文就爆掉。</p>
+  <h2>狭路相逢 — 比间歇复习更好的方式</h2>
+  <p>这一章由摇摇的一个问题引出 — 她过去试过用文件管理代替软件笔记的方式，最后失败了：</p>
+
+  <div class="quote-block">
+    <p>「我之前在一个文献软件里给它打标签，但是这样子会让标签发生膨胀，到了后来之后我就管理不动了 — <span class="highlight">因为我会忘记我到底给它加了什么标签</span>。</p>
+    <p>一个文章可能有 10 个点，你当时关注的是三个点，但你后来想起它的时候，是想起来其他 7 个里头的某一个 — 然后你就错过了你打的那三个标签。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>白豆引用那位独立创作者文章末尾对"标签"的解释 — <span class="accent-text">"标签最后的归宿是思考"</span>。然后分享了对方在"复习"这一节里提到的一个特别有意思的概念：</p>
+
+  <div class="quote-block">
+    <p>「<span class="highlight">狭路相逢</span> — 你突然就想起了这个东西，或者在学习、工作的时候，突然想起来自己不是很熟，你当下就立马去找一遍、复习一遍。</p>
+    <p>这有可能比 Anki 这种间歇复习还更好 — 因为间歇复习只是你被动地提醒自己，而狭路相逢是<span class="accent-text">根据你生活实践中遇到的频率</span>去复习。」</p>
+    <div class="speaker">— 白豆（引述某独立创作者）</div>
+  </div>
+
+  <p>白豆还做了个补充观察 — 他自己回忆很多文章/资料，<span class="highlight">最有效的入口反而是微信聊天记录</span>。"我能想起来跟谁分享了某个东西，然后从那里翻出来。"</p>
 
   <div class="dialogue">
     <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">模型有个参数叫 max_token。比如你设成 100，AI 最多只能给你 100 个字。默认一般是两万多，最大支持到 65536。我把它放大之后，7000 字的长文它也能一次性排版，而且思考过程也算在这个 token 里面 — 所以要调大一点。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">哦，你解决的这个问题，是把 AI 能够回复的上限改大了，所以排版就一次性出了。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">对。以前只能排两三千字，现在 7000 字一次过。</div>
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">这可能就和你最开始说的，你是那种图像化的人一样 — 你能想起来跟谁分享了某个事，找起来就会好找一些。</div>
     </div>
   </div>
 
-  <p>这种看上去很小的调整，背后是<span class="highlight">"不断踩坑 → 搞懂原理 → 踩过的坑变成经验"</span>的完整循环。李墨玩这周还在做另一件事：把产品部署到宝塔面板，遇到不熟悉的数据库选型 — 以前都是纯自己干，这次他让 AI 先处理：</p>
+  <p>李墨玩这时候插了一句完全不同的思路 — 他自己最近在用的是<span class="accent-text">"让 AI 用 grep 检索"</span>：</p>
 
   <div class="quote-block">
-    <p>「以前我都是自己上传文件、自己处理，没有想过先交给 AI。这次尝试了之后，就可以放心大胆地把这个事交出去，效率会快很多 — 自己不再成为一个卡点。」</p>
+    <p>「Cloud Code 它不是去做向量检索，它是让 AI 自己用 grep 一类的命令去做检索 — 根据实际需要生成关键词。</p>
+    <p>如果你把内容都在本地分类好，然后建立好一个索引机制，让 AI 这样去检索，我觉得也挺好的。我现在自己搜过去的读书笔记，就是用这个去搜。」</p>
     <div class="speaker">— 李墨玩</div>
   </div>
+
+  <p>三种思路：<span class="accent-text">标签 / 狭路相逢 / 让 AI 用 grep 自由检索</span> — 谁都没有终极答案，但三种都还在试。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 06: 做个垃圾 -->
+<!-- Chapter 06: 110 小时与古德哈特 -->
 <div class="section">
   <div class="section-label">Chapter 06</div>
-  <h2>放心大胆地做个垃圾</h2>
-  <p>李墨玩上周给大家推荐了米哈游创始人刘伟的一场演讲。<span class="highlight">米哈游从 2012 年开始做，2020 年才火</span>。前一两年拉投资，投资人觉得"普通"不给投；也非常受挫，一开始做的也很烂。</p>
+  <h2>110 小时与古德哈特陷阱</h2>
+  <p>摇摇这周开场就汇报了一个数字 — <span class="accent3-text">这周加班 110 多个小时</span>，调休时间早就满了（公司规定上限 32 小时调休）。</p>
+
+  <p>但这次她没去抱怨累，她在反思一件更有意思的事情：</p>
 
   <div class="quote-block">
-    <p>「他提到，他们上海交大的同学大部分人都有绩优主义倾向 — 做一件事情就要做到 80 分，做不好我就不做。但带着这种心态去创业，非常不现实。」</p>
-    <div class="speaker">— 李墨玩转述刘伟</div>
+    <p>「这一周做出来什么吗？我觉得也没做出来什么。感觉很多时间不知道去哪了，反正它没有落到实处。<span class="highlight">把杀时间当成一种追求、当成结果的话，好像有点错位了</span>。</p>
+    <p>这个叫古德哈特定律 — 你加班时长肯定是你追求一个更好效果的时候付出的；但你把『加班时长』作为评价标准的话，那就跑偏了。」</p>
+    <div class="speaker">— 摇摇</div>
   </div>
 
-  <p>李墨玩说他自己写公众号 — <span class="accent-text">2020 年写第一篇，2022 年发第二篇，2024 年才更了十几二十篇。去年才开始每周更新两三篇</span>。5 年，一点一滴。</p>
+  <p>她还讲了一个最近刷到的小观察 — 关于"兴趣"：</p>
 
   <div class="quote-block">
-    <p>「那种完美主义倾向的人，往往是不会止步于此的。所以 — 放心大胆地去做一个垃圾。种下一个种子。」</p>
+    <p>「现在很多人把兴趣后面都加一个『但是』 —『我打羽毛球，但是打得不好』。<span class="highlight">兴趣本身就是为了让人高兴、让人感觉到有趣的事情，本身就已经很难得了。如果你还要在这件事情上加上一个标准 — 那你就想要的太多了。</span></p>
+    <p>是一点一点的去做，然后你喜欢就去做。而不是说因为你做了它变得很厉害，你才去做它。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>这一段和上一期摇摇说的"兴趣本身就是结果"是一根线下来的 — 但这次她明显走得更远了一步：<span class="accent-text">兴趣不需要加标准，时间也不需要加标准 — 加什么标准都会把它跑偏</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 慢下来的快乐 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>慢下来的快乐 — 一只乌龟，一个衣柜，一场《情书》</h2>
+
+  <div class="image-block">
+    <img src="images/03.jpg" alt="迷你水族缸里的水草与小乌龟">
+    <div class="caption">把"想要"换成"长出来" — 等待本身就是回报</div>
+  </div>
+
+  <p>摇摇这周做了一件让她特别快乐的事 — 她<span class="accent-text">买了一只乌龟</span>，开始做生态缸。</p>
+
+  <div class="quote-block">
+    <p>「我之前其实特别喜欢养那些小花小草，但是我养不好，又觉得快乐 — 可是养不好这件事情让我觉得很痛苦。然后我就买了一个乌龟 — 基于这个龟缸就可以做各种各样的生态缸，像小景一样。</p>
+    <p>我买了一块这么大的石头，可以放到龟缸里头，往上面铺这些小苔藓。还买了一些前后错落的水培绿植和定植篮。<span class="highlight">按照我目前的设想和想象，它会很好看 — 我不知道会不会好看，等时候有了结果给大家分享一下。</span>」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>除了乌龟，还有两件让她"很享受"的小事：</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>按颜色分类衣柜</h4>
+      <p>"我这个周末周日下午不知道该干嘛了，也不想干活，就去收它。我觉得收纳和做家务有一种独特的快乐。"</p>
+    </div>
+    <div class="step">
+      <h4>看了一部叫《阿玛》的电影哭了</h4>
+      <p>"其实是相对比较简单的电影，但是感情真的流露的太自然、太真挚了。我回来还跟李墨玩说，看哭了 — 觉得很多事情它是自然而然的发生的，<span class="highlight">不能太刻意、太戏剧化 — 普通人的生活追求一个朴实和干净就好了</span>。"</p>
+    </div>
+  </div>
+
+  <p>她还提到了《阿甘正传》里阿甘他妈说的那句话 — 没具体引述，但意思都到了。</p>
+
+  <p>临到结尾，她讲了一个最值得记的"课题分离"概念：</p>
+
+  <div class="quote-block">
+    <p>「我之前有很多次提到 — 我在工作的时候老想着玩；出去玩的时候又觉得工作被耽误了。这些事情互相交织，让我觉得缠得我喘不过气来。</p>
+    <p>这样是不对的 — <span class="accent-text">它们应该分成不同的课题，分成不同的文件夹去管理，它们之间是要隔离的</span>。目前还没做好，应该慢慢去尝试。</p>
+    <p>反正这周玩得很开心 — 可能就是年纪到了，想开了。<span class="highlight">30 了。</span>」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: 当局者迷，旁观者清 -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>当局者迷，旁观者清 — 让子 Agent 替你看代码</h2>
+  <p>李墨玩这周的关键词是<span class="accent-text">"忙不过来"</span> — 他同时在做小程序、之前的群聊日报项目优化迭代、好几条产品线一起跑。</p>
+
+  <div class="quote-block">
+    <p>「我一直让 AI 写代码，但我审核不过来。我怕它搞错 — 你得去看它改对没有，得测试。<span class="highlight">虽然 Git 有自动化测试，但很多时候涉及 UI 还是需要自己去看一下、把关一下。</span>」</p>
     <div class="speaker">— 李墨玩</div>
   </div>
 
-  <p>他还提了一个反例 — <span class="accent3-text">AI-Native 的钉钉走到了另一个极端</span>：</p>
-
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">某大厂现在出了个规定 — 以后写文档都不许人手写，必须是 AI 生成的。另一个大厂的朋友说他们内部评审一个文档，领导会问"这个文档 AI 看过没有？AI 怎么说？"— 给我整笑了。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">哈哈哈哈。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar limo">李</div>
-      <div class="dialogue-text">对，完全走到了另外一个极端。但 AI-Native 组织这个方向是对的 — 每个人的工作边界越来越不清晰。你可能是做产品的，也可以通过 AI 去做营销。怎么跟 AI 更好协作，目前还没有一个成型的理论，朝这个方向琢磨、分享，说不定能成为这个领域走在前沿的人。</div>
-    </div>
-  </div>
-
-  <p>李墨玩最后送了三个大模型的性格画像：</p>
-
-  <div class="insight-grid" style="margin-top:2rem;">
-    <div class="insight-card">
-      <div class="number">GPT</div>
-      <h3>班里的书呆子</h3>
-      <p>刻苦努力，成绩挺好，但不太懂人情世故。跟他沟通，木讷，直白，不会绕。</p>
-    </div>
-    <div class="insight-card">
-      <div class="number">Claude</div>
-      <h3>鬼精鬼精的学霸</h3>
-      <p>学习成绩又好，玩也玩得挺好。脑子特别好用，还会跟你开玩笑，忽悠忽悠你。</p>
-    </div>
-    <div class="insight-card">
-      <div class="number">Gemini</div>
-      <h3>艺术家气质</h3>
-      <p>谈不上最好，也不是最差。不会死读书，但想法特别多 — 做设计、创意非常有天分。</p>
-    </div>
-  </div>
-</div>
-
-<div class="divider">· · ·</div>
-
-<!-- Chapter 07: 白豆身体觉察 -->
-<div class="section">
-  <div class="section-label">Chapter 07</div>
-  <h2>白豆：番茄表单与身体觉察</h2>
-  <p>白豆这周跟大家分享了一个<span class="accent-text">极简的自我监测循环</span>：用 flomo 记身体信号 → AI 自动分组分类 → 每周生成"身体觉察报告"。</p>
-
-  <div class="quote-block">
-    <p>「AI 告诉我本周最强信号 — 我身体上有一些失控，一忙的时候就有一些失控，身体在预警。5 次记录都很困累、嗓子疼、吃太饱也是一个觉察。」</p>
-    <div class="speaker">— 白豆</div>
-  </div>
-
-  <p>他还演示了一个有趣的自动化 — <span class="highlight">番茄表单 + 自动拍照</span>：按下按钮，脚本自动打开飞书极简表单，同时调用电脑摄像头拍一张照片存到本地；提交完表单，照片自动通过飞书 CLI 上传到对应字段。</p>
-
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">我觉得这也算是一个优点 — 人有多大胆，AI 就有多大的可能性。有了想法之后，我就跟 AI 说一下，你帮我做一下，看能不能做到。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">你这些照片里都没有那种"尤里卡"的感觉，都是愁眉苦脸的。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">这是在开始工作之前拍的。年末我可以把所有图做成一个视频联播 — 像动起来一样。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">连续拍摄 1000 天记录变化。</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider">· · ·</div>
-
-<!-- Chapter 08: NFC 手袋 -->
-<div class="section">
-  <div class="section-label">Chapter 08</div>
-  <h2>NFC 手袋：从公众号扒原图到 IP 形象视频</h2>
-  <p>白豆这周接了公司一个 IP 项目 — 配合一场线下市集活动。他的方案是定制<span class="accent-text">NFC 手环</span>：成本两块二、整体是可穿戴的手环、芯片缝在内侧、扫一扫直接跳转。</p>
-
-  <p>这一段的精彩，不在于手环本身，而在于<span class="highlight">他怎么说服老板、以及怎么从供应商那里"扒"到最值得学的案例</span>：</p>
+  <p>他这周做了一个 skill，写进了 Cloud Markdown / Codex Agents 共用的全局指令里：</p>
 
   <div class="steps">
     <div class="step">
-      <h4>让 AI 先把手环渲染出来</h4>
-      <p>不是拿概念说服老板，是拿看得见的实物图。渲染出来的那张图，好几个朋友都没看出来是假的。</p>
+      <h4>让主 Agent 创建一个子 Agent 做审核</h4>
+      <p>"让 AI 创建一个子 agent 去帮我做一些审核 — 它不跟主 agent 共用上下文，会用一个干净的上下文。"</p>
     </div>
     <div class="step">
-      <h4>从供应商发来的参考图里找关键词</h4>
-      <p>供应商给了一张某品牌的定制样张，白豆注意到图上有几个关键字样。搜一下 — 某地区今年的一场品牌活动。</p>
+      <h4>为什么要干净上下文？因为当局者迷</h4>
+      <p>"我怕主 agent 的上下文会有一些污染。<span class="highlight">之前我跟白豆聊天提到 — 当局者迷，旁观者清。这个放在 agent 上面也可以适用。</span>"</p>
     </div>
     <div class="step">
-      <h4>去公众号找原图</h4>
-      <p>"一般这种活动办完之后都会在微信公众号发新闻稿 — 政府部门、各种机构都是以公众号为核心的。要扒信息，公众号最全。" 很快就对上了供应商给的图和公众号里的原图。</p>
-    </div>
-    <div class="step">
-      <h4>其余是 AI 生成</h4>
-      <p>把参考图喂给模型，其余不同款式的渲染图一次性生成出来，放到方案里。</p>
+      <h4>跨 Host 同步指令</h4>
+      <p>"Cloud Markdown 和 Codex 的 agents.md 我是同步更新的 — 我在里面写一条指令，两个都会一起改，skill 也都是共用的。"</p>
     </div>
   </div>
 
-  <p>老板被说服后，整个周末白豆做了一条<span class="accent2-text">以公司 IP 形象为第一视角的介绍视频</span>。他摆摊同时，在旁边的星巴克、四个小时完成：</p>
+  <p>他顺势抛出了今年自己一直在琢磨的更大命题 — <span class="accent-text">"AI Native 组织"</span>：</p>
 
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">我先有了文字脚本 → 用新模型把脚本 + 场景实拍 + IP 形象合成一张关键图 → 动作很好但分辨率不够 → 把动作抠出来 → 用 nano banana 让 IP 模仿这个动作 → 再套上追光动画的风格参考 → 得到完整分镜。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">这个花了多长时间？</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">上午摆摊没做什么，下午 4 小时左右。视频号新号发出去 200 多关注 — 视频号涨粉还是挺难的。</div>
-    </div>
+  <div class="quote-block">
+    <p>「Cloud Code 团队有一篇文章 — 以前改一个功能你要测试、前后端协同，一个项目周期可能几个星期；现在有了 AI 之后，可能变成几天。</p>
+    <p>所以现在的开发范式会有一个很大的变化。<span class="highlight">用传统开发模式去跟 AI 协作，你肯定会很辛苦 — 怎么把 AI 融入到自己的工作流、在组织里建构起 AI First，是值得琢磨的事情。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
   </div>
-
-  <p>白豆最后提了一个让大家都点头的感觉：<span class="accent-text">「人的参与正是那个卡点，也是注入灵魂的东西」</span> — 和李墨玩那句呼应。</p>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 09: Heptabase 白板 -->
+<!-- Chapter 09: OpenAI 的招聘构成 -->
 <div class="section">
   <div class="section-label">Chapter 09</div>
-  <h2>Heptabase 白板 = 物料版的 SOP</h2>
-
-  <div class="image-block">
-    <img src="images/desk-materials.jpg" alt="物料与白板">
-    <div class="caption">不再从脑子里调取 — 打开白板，物料直接在那里</div>
-  </div>
-
-  <p>白豆还分享了一个新发现 — <span class="highlight">Heptabase 白板其实和摇摇、李墨玩分享的 SOP、Skill 是一类东西，只是形态不同</span>。</p>
+  <h2>OpenAI 的招聘构成 — 驻场是新外包</h2>
+  <p>摇摇拉了一张她从 OpenAI 招聘页爬的图（按职能分块）— 她说让人意外的是：</p>
 
   <div class="quote-block">
-    <p>「你们分享的是标准化的操作流程。白板就相当于我把已经做好的东西放在上面 — 我不需要从脑子里把这些东西调出来，直接打开白板，项目里所有物料都在那里，直接可以引用。」</p>
-    <div class="speaker">— 白豆</div>
+    <p>「这些 AI 公司，他们都在让别人用 AI 减少人力成本 — 但他们自己的公司招人还扩张得挺猛的。」</p>
+    <div class="speaker">— 李墨玩</div>
   </div>
 
-  <p>加上这次他做了快 13 个 AI 视频，开始<span class="accent-text">知道哪个模型用哪种方式让它干活</span> — 像导演一样把多个模型组合起来。</p>
+  <p>三人对着图盘了一下三大招聘方向：</p>
 
-  <p>另一个小项目：<span class="accent2-text">测测你是什么中药材</span>。配合 MBTI 的风格，做了 36 味药对应的 36 个小人 + 科普 + "灵魂共振"点评。制作时他还让 Gemini 写了一个小网页，<span class="highlight">点一下就自动复制当前提示词 → 粘贴到即梦生成 → 减少阻力</span>，比手动选中复制快得多。</p>
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="name">基础设施</div>
+      <div class="desc">支撑算力与平台的核心岗位 — 还在持续扩张，是 AI 公司的发动机。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">商业化落地 / FTE</div>
+      <div class="desc">最近增长最快的一类 — <span class="accent-text">相当于以前的外包驻场，但内核换了</span>。驻场到企业里帮企业落地 AI。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">核心技术研发</div>
+      <div class="desc">规模相对稳定 — 核心模型、Agent 框架的研究员，依然是最贵的人。</div>
+    </div>
+  </div>
+
+  <p>李墨玩对 FTE 这条线做了一个特别精准的对比：</p>
+
+  <div class="quote-block">
+    <p>「这其实就是以前那种外包 — 但跟传统外包不太一样。<span class="highlight">以前外包是把无价值的事情外包出去；现在驻场是因为很多企业要做 AI 落地，但是他们不懂。</span></p>
+    <p>你作为一个有 AI 上下文的人，到公司现场去『加载』他们的上下文 — 这是一个挺有意思的方向。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>白豆顺手举了一个具体例子 — 如果让他去前面那位老师朋友的公司驻场一个月，可以解决很多问题。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">但国内 TOB 是挺难做的 — 因为公司多、每个都要做定制化。飞书做到现在还是亏的、还是不赚钱。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">好多老板就是 — 你跟他说"买个飞书吧"，他说"你自己搓一个吧"。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">太真实了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">特别是国企央企，他们都会自己研发，而且他们也不需要追求很高的效率 — <span class="accent-text">使用的人跟采购的人是分离的。</span></div>
+    </div>
+  </div>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 10: Wendy 的一周 -->
+<!-- Chapter 10: 小模型与 TOB 转向 -->
 <div class="section">
   <div class="section-label">Chapter 10</div>
-  <h2>Wendy 的一周：真实这件事</h2>
-  <p>轮到 Wendy 分享自己时，她有点不好意思 — "我写完的时候其实挺不满意的，没有主次之分。" 但她的分享后来成了本期最有力量的部分。</p>
+  <h2>小模型崛起 + 微信 Agent 的推迟</h2>
+  <p>本期里关于行业的最有信息量的一段，来自李墨玩对腾讯财报会和微信 Agent 进度的回看：</p>
 
-  <div class="steps">
-    <div class="step">
-      <h4>饮食与运动：16+8 的节律</h4>
-      <p>8 小时进食窗口、早 9 晚 5、吃三餐吃饱，从春节的 68kg 掉到 65kg 稳定两周。体重没变但维度变了 — 腿细了，可能是肌肉替代了脂肪。她每天跟教练"K"汇报饮食。</p>
+  <div class="quote-block">
+    <p>「腾讯最近的财报会上提到，<span class="accent-text">微信 Agent 要推迟开发</span>。一方面是商业模式没有想好，另一方面是性能问题 — 据我所知，他们打算用混元，但混元的工具调用、Function Call 成功率是很低的。</p>
+    <p>他们最近的重点放在了 WorkBuddy — <span class="highlight">想做的是更多落地在 TOB 的一些场景，因为这个东西是能赚钱的</span>。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>他把这一切放回到 AI 行业经济学的本质里：</p>
+
+  <div class="quote-block">
+    <p>「AI 这一波产品跟过去的互联网产品的逻辑不一样 — <span class="highlight">每增加一个用户，它都是有成本的</span>。</p>
+    <p>不像互联网，用户每增加，边际成本就越来越少、有网络效应。<span class="accent-text">你看豆包不是最近都说不再追求 DAU 的增长了吗 — 因为他不赚钱、追求 DAU 的成本没有意义。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>顺着这个逻辑，李墨玩抛出了一个未来 2 年值得押注的方向：</p>
+
+  <div class="quote-block">
+    <p>「过两年，肯定你会看到很多的小模型崛起 — 这个我觉得是肯定的，而且这是有机会的。<span class="highlight">这个未来的小模型能干些什么 — 这是我最近在琢磨的一个事情。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>摇摇做了一个非常具体的佐证 — 她在公司搭企业级智库时，<span class="accent2-text">"前端切片和分层处理都用的是本地的小模型，可能都不用 7B，3.5B 就可以了"</span>。理由是：成本低 + 数据不外泄。</p>
+
+  <p>另一个李墨玩补的小例子 — 谷歌最近出了可以在手机上跑的大模型，"明明年或者后年，我觉得这会变成一个比较主流的叙事。"</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: 王建硕：代码即汇编 -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>王建硕：代码也成了"汇编"</h2>
+  <p>白豆这周读到的最有冲击力的一篇短文，来自<span class="accent-text">王建硕</span>。文章里他做了一个非常大胆的比喻：</p>
+
+  <div class="quote-block">
+    <p>「旧世界：C 语言其实就是搭在汇编语言上面的 — 汇编那种 0101 太复杂、又看不懂、又不可维护，一改到处是 bug。但人已经不需要再下到这个层级去改这个汇编语言了 — 只需要用 C 这种高级编程语言去操控。</p>
+    <p>新世界：现在 Python 这些代码也会成为类似汇编语言的存在。<span class="highlight">更高级的语言出现了 — 就是自然语言。</span>编译结果不对，可能就是我们的需求没说对。」</p>
+    <div class="speaker">— 白豆（转述王建硕）</div>
+  </div>
+
+  <p>李墨玩立刻举了一个反例修正这个隐喻 — 他自己是自动化专业出身：</p>
+
+  <div class="quote-block">
+    <p>「其实他说的也不完全对 — 你做底层的东西，比如单片机、洗衣机微电脑、华为的很多底层芯片，内存就几 KB 到几百 KB，<span class="accent-text">就必须要用汇编去写</span>。像华为这些公司，懂汇编的程序员是非常值钱的 — 因为汇编特别难学。</p>
+    <p>不管你用什么语言写，最后都要编译成汇编或者更底层的东西给计算机执行 — <span class="highlight">汇编不可或缺。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>他又顺着这个话题讲了一个圈内的有意思的视角 — <span class="accent-text">Rust 程序员瞧不起 Python 程序员</span>：</p>
+
+  <div class="quote-block">
+    <p>「Rust 写出来的项目 — Python 可能要 100 MB，它可能只要 20 MB 就搞定，代码包特别优雅。所以很多老程序员就特别看不起 Python。</p>
+    <p>但 Python 在深度学习、在 AI 这个领域又特别重要 — <span class="highlight">因为它有很多模块、导入一个包就可以直接调用，不用老是自己开发。</span>」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>所以"代码即汇编"这个比喻不是不对，是<span class="accent-text">"分层"</span> — 每一层都有它最适合的那种语言，只是上层会被新的工具不断推上去。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 12: Wendy 的设计师视角 -->
+<div class="section">
+  <div class="section-label">Chapter 12</div>
+  <h2>Wendy 做客 · Taste 是最后的护城河</h2>
+
+  <div class="image-block">
+    <img src="images/04.jpg" alt="博物馆里被聚光照亮的抽象雕塑">
+    <div class="caption">Taste — 不容易量化，但永远值得为它停下来</div>
+  </div>
+
+  <p>Wendy 这次做客是带着一个非常真实的处境来的 — <span class="accent4-text">她上周刚从一家公司离职</span>，正在思考 AI 对她这个行业（艺术 / 设计 / UI）的冲击。</p>
+
+  <div class="quote-block purple">
+    <p>「最近有很多人在做 AI 生成的 UI、生成 APP — 所以对我们设计类这个行业，冲击是蛮大的。</p>
+    <p>我突然觉得很有信心的是 — 上周三跟白豆聊完之后，他给我举了很多 AI Agent 生成的例子，<span class="highlight">我发现人和 AI 的区别不在于技能上，而是说在对它的调控和管理 — 包括作为艺术生来说，对审美的把关。</span></p>
+    <p>不管 Agent 生成一个什么样的 UI — 最后比如你想生成一个比较好的 APP，都需要一个有审美的 UI Designer 去把关。在这个博弈过程中，最后是人类会胜利 — 取决于你怎么去操控它、怎么去驾驭它。」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+
+  <p>她讲到一个更尖锐的反直觉判断 — <span class="accent-text">marketing 可能比 design 更容易被 AI 取代</span>：</p>
+
+  <div class="quote-block purple">
+    <p>「marketing 除了非常高层的 strategy 部分（一年做几个 campaign、跟谁合作、主题是什么），其他全部都是承接 strategy 之后的<span class="highlight">执行端 — 它本质就是 communication</span>。</p>
+    <p>跟 KOL 沟通、做预算（套模板）、联系厂商供应商对接 — 这些都可以给 Agent 去做、直接同步进行。</p>
+    <p>站在 design 的角度反而至少需要一个审美的判断 — 这个落地的效果是不是符合市面的需求、是不是好看、有没有高级感。<span class="accent-text">这个还是需要人去做判断的。</span>」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+
+  <p>摇摇当场就给出了一个完美的佐证 — 她最近读的一本叫《超级 AI 组织》的书，里面举的霸王茶姬泰国营销的案例：</p>
+
+  <div class="quote-block">
+    <p>「霸王茶姬在泰国的营销活动 — 完全是营销智能体锁定 KOL，根据预设规则做深度筛选，实时追踪 KOL 发布内容后的热度变化，再来迭代筛选。<span class="highlight">Wendy 这个判断很准确，确实有实力在做这些事情。</span>」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>李墨玩追加了一个更普世的判断 — 对所有"被工具抬高底线"的行业都通用：</p>
+
+  <div class="quote-block">
+    <p>「AI 可以快速抹平 — 你跟刚毕业的人、跟工作 2、3 年的人的水平拉到差不多。<span class="accent-text">但你跟工作 5、6 年的人，还是差一个 Taste。</span>这个在未来会越来越重要。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>Wendy 给自己定下了一个 buffer — <span class="accent4-text">拒了 marketing 的 offer，给自己三个月时间，重新想清楚未来怎么和 AI 协作</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 13: 打败不了就协作 -->
+<div class="section">
+  <div class="section-label">Chapter 13</div>
+  <h2>打败不了 AI，就把自己喂给它</h2>
+  <p>摇摇给 Wendy 提了一个非常具体、可立即操作的建议 — 黄仁勋那句话的延伸：</p>
+
+  <div class="quote-block">
+    <p>「AI 不会替代你，但是会用 AI 的人会替代你。</p>
+    <p>你可以基于你的思考、结合你的品位，<span class="highlight">利用 AI 放大你的能力</span>。把你的能力底座、过往作品集、过往经验都告诉 AI — 然后告诉它 "在 AI 时代你可以做什么"，跟它做一些交互，看看他会有什么帮助。</p>
+    <p>白豆之前也做过类似的事情 — 让 AI 评判他、把自己做的一些文章发给它。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>Wendy 接得很俏皮 — <span class="accent4-text">"那我就要问他：以我现在的能力，我要如何才能打败你们 AI？"</span></p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">打败是打败不了。</div>
     </div>
-    <div class="step">
-      <h4>学会听身体</h4>
-      <p>"点多了其实吃到一半就饱了。你越稍微少一点，它就会越随着你身体走。"</p>
-    </div>
-    <div class="step">
-      <h4>七年的仆人式复盘</h4>
-      <p>每周和几位朋友读经、分享。"除了跟老师那次以外，我都会提前准备 — 去服侍对方，看对方有什么需要。就算我状态不好，也会像摇摇说的 — 好像 biu 给自己按了一个按钮就醒来。"</p>
-    </div>
-    <div class="step">
-      <h4>练摩托、修手指</h4>
-      <p>19 岁的亲戚因骑摩托走了 — 她学一门技能同时想科普安全。今天练车发现左手大拇指弯不动了 — 20 年理发只用右手，左手长期被忽略。她决定去积水潭手外科。</p>
-    </div>
-    <div class="step">
-      <h4>女儿教她的"真实"</h4>
-      <p>女儿跟学校老师的一次对话，让她发现自己面对学校、机关会下意识迎合。"假如是不痛不痒的事无所谓，但有原则性问题，我还是应该要坚持 — 第一坚持真实，第二坚持本心。我是怎么想的，我就怎么说。"</p>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">主要是说 — 跟它协作，去放大你自己的长板。</div>
     </div>
   </div>
 
-  <div class="quote-block guest">
-    <p>「其实我感觉我这周过得特别糟 — 但是通过跟你们分享完，我觉得也没那么糟。」</p>
+  <p>Wendy 顺势讲了一个更深的判断 — <span class="accent-text">未来不同档位的客户会被分开</span>：</p>
+
+  <div class="quote-block purple">
+    <p>「未来追求高效的设计，target 可能是比较低价的东西 — 因为它不需要设计，只需要功能性。</p>
+    <p>但所有有 Taste 的东西，不管是产品还是艺术，<span class="highlight">它的 target 是会为 Taste 花钱的人 — 中高层的消费者</span>。是不是以后我要做的事情，是针对这类人来做。」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+
+  <div class="quote-block">
+    <p>「流水线生产替代了很多商品，但你看那些奢侈品，照样卖的很好。」</p>
+    <div class="speaker">— 摇摇</div>
+  </div>
+
+  <p>白豆把这个判断收成了一句话：<span class="highlight">"讲故事，以及触动别人感受的能力。"</span></p>
+
+  <div class="quote-block purple">
+    <p>「Storytelling 很重要 — 包括跟人的沟通、怎么样推销，不管推销自己还是推销产品。<span class="accent-text">画饼这件事情在这个时代尤为重要。</span>」</p>
     <div class="speaker">— Wendy</div>
   </div>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- Chapter 11: Wendy 三连击 -->
+<!-- Chapter 14: 启示 -->
 <div class="section">
-  <div class="section-label">Chapter 11</div>
-  <h2>Wendy 的跨领域三连反馈</h2>
-
-  <div class="image-block">
-    <img src="images/scale-dandelion.jpg" alt="天平与蒲公英">
-    <div class="caption">他人视角比你自己的更宽容 — 标准可以换一个参照系</div>
-  </div>
-
-  <p>Wendy 这期最重要的贡献 — 给三个人每人一段<span class="highlight">完全跨领域的、有感而发的</span>反馈：</p>
-
-  <div class="quote-block guest">
-    <p>「摇摇，还有一个问题 — 这个 80 分是谁定义的？在我这你已经到 130 分了。你可能对自己定的太高了 — 不要着急，慢慢来。你已经很棒了。」</p>
-    <div class="speaker">— Wendy 对摇摇</div>
-  </div>
-
-  <div class="quote-block guest">
-    <p>「白豆，你分享的颜色多、有图有视频，会引起我的注意力。但你要注意一下自己的身体 — 一天做两天的事在透支你，你已经被透支掉了。把两天的事分到两天去做。」</p>
-    <div class="speaker">— Wendy 对白豆（摇摇接一句：我感觉你已经被透支掉了）</div>
-  </div>
-
-  <div class="quote-block guest">
-    <p>「李墨玩，我跟你见过面。你分享产品的时候声音有点严肃、节奏一步一步的，像产品经理，有点威严感。但实际上你本人是挺亲和的。下次要不要开一下摄像头？拍视频是更面对摄像头的事情，开摄像头也是一种无形的锻炼。」</p>
-    <div class="speaker">— Wendy 对李墨玩</div>
-  </div>
-
-  <div class="dialogue">
-    <div class="dialogue-item">
-      <div class="avatar baidou">白</div>
-      <div class="dialogue-text">你是所有做客里面写得最多、分享最多的。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">而且你很清晰地给了我们三个人每人一个反馈，非常的充分和贴切。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar wendy">文</div>
-      <div class="dialogue-text">我这些都是听了你们分享之后有感而发的 — 没有准备，没有计划。而且有些时候你拦也拦不住，不行，必须要说。</div>
-    </div>
-    <div class="dialogue-item">
-      <div class="avatar yaoyao">摇</div>
-      <div class="dialogue-text">有感而发的才是真实的，才是有生命力的。</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider">· · ·</div>
-
-<!-- Chapter 12: 启示 -->
-<div class="section">
-  <div class="section-label">Chapter 12</div>
+  <div class="section-label">Chapter 14</div>
   <h2>本期启示</h2>
 
   <div class="insight-grid">
     <div class="insight-card">
       <div class="number">01</div>
-      <h3>80分是谁定义的</h3>
-      <p>你的"不及格"可能是别人眼里的"超优秀"。换一个参照系，天平会倾斜。标准从来不是客观的 — 它只是某个人眼里的刻度。</p>
+      <h3>教别人是把别人的 KPI 算到自己头上</h3>
+      <p>"教过程比较耗费时间，但如果别人真的搞起来之后，对你自己来讲是有很大帮助的 — 这个时间还是挺值得花的。"</p>
     </div>
     <div class="insight-card">
       <div class="number">02</div>
-      <h3>装久了就真了</h3>
-      <p>"即使是在装，我也是在做。" 但前提是：不要透支地装。装到能量见底，就该接受真实的自己 — 让真实的表达有出口。</p>
+      <h3>老师 IP 的复利</h3>
+      <p>学生跟着老师走，不跟平台走。出来做自己的人，靠的不是新的工具，而是过去几年"被记住"的那批人。</p>
     </div>
     <div class="insight-card">
       <div class="number">03</div>
-      <h3>放心大胆做个垃圾</h3>
-      <p>米哈游 10 年才火，李墨玩 5 年才稳定每周更。想做 100 分的思想实验会让你永远不开始。想去健身房 ≠ 真的去健身房。</p>
+      <h3>从游牧到农耕到流水线</h3>
+      <p>自动化之前必须先手动。没有亲手走过一遍的农耕，就算挂上再多自动化工具也没用 — 你不知道哪里该自动化、哪里该克制。</p>
     </div>
     <div class="insight-card">
       <div class="number">04</div>
-      <h3>密码本和密码要在一起</h3>
-      <p>光记事件不够。你还要记下当时的触动 — 不然五年后打开密码本，却发现已经没有钥匙可以打开那个时刻的房间了。</p>
+      <h3>浏览器是天然的 Token 持有者</h3>
+      <p>付费内容、登录态、cookie — 浏览器是合法持有这些"凭证"的客户端。利用它做工作流，比硬破解优雅得多。</p>
     </div>
     <div class="insight-card">
       <div class="number">05</div>
-      <h3>人是最大的卡点</h3>
-      <p>AI 的效率很高，你自己变成了流程里最慢的那个节点。把能交的交给 AI，剩下真正需要注入灵魂的那一步，就是你的价值。</p>
+      <h3>狭路相逢 > 间歇复习</h3>
+      <p>主动等到自己"需要"的时候去找一次，比 Anki 推到你脸上的复习更牢。频率不要靠算法，靠生活本身。</p>
     </div>
     <div class="insight-card">
       <div class="number">06</div>
-      <h3>人有多大胆，AI 有多大可能</h3>
-      <p>不要自己先给自己画限制。先提需求，再让 AI 告诉你能不能做到。番茄表单自动拍照、NFC 手环方案渲染 — 都是这么冒出来的。</p>
+      <h3>古德哈特陷阱：时间不是结果</h3>
+      <p>110 小时加班不等于产出。一旦"加班时长"成为评价标准，行为就开始为标准服务，而不是为目标服务。</p>
     </div>
     <div class="insight-card">
       <div class="number">07</div>
-      <h3>一个好反馈从旁观者来</h3>
-      <p>熟悉的人给的反馈带着滤镜。陌生行业的旁观者，反而能用最朴素的直觉戳破你的自我迷雾。"在我这你 130 分了" — 这句话比 100 个"别焦虑"都管用。</p>
+      <h3>兴趣不需要加标准</h3>
+      <p>"兴趣 + 但是" 是个陷阱 — 让人高兴的事情本身就足够了。30 岁想开的一件事：不要再给本来快乐的东西加上一个评分。</p>
     </div>
     <div class="insight-card">
       <div class="number">08</div>
-      <h3>真实才有生命力</h3>
-      <p>Wendy 说她没有准备；但最真实的表达反而最有穿透力。"不迎合、坚持本心"不是一句口号 — 是被女儿的直接教回来的一课。</p>
+      <h3>当局者迷，旁观者清</h3>
+      <p>多 Agent 协同的核心不是模型有多强，是"上下文要分干净" — 让一个不带情感的子 Agent 去审你写的代码。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">09</div>
+      <h3>驻场 = 加载上下文</h3>
+      <p>新一代"驻场"不是承包琐事，而是把 AI 的上下文带进企业。OpenAI FTE 的爆发是这一波最被低估的招聘信号。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">10</div>
+      <h3>小模型崛起 + TOB 回归</h3>
+      <p>每个用户都有边际成本的产品，DAU 不是答案。本地 3.5B 小模型 + 行业落地，才是接下来 2 年的主旋律。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">11</div>
+      <h3>marketing 比 design 更危险</h3>
+      <p>communication 容易给 AI 做，taste 不容易。霸王茶姬的营销智能体已经实证 — 而设计的"那一刀拍板"还需要人。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">12</div>
+      <h3>把 Taste 喂给 AI，问它怎么打败你</h3>
+      <p>打败不了就协作。把你的能力底座、作品集都告诉 AI，让它告诉你 — 你现在最稀缺的那一寸长板在哪里。</p>
     </div>
   </div>
 </div>
 
 <div class="divider">· · ·</div>
 
-<!-- 尾声 -->
+<!-- Epilogue -->
 <div class="section">
   <div class="section-label">Epilogue</div>
-  <h2>散场：今天一定用起来</h2>
+  <h2>巫师独自前行</h2>
 
-  <p>会议临近结束的时候，Wendy 说她通过听这期，回想了自己六年的复盘 — "其实我有很多很多变化，我现在觉得我应该把它写下来。有很多很好的东西，靠脑袋靠不住。"</p>
-
-  <div class="quote-block">
-    <p>「Anki 你还一直没给我弄呢。」<br>「下一次见面我们留出一小时。」<br>「下次一定。」</p>
-    <div class="speaker">— Wendy × 白豆 × 摇摇</div>
+  <div class="image-block">
+    <img src="images/05.jpg" alt="山间云雾中的小径与远山">
+    <div class="caption">"伟大的巫师总是独自前行，只要空气里的元素依然回应他的召唤。"</div>
   </div>
 
-  <p>然后 Wendy 发现了一个彩蛋 — 摇摇的脸上突然出现了腾讯会议的花瓣特效。"你是怎么弄出来的？" 摇摇也不知道。<span class="highlight">一场深夜复盘，结束在三个人笑着道别的画面里</span>。</p>
+  <p>本期最被白豆引用最多次的一句话，来自他这周读的那位独立创作者的文章 — 关于"如何把一篇文章压缩成一个可被引用的钻石"：</p>
+
+  <div class="quote-block">
+    <p>「<span class="highlight">伟大的巫师总是独自前行，只要空气里的元素依然回应他的召唤。</span>」</p>
+    <div class="speaker">— 白豆（引述）</div>
+  </div>
+
+  <p>白豆补了一句 — "每一篇文章的标题都是一个 API。有时候我们不需要打开这个黑箱去看它具体是什么样，而是直接引用个标题就行。" 一篇文章成为 API，一句话成为意象，<span class="accent-text">一个人的几年累积成为他自己的库</span>。</p>
+
+  <p>临到散场，Wendy 给三个人一个外部视角的反馈：</p>
+
+  <div class="quote-block purple">
+    <p>「你们每周都做了非常多的事情。我很难想象现在已经在上班了，每周还可以 side work 到这种程度。<span class="highlight">你们很神奇 — 怎么会每周都有进展，这也太厉害了。</span></p>
+    <p>而且我能感受到 — 你们是很认真的在经营自己的生活和经营自己的进步的。这一点很重要，能够在你们给我传达的时候感受到那份力量。」</p>
+    <div class="speaker">— Wendy</div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar yaoyao">摇</div>
+      <div class="dialogue-text">因为我们是把有进展的事情展现上来了。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">有时候因为要开一个会 — 如果完全没有任何进展，都不好意思来。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar wendy">W</div>
+      <div class="dialogue-text">这就是 weekly 的作用 — 每周要开周会，就是因为你必须要整点什么能展示的东西出来。</div>
+    </div>
+  </div>
+
+  <p>Wendy 抛出了一个让三个人都笑了的好奇 — <span class="accent4-text">"你们三个没有想过合作搞一点什么事情吗？我看你们每一周都在 Weekly。"</span></p>
+
+  <div class="quote-block">
+    <p>「我们今年想把这个复盘的东西往外推一推 — 所以才会有做客这件事情。这是我们今年衍生出来的。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
 
   <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
-    <span class="accent-text">要给自己积极的暗示。像白豆去年执行的 — 早上起来要给自己打打气。</span><br>
-    <span style="font-size:0.8rem;">— 摇摇</span>
+    <span class="accent4-text">那我们今天到这 — 朋友们早点休息。</span><br>
+    <span style="font-size:0.8rem;">— 白豆 × 摇摇 × 李墨玩 × Wendy，散场时</span>
   </p>
 </div>
 
 <footer>
   <div class="logo">豆摇峰</div>
-  <p>第八期 · 2026.04.19 · 80分是谁定义的？</p>
-  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 × Wendy 首次做客</p>
+  <p>第十一期 · 2026.05.18 · 巫师独自前行</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 本期做客嘉宾 Wendy</p>
 </footer>
 
 <script>
