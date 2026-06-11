@@ -909,5 +909,206 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.section').forEach(el => observer.observe(el));
 </script>
 
+<!-- Episode Navigation -->
+<style>
+.epnav {
+  margin-top: 4rem;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.epnav-arrow {
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.epnav-arrow.epnav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+.epnav-arrow:hover .epnav-title {
+  color: var(--accent, #d4a853);
+}
+.epnav-disabled {
+  flex: 1;
+}
+.epnav-dir {
+  font-size: 0.75rem;
+  color: var(--dim, #8a8578);
+  letter-spacing: 0.05em;
+}
+.epnav-title {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  transition: color 0.2s;
+}
+.epnav-center {
+  flex-shrink: 0;
+}
+.epnav-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--dim, #8a8578);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.epnav-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--accent, #d4a853);
+  border-color: rgba(212,168,83,0.3);
+}
+.epnav-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+.epnav-modal.open {
+  display: flex;
+}
+.epnav-modal-content {
+  background: rgba(20,20,28,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.epnav-modal-header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.epnav-modal-header span {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  color: var(--accent, #d4a853);
+}
+.epnav-close {
+  background: none;
+  border: none;
+  color: var(--dim, #8a8578);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.epnav-close:hover {
+  color: var(--text, #e8e4df);
+}
+.epnav-list {
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+.epnav-list::-webkit-scrollbar {
+  width: 6px;
+}
+.epnav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.epnav-list::-webkit-scrollbar-thumb {
+  background: rgba(212,168,83,0.3);
+  border-radius: 3px;
+}
+.epnav-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(212,168,83,0.6);
+}
+.epnav-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  transition: background 0.15s;
+}
+.epnav-list-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+.epnav-list-item.epnav-active {
+  background: rgba(212,168,83,0.1);
+  border-left: 3px solid var(--accent, #d4a853);
+}
+.epnav-list-num {
+  font-size: 0.75rem;
+  color: var(--accent, #d4a853);
+  flex-shrink: 0;
+  width: 3em;
+}
+.epnav-list-title {
+  font-size: 0.85rem;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.epnav-list-date {
+  font-size: 0.7rem;
+  color: var(--dim, #8a8578);
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .epnav {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .epnav-title {
+    max-width: 140px;
+  }
+  .epnav-center {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}
+</style>
+
+<nav class="epnav">
+  <!-- SLOT:PREV_LINK -->
+  <div class="epnav-center">
+    <button class="epnav-btn" onclick="document.getElementById('epModal').classList.add('open')">选择期数</button>
+  </div>
+  <!-- SLOT:NEXT_LINK -->
+</nav>
+
+<div class="epnav-modal" id="epModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="epnav-modal-content">
+    <div class="epnav-modal-header">
+      <span>每周聊什么</span>
+      <button class="epnav-close" onclick="document.getElementById('epModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="epnav-list">
+      <!-- SLOT:EPISODE_LIST -->
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -399,7 +399,7 @@
   <div class="section-label">李墨玩篇</div>
   <h2>公众号排版的<span class="highlight-blue">端到端革命</span></h2>
   <p>李墨玩做了一个 AI 公众号排版工具：把文章复制粘贴进去，AI 一键直出排版好的效果，直接复制到公众号就行。跟秀米的区别是——<span class="highlight-blue">端到端</span>，不用手动微调。</p>
-  <p>已经有真实用户在用了。「别有所思」和他老婆都给了正面反馈，说解决了很大的实际问题。老婆以前要先转 Markdown，再用扣子处理，再粘贴到排版网站——现在一步到位。</p>
+  <p>已经有真实用户在用了，朋友小别和小欧都给了正面反馈，说解决了很大的实际问题，小欧说以前要先转 Markdown，再用扣子处理，再粘贴到排版网站——现在一步到位。</p>
   <div class="quote-block blue">
     我从去年 3 月 16 号恢复更新，从每周两篇到每周四篇，坚持了一年，写了 20 万个字。回头去看的时候有一种震撼感——以前觉得做不到的事，居然没有断更过。
     <div class="quote-author">—— 李墨玩</div>
@@ -581,6 +581,217 @@
   }, { threshold: 0.15 });
   sections.forEach(s => observer.observe(s));
 </script>
+
+
+<!-- Episode Navigation -->
+<style>
+.epnav {
+  margin-top: 4rem;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.epnav-arrow {
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.epnav-arrow.epnav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+.epnav-arrow:hover .epnav-title {
+  color: var(--accent, #d4a853);
+}
+.epnav-disabled {
+  flex: 1;
+}
+.epnav-dir {
+  font-size: 0.75rem;
+  color: var(--dim, #8a8578);
+  letter-spacing: 0.05em;
+}
+.epnav-title {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  transition: color 0.2s;
+}
+.epnav-center {
+  flex-shrink: 0;
+}
+.epnav-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--dim, #8a8578);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.epnav-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--accent, #d4a853);
+  border-color: rgba(212,168,83,0.3);
+}
+.epnav-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+.epnav-modal.open {
+  display: flex;
+}
+.epnav-modal-content {
+  background: rgba(20,20,28,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.epnav-modal-header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.epnav-modal-header span {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  color: var(--accent, #d4a853);
+}
+.epnav-close {
+  background: none;
+  border: none;
+  color: var(--dim, #8a8578);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.epnav-close:hover {
+  color: var(--text, #e8e4df);
+}
+.epnav-list {
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+.epnav-list::-webkit-scrollbar {
+  width: 6px;
+}
+.epnav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.epnav-list::-webkit-scrollbar-thumb {
+  background: rgba(212,168,83,0.3);
+  border-radius: 3px;
+}
+.epnav-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(212,168,83,0.6);
+}
+.epnav-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  transition: background 0.15s;
+}
+.epnav-list-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+.epnav-list-item.epnav-active {
+  background: rgba(212,168,83,0.1);
+  border-left: 3px solid var(--accent, #d4a853);
+}
+.epnav-list-num {
+  font-size: 0.75rem;
+  color: var(--accent, #d4a853);
+  flex-shrink: 0;
+  width: 3em;
+}
+.epnav-list-title {
+  font-size: 0.85rem;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.epnav-list-date {
+  font-size: 0.7rem;
+  color: var(--dim, #8a8578);
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .epnav {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .epnav-title {
+    max-width: 140px;
+  }
+  .epnav-center {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}
+</style>
+
+<nav class="epnav">
+  <a class="epnav-arrow" href="/ep/01/"><span class="epnav-dir">← 上一期</span><span class="epnav-title">EP01 AI时代，我们的不可替代性在哪里</span></a>
+  <div class="epnav-center">
+    <button class="epnav-btn" onclick="document.getElementById('epModal').classList.add('open')">选择期数</button>
+  </div>
+  <a class="epnav-arrow epnav-next" href="/ep/03/"><span class="epnav-dir">下一期 →</span><span class="epnav-title">EP03 Regenerate — AI创作的虚假繁荣与真实内化</span></a>
+</nav>
+
+<div class="epnav-modal" id="epModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="epnav-modal-content">
+    <div class="epnav-modal-header">
+      <span>每周聊什么</span>
+      <button class="epnav-close" onclick="document.getElementById('epModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="epnav-list">
+    <a class="epnav-list-item" href="/ep/01/"><span class="epnav-list-num">EP01</span><span class="epnav-list-title">AI时代，我们的不可替代性在哪里</span><span class="epnav-list-date">2026.03.22</span></a>
+    <a class="epnav-list-item epnav-active" href="/ep/02/"><span class="epnav-list-num">EP02</span><span class="epnav-list-title">能力地图 × 长板理论 × 德州扑克哲学</span><span class="epnav-list-date">2026.03.29</span></a>
+    <a class="epnav-list-item" href="/ep/03/"><span class="epnav-list-num">EP03</span><span class="epnav-list-title">Regenerate — AI创作的虚假繁荣与真实内化</span><span class="epnav-list-date">2026.04.07</span></a>
+    <a class="epnav-list-item" href="/ep/04/"><span class="epnav-list-num">EP04</span><span class="epnav-list-title">你真的懂，还是你以为你懂？</span><span class="epnav-list-date">2026.04.12</span></a>
+    <a class="epnav-list-item" href="/ep/05/"><span class="epnav-list-num">EP05</span><span class="epnav-list-title">80分是谁定义的？ × Wendy 做客</span><span class="epnav-list-date">2026.04.19</span></a>
+    <a class="epnav-list-item" href="/ep/06/"><span class="epnav-list-num">EP06</span><span class="epnav-list-title">看五年，想三年，做好一年</span><span class="epnav-list-date">2026.04.27</span></a>
+    <a class="epnav-list-item" href="/ep/07/"><span class="epnav-list-num">EP07</span><span class="epnav-list-title">唱跳 Rap 都得会一点</span><span class="epnav-list-date">2026.05.12</span></a>
+    <a class="epnav-list-item" href="/ep/08/"><span class="epnav-list-num">EP08</span><span class="epnav-list-title">巫师独自前行 × Wendy 做客</span><span class="epnav-list-date">2026.05.18</span></a>
+    <a class="epnav-list-item" href="/ep/09/"><span class="epnav-list-num">EP09</span><span class="epnav-list-title">让记忆成为一种选择 × 魏伦达做客</span><span class="epnav-list-date">2026.06.03</span></a>
+    <a class="epnav-list-item" href="/ep/10/"><span class="epnav-list-num">EP10</span><span class="epnav-list-title">把流程当作产品</span><span class="epnav-list-date">2026.06.07</span></a>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

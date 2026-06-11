@@ -104,6 +104,7 @@ mkdir -p ep/XX/images
 - 模板的 CSS / 字体 / 滚动动画脚本不要动
 - 图片用相对路径 `images/01.jpg`
 - 引语块只留真正有含义的金句；过场对话放进正文或 `.dialogue`
+- 填写底部导航占位符（`SLOT:PREV_LINK` / `SLOT:NEXT_LINK` / `SLOT:EPISODE_LIST`），根据主站 index.html 的 episodes 列表生成上下期链接和完整列表，当前期加 `epnav-active` class
 
 ## 第 5 步 · 加入主站列表
 
@@ -113,9 +114,11 @@ mkdir -p ep/XX/images
 <a class="ep fi" href="/ep/XX/">
   <span class="ep-n">EPXX</span>
   <span class="ep-t">本期标题</span>
-  <span class="ep-d">MM.DD</span>
+  <span class="ep-d">YYYY.MM.DD</span>
 </a>
 ```
+
+同时更新上一期（`ep/XX-1/index.html`）底部导航的「下一期」链接，指向本期。
 
 ## 第 6 步 · 验证（push 前必做）
 
