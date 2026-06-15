@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆摇峰 · 第十一期 — 把干货包装成能被接住的样子</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e4df;
+    --dim: #8a8578;
+    --accent: #d4a853;
+    --accent2: #6bb5c9;
+    --accent3: #c4735b;
+    --accent4: #b887c7;
+    --accent5: #7ec488;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 35%, rgba(107,181,201,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 65%, rgba(196,115,91,0.08) 0%, transparent 50%);
+    animation: drift 24s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero .episode {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .accent-text { color: var(--accent); font-weight: 500; }
+  .accent2-text { color: var(--accent2); font-weight: 500; }
+  .accent3-text { color: var(--accent3); font-weight: 500; }
+  .accent4-text { color: var(--accent4); font-weight: 500; }
+  .accent5-text { color: var(--accent5); font-weight: 500; }
+
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block.orange { border-left-color: var(--accent3); }
+  .quote-block.blue { border-left-color: var(--accent2); }
+
+  .quote-block p {
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-block .speaker {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 500;
+  }
+
+  .quote-block.orange .speaker { color: var(--accent3); }
+  .quote-block.blue .speaker { color: var(--accent2); }
+
+  .image-block {
+    margin: 3rem -2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .image-block .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .dialogue {
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .dialogue-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .avatar.baidou { background: linear-gradient(135deg, #d4a853, #b8922e); color: #1a1a1a; }
+  .avatar.limo { background: linear-gradient(135deg, #6bb5c9, #4a96ab); color: #1a1a1a; }
+  .avatar.yaoyao { background: linear-gradient(135deg, #c4735b, #a85a43); color: #1a1a1a; }
+
+  .dialogue-text {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .divider {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    color: var(--dim);
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+    opacity: 0.3;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .insight-card .number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .steps {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .step {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4.5px);
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .platform-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .platform-card .name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .platform-card .desc {
+    font-size: 0.82rem;
+    color: var(--dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  footer .logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.5rem; }
+    .image-block { margin: 2rem -1.5rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="episode">豆摇峰 · 第十一期</div>
+    <h1>把干货包装成能被接住的样子</h1>
+    <div class="subtitle">从平台分发、爆款包装到语音写作和 AI 小工具<br>有用只是底座，被看见、被使用、被复用才会产生影响</div>
+    <div class="meta">2026.06.15 · 白豆 · 李墨玩 · 王小宁做客 · 摇摇缺席</div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- Chapter 01: 会前文档 -->
+<div class="section">
+  <div class="section-label">Chapter 01</div>
+  <h2>复盘不是汇报，是把讨论提前发生</h2>
+
+  <div class="image-block">
+    <img src="images/01.jpg" alt="夜色中围绕圆桌展开的线上复盘会意象">
+    <div class="caption">会前先写、先读、先评论，会上直接碰撞</div>
+  </div>
+
+  <p>本期摇摇去参加黑客松，白豆和李墨玩迎来王小宁做客。开场第一件事不是正式分享，而是把豆摇峰的工作方式讲给嘉宾听：<span class="accent-text">每个人先把周报写到文档里，会前互相评论，会上不再逐字复述，而是直接回答问题、展开讨论</span>。</p>
+
+  <div class="quote-block">
+    <p>「我们一开始是每个人对着讲文档，每次都要花很多时间。后来改成先发文档、先评论，会上就不用完整讲了，回答问题就好，效率会高很多。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这其实给本期定了一个底色：<span class="highlight">真正稀缺的不是把信息堆出来，而是把信息处理成别人能进入、能回应、能继续推进的状态</span>。从复盘会到自媒体，从语音写作到 AI 工具，后面所有话题都在反复回到这件事。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 02: 平台逻辑 -->
+<div class="section">
+  <div class="section-label">Chapter 02</div>
+  <h2>平台不是容器，是不同的接收姿势</h2>
+
+  <div class="image-block">
+    <img src="images/02.jpg" alt="书本、纸卡和竖屏设备被光线连接在同一张木桌上">
+    <div class="caption">同一份内容，换一个入口，命运就变了</div>
+  </div>
+
+  <p>李墨玩先从一个很具体的小问题讲起：为什么小红书标题限制得很短，而公众号标题可以写得更长？他的判断是，<span class="accent-text">这不是单纯的字数设定，而是产品形态在倒推表达方式</span>。</p>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="name">小红书</div>
+      <div class="desc">双列瀑布流、图文优先、搜索属性强。标题要短、要能立即给人一个点击理由。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">公众号</div>
+      <div class="desc">长文承载力更强，标题承担概括文章主旨的任务，读者也更愿意进入完整语境。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">抖音</div>
+      <div class="desc">更接近即时情绪和娱乐消费，热点、反转、互动小工具都更容易被放大。</div>
+    </div>
+    <div class="platform-card">
+      <div class="name">B 站</div>
+      <div class="desc">评论区和笔记感更强，用户愿意认真回复，也更愿意把一个内容当作作品看。</div>
+    </div>
+  </div>
+
+  <p>王小宁给了一个反向观察：从个人经验看，公众号里情绪类标题反而更容易被点开；小红书上真正有用的测评、教程、路线、操作指南，反而更容易变成搜索入口。</p>
+
+  <div class="quote-block blue">
+    <p>「小红书不只是流量平台，它离变现很近。你写的东西对别人有用，别人能发现它的价值，后面的转化就会来得很快。」</p>
+    <div class="speaker">— 王小宁</div>
+  </div>
+
+  <p>这让话题从“平台调性”进入了“内容价值”的判断：<span class="highlight">同样一份干货，放错接收姿势，就是干巴巴；放对接收姿势，才会变成别人愿意保存、搜索、转发甚至付费的东西</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 03: 干货包装 -->
+<div class="section">
+  <div class="section-label">Chapter 03</div>
+  <h2>不是写暴论，是把干货包到别人能听懂</h2>
+
+  <div class="image-block">
+    <img src="images/03.jpg" alt="发光种子被放进透明盒子并包上醒目的外壳">
+    <div class="caption">表达的外壳不是欺骗，是入口</div>
+  </div>
+
+  <p>聊到这里，本期最关键的一句话出现了。王小宁把“情绪价值”和“认知价值”并排放在一起：只有认知价值，内容太干；只有情绪价值，容易空。真正有效的表达，是把两者结合起来。</p>
+
+  <div class="quote-block blue">
+    <p>「你可以想怎么把你想说的东西包装到一个爆款话题里面去。不是说我们不想写干货，而是怎么把你的干货包装成别人愿意看的方式。那你就不是在写暴论了，你是在写你的干货。」</p>
+    <div class="speaker">— 王小宁</div>
+  </div>
+
+  <p>李墨玩接住了这件事：自媒体里很多时候不是观点不够正确，而是<span class="accent-text">观点没有被放进一个足够有摩擦力的入口</span>。比喻、类比、开头的反差、标题里的张力，本质上都是在帮内容获得第一次被接住的机会。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">这个还挺值得去锻炼。很多时候内容不是没有价值，是没有被包装成别人愿意进来的样子。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">只要能触动一些人、触动一些瞬间，就已经很有意义了。</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 04: 快钱 -->
+<div class="section">
+  <div class="section-label">Chapter 04</div>
+  <h2>快钱的诱惑，和可持续 IP 的慢</h2>
+
+  <p>热点来了，做一个小工具蹭流量；某个新模型爆了，围绕它做信息差生意；短期需求出现，立刻打包服务去卖。李墨玩承认，自己不是不知道这些路子，甚至过去也踩过一些短期机会。</p>
+
+  <div class="quote-block">
+    <p>「跟着流量走，很多时候确实有办法赚快钱。但这个东西不长久，你还要算售后成本、风险成本、占用正事的时间。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>王小宁半开玩笑地说愿意去当售后，白豆则把问题补了一层：短期信息差如果处理不好，会把长期名声烧掉。大家最后落到一个更稳的判断上：<span class="highlight">真正值得做的，是找到可持续、投入产出比稳定、还能积累个人 IP 的事情</span>。</p>
+
+  <p>这和小红书、公众号的讨论又接上了。平台上的每一次输出，不只是为了当下的一次阅读，而是在给未来的信任存一点点本金。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 05: 读书 IP -->
+<div class="section">
+  <div class="section-label">Chapter 05</div>
+  <h2>读书 IP：不要只搬运，要从自己出发</h2>
+
+  <p>李墨玩最近在研究读书类账号怎么写。他刷到一些读书方法内容，发现最大的问题不是“没有知识”，而是<span class="accent-text">没有亲身经验，像把材料拼在一起</span>。</p>
+
+  <p>从罗素聊到向飙，几个人绕回同一个问题：为什么有些公共知识分子能被年轻人听进去？很大一部分原因，是他们不用学术黑话压人，而是会把复杂问题放回普通人能感知的生活半径里。</p>
+
+  <div class="quote-block">
+    <p>「他会用很多年轻人听得懂的话来跟我们沟通。学术水平很高，但不会只用学术术语去交流。」</p>
+    <div class="speaker">— 李墨玩</div>
+  </div>
+
+  <p>这就是“把自己作为方法”的另一种理解：<span class="highlight">不是把自己包装成权威，而是从自己的眼睛、经历和问题出发，把知识重新翻译一遍</span>。翻译得好，读书笔记才会从摘抄变成作品。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 06: 语音写作 -->
+<div class="section">
+  <div class="section-label">Chapter 06</div>
+  <h2>语音写作：低成本地暴露自己的思路</h2>
+
+  <div class="image-block">
+    <img src="images/04.jpg" alt="麦克风声音波纹变成纸带和思维路径">
+    <div class="caption">先说出来，再让它离开身体，变成可被检查的材料</div>
+  </div>
+
+  <p>白豆这周重启了一个练习：设定几个问题，定一个 15 到 30 分钟的倒计时，不看屏幕，连续说。说的过程不是为了马上产出漂亮文章，而是为了让自己的思考显形。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>主动性</h4>
+      <p>必须张口说，身体会被拉进来。很多时候，一出声，状态就会比盯屏幕更主动。</p>
+    </div>
+    <div class="step">
+      <h4>反馈性</h4>
+      <p>能不能说出来、说得顺不顺、逻辑能不能被 AI 或别人检验，都会立刻暴露。</p>
+    </div>
+    <div class="step">
+      <h4>低成本</h4>
+      <p>相比写作，语音更快，也更容易让“脑子里以为懂了”的东西接受一次现实测试。</p>
+    </div>
+  </div>
+
+  <p>王小宁的体感刚好相反：她一说就容易过很久，因为要把一件事前因后果讲清楚，往往比想象中更费篇幅。</p>
+
+  <div class="quote-block blue">
+    <p>「你以为五分钟能说明白，但真要把前因后果说清楚，可能就是十五分钟、二十分钟。这样转成文字，字数根本不是问题。」</p>
+    <div class="speaker">— 王小宁</div>
+  </div>
+
+  <p>两种体验看似相反，其实指向同一件事：<span class="highlight">语音写作不是让表达更轻松，而是让表达更早暴露问题</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 07: 小工具 -->
+<div class="section">
+  <div class="section-label">Chapter 07</div>
+  <h2>AI 小工具：先让真实的人用起来</h2>
+
+  <div class="image-block">
+    <img src="images/05.jpg" alt="网页窗口、表单、卡片和节点组成的发光工作流森林">
+    <div class="caption">从一个 Word 文档、一组照片、一张表单开始，长出可复用流程</div>
+  </div>
+
+  <p>白豆展示了几个最近做的小东西：把题库 Word 变成可交互刷题网页，答错后直接调用模型解释；把设计作品集变成带互动的网页；把见面记录表可视化成“见面森林”。这些东西不是大平台，但都有一个共同特点：<span class="accent-text">它们直接从一个具体人的具体麻烦出发</span>。</p>
+
+  <div class="quote-block blue">
+    <p>「如果能做成一个网页，让别人上传 Word，就生成他自己的题库，那它对不同的人用处会更大，甚至可以卖钱。」</p>
+    <div class="speaker">— 王小宁</div>
+  </div>
+
+  <p>这句建议很关键。白豆原本展示的是“我把某个题库做出来了”，王小宁立刻把它推成了产品形态：“别人上传自己的材料，也能生成自己的工具”。这就是从作品到产品的转折点：<span class="highlight">不要只展示一次结果，要把结果背后的流程开放给更多人复用</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 08: 见面森林 -->
+<div class="section">
+  <div class="section-label">Chapter 08</div>
+  <h2>见面森林：把生活记录变成可回看的地图</h2>
+
+  <p>白豆把自己每次见朋友的记录丢给 AI 做可视化，结果生成了一个“见面森林”：人名、照片、时间、发生了什么，全部被串成一张可以点开的关系地图。</p>
+
+  <div class="quote-block">
+    <p>「年度总结的时候，它会很像给自己的一次回顾。你点一个人，就能看到相关照片、见过几次、当时做了什么。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这里最有意思的不是“AI 会做网页”，而是一个很个人的记录系统突然被可视化之后，<span class="accent-text">记忆从一条条表单，变成了能被重新漫游的空间</span>。它和语音写作一样，都是把原本贴在身体里的经验，变成外部可操作的对象。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 09: Agent -->
+<div class="section">
+  <div class="section-label">Chapter 09</div>
+  <h2>先拿最烦的一件小事试 Agent</h2>
+
+  <p>白豆还展示了两个一次性生成的视频：一个给朋友解释新城市，另一个解释 Agent 和 API。文案还有 AI 味，但声音、图片、剪辑和整体流程已经能一口气跑通。</p>
+
+  <div class="quote-block">
+    <p>「真正的变化不是 AI 替代你，而是你第一次能把想法直接推到结果。先做，结果再决定要不要学更多。」</p>
+    <div class="speaker">— 白豆的视频旁白</div>
+  </div>
+
+  <p>这段话很适合作为本期的工具观：<span class="highlight">别先研究宏大系统，先找一件卡住你的烦事，让 Agent 帮你把步骤走完</span>。当一个结果跑出来，你才知道自己到底需要学什么、补什么、封装什么。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 10: 空间与节律 -->
+<div class="section">
+  <div class="section-label">Chapter 10</div>
+  <h2>换一个空间，也是在调试自己</h2>
+
+  <p>聊到早上醒来第一件事，白豆说自己最近尽量不先看手机，而是闭着眼想几个问题，或者直接打开电脑。王小宁则把手机放在客厅，早上自然不会第一时间刷到。</p>
+
+  <div class="dialogue">
+    <div class="dialogue-item">
+      <div class="avatar baidou">白</div>
+      <div class="dialogue-text">我发现早上第一件事打开电脑，比打开手机好很多。手机特别容易把一天打散。</div>
+    </div>
+    <div class="dialogue-item">
+      <div class="avatar limo">李</div>
+      <div class="dialogue-text">在家效率上不去的话，就去图书馆或者公共空间。</div>
+    </div>
+  </div>
+
+  <p>白豆这周第一次认真使用附近的公共服务空间：有网、有插座、有水、有厕所，可以自习、排练、办活动。这个发现很小，但和语音写作一样，都是在调试自己的外部条件：<span class="accent-text">有时候不是人不自律，是环境没有帮你进入状态</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 11: 播客直播 -->
+<div class="section">
+  <div class="section-label">Chapter 11</div>
+  <h2>播客、直播，以及“持续出现”的练习</h2>
+
+  <p>临近尾声，话题又回到输出：豆摇峰做了几年，播客说了很久还没真正开始；王小宁做过两期播客，反而是分享“怎么做播客”的小红书笔记先火了。</p>
+
+  <div class="quote-block blue">
+    <p>「播客成本非常低，你现在都已经在语音输入了，把这些东西讲出来就好了。不顺的地方，事后剪掉就行。」</p>
+    <div class="speaker">— 王小宁</div>
+  </div>
+
+  <p>这给白豆的语音写作开了另一个出口：私下练习可以变成单口播客，也可以变成直播。先不要求完美，先让自己在镜头前、麦克风前、朋友面前持续出现。</p>
+
+  <p>豆摇峰本身也是这样。它不一定很快看到外部效果，但几年积累下来，<span class="highlight">每周固定出现、固定写、固定互相看见，就是一种长期资产</span>。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 12: 一线需求 -->
+<div class="section">
+  <div class="section-label">Chapter 12</div>
+  <h2>一线需求：AI 研究者不知道，工作人员天天在做</h2>
+
+  <p>最后白豆又展示了一个很实用的场景：线下活动结束后，工作人员要把现场照片、物料说明、报价单一一对应，做成汇报材料。以前这件事很耗人，容易错，也不显眼。</p>
+
+  <div class="quote-block">
+    <p>「繁琐的步骤被 AI 代替了。以前可能一两天的工作量，现在可以压缩到半个小时左右。」</p>
+    <div class="speaker">— 白豆</div>
+  </div>
+
+  <p>这件事收束了本期暗线：<span class="accent-text">真正好的 AI 应用，往往不是从概念里长出来，而是从一线工作人员重复到厌烦的步骤里长出来</span>。研究 AI 的人不知道这些需求，做具体活的人又不知道 AI 能做到什么。豆摇峰这样的复盘会，正好在中间搭了一座桥。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Chapter 13: 启示 -->
+<div class="section">
+  <div class="section-label">Chapter 13</div>
+  <h2>本期启示</h2>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="number">01</div>
+      <h3>会前写作就是降低沟通成本</h3>
+      <p>先写、先读、先评论，会上才有空间做真正的讨论。复盘会不是汇报会，而是协作系统。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">02</div>
+      <h3>平台会倒推表达方式</h3>
+      <p>标题长度、内容形态、评论区气质，都在告诉你这个平台希望用户怎样接收信息。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">03</div>
+      <h3>认知价值要有情绪入口</h3>
+      <p>干货太干，别人进不来；情绪太满，又留不下东西。好内容是两者的连接。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">04</div>
+      <h3>包装不是欺骗，是翻译</h3>
+      <p>把干货包进比喻、类比、反差和问题里，是为了让别人先接住，再理解。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">05</div>
+      <h3>快钱会吃掉长期名声</h3>
+      <p>短期信息差不是不能做，但要计算售后、风险和声誉成本。个人 IP 更像复利。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">06</div>
+      <h3>语音写作让问题提前暴露</h3>
+      <p>说不出来、说不顺、逻辑绕，都是反馈。低成本暴露问题，比假装自己懂了更有用。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">07</div>
+      <h3>作品到产品，只差一个复用口</h3>
+      <p>给自己做出一个题库网页是作品；让别人上传自己的 Word 生成题库，就是产品。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">08</div>
+      <h3>记录被可视化后才会被重新使用</h3>
+      <p>见面记录、照片、时间和人名被串成地图之后，记忆就从存档变成了可以漫游的材料。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">09</div>
+      <h3>先用 Agent 解决一件烦事</h3>
+      <p>不要先研究宏大概念。把最烦的小任务交给工具跑一遍，结果会告诉你下一步学什么。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">10</div>
+      <h3>环境也是工作流的一部分</h3>
+      <p>早上不看手机、换一个公共空间、把手机放远，都是在降低进入状态的摩擦。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">11</div>
+      <h3>持续出现本身就是资产</h3>
+      <p>播客、直播、周复盘，本质都是让自己稳定出现。很多结果要等几年后才看得见。</p>
+    </div>
+    <div class="insight-card">
+      <div class="number">12</div>
+      <h3>真实需求藏在重复劳动里</h3>
+      <p>一线工作人员天天做的笨活，往往就是最好的 AI 应用入口。先从那里找问题。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Epilogue -->
+<div class="section">
+  <div class="section-label">Epilogue</div>
+  <h2>有用还不够</h2>
+
+  <p>本期从平台标题聊到读书 IP，从语音写作聊到题库网页，从见面森林聊到活动物料核验，表面上很散，底层其实只有一个问题：<span class="highlight">你怎么把一个有用的东西，做成别人能接住的样子？</span></p>
+
+  <p>复盘文档要让朋友接住，内容标题要让平台用户接住，语音写作要让未来的自己接住，AI 工具要让真实用户接住。一旦被接住，它才会从“我做了一个东西”变成“这个东西能继续流动”。</p>
+
+  <p style="text-align:center; margin-top:3rem; color: var(--dim); font-size:0.9rem;">
+    <span class="accent-text">干货不是终点，被接住才是开始。</span><br>
+    <span style="font-size:0.8rem;">— 白豆 × 李墨玩 × 王小宁，2026.06.15</span>
+  </p>
+</div>
+
+<footer>
+  <div class="logo">豆摇峰</div>
+  <p>第十一期 · 2026.06.15 · 把干货包装成能被接住的样子</p>
+  <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">三个人的周报会 · 本期嘉宾：王小宁</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+
+<style>
+.epnav {
+  margin-top: 4rem;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.epnav-arrow {
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.epnav-arrow.epnav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+.epnav-arrow:hover .epnav-title {
+  color: var(--accent, #d4a853);
+}
+.epnav-disabled {
+  flex: 1;
+}
+.epnav-dir {
+  font-size: 0.75rem;
+  color: var(--dim, #8a8578);
+  letter-spacing: 0.05em;
+}
+.epnav-title {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  transition: color 0.2s;
+}
+.epnav-center {
+  flex-shrink: 0;
+}
+.epnav-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--dim, #8a8578);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.epnav-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--accent, #d4a853);
+  border-color: rgba(212,168,83,0.3);
+}
+.epnav-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+.epnav-modal.open {
+  display: flex;
+}
+.epnav-modal-content {
+  background: rgba(20,20,28,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.epnav-modal-header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.epnav-modal-header span {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  color: var(--accent, #d4a853);
+}
+.epnav-close {
+  background: none;
+  border: none;
+  color: var(--dim, #8a8578);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.epnav-close:hover {
+  color: var(--text, #e8e4df);
+}
+.epnav-list {
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+.epnav-list::-webkit-scrollbar {
+  width: 6px;
+}
+.epnav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.epnav-list::-webkit-scrollbar-thumb {
+  background: rgba(212,168,83,0.3);
+  border-radius: 3px;
+}
+.epnav-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(212,168,83,0.6);
+}
+.epnav-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  color: var(--text, #e8e4df);
+  transition: background 0.15s;
+}
+.epnav-list-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+.epnav-list-item.epnav-active {
+  background: rgba(212,168,83,0.1);
+  border-left: 3px solid var(--accent, #d4a853);
+}
+.epnav-list-num {
+  font-size: 0.75rem;
+  color: var(--accent, #d4a853);
+  flex-shrink: 0;
+  width: 3em;
+}
+.epnav-list-title {
+  font-size: 0.85rem;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.epnav-list-date {
+  font-size: 0.7rem;
+  color: var(--dim, #8a8578);
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .epnav {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .epnav-title {
+    max-width: 140px;
+  }
+  .epnav-center {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}
+</style>
+
+<nav class="epnav">
+  <a class="epnav-arrow" href="/ep/10/"><span class="epnav-dir">← 上一期</span><span class="epnav-title">EP10 把流程当作产品</span></a>
+  <div class="epnav-center">
+    <button class="epnav-btn" onclick="document.getElementById('epModal').classList.add('open')">选择期数</button>
+  </div>
+  <span class="epnav-arrow epnav-disabled"></span>
+</nav>
+
+<div class="epnav-modal" id="epModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="epnav-modal-content">
+    <div class="epnav-modal-header">
+      <span>每周聊什么</span>
+      <button class="epnav-close" onclick="document.getElementById('epModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="epnav-list">
+    <a class="epnav-list-item" href="/ep/01/"><span class="epnav-list-num">EP01</span><span class="epnav-list-title">AI时代，我们的不可替代性在哪里</span><span class="epnav-list-date">2026.03.22</span></a>
+    <a class="epnav-list-item" href="/ep/02/"><span class="epnav-list-num">EP02</span><span class="epnav-list-title">能力地图 × 长板理论 × 德州扑克哲学</span><span class="epnav-list-date">2026.03.29</span></a>
+    <a class="epnav-list-item" href="/ep/03/"><span class="epnav-list-num">EP03</span><span class="epnav-list-title">Regenerate — AI创作的虚假繁荣与真实内化</span><span class="epnav-list-date">2026.04.07</span></a>
+    <a class="epnav-list-item" href="/ep/04/"><span class="epnav-list-num">EP04</span><span class="epnav-list-title">你真的懂，还是你以为你懂？</span><span class="epnav-list-date">2026.04.12</span></a>
+    <a class="epnav-list-item" href="/ep/05/"><span class="epnav-list-num">EP05</span><span class="epnav-list-title">80分是谁定义的？ × Wendy 做客</span><span class="epnav-list-date">2026.04.19</span></a>
+    <a class="epnav-list-item" href="/ep/06/"><span class="epnav-list-num">EP06</span><span class="epnav-list-title">看五年，想三年，做好一年</span><span class="epnav-list-date">2026.04.27</span></a>
+    <a class="epnav-list-item" href="/ep/07/"><span class="epnav-list-num">EP07</span><span class="epnav-list-title">唱跳 Rap 都得会一点</span><span class="epnav-list-date">2026.05.12</span></a>
+    <a class="epnav-list-item" href="/ep/08/"><span class="epnav-list-num">EP08</span><span class="epnav-list-title">巫师独自前行 × Wendy 做客</span><span class="epnav-list-date">2026.05.18</span></a>
+    <a class="epnav-list-item" href="/ep/09/"><span class="epnav-list-num">EP09</span><span class="epnav-list-title">让记忆成为一种选择 × 魏伦达做客</span><span class="epnav-list-date">2026.06.03</span></a>
+    <a class="epnav-list-item" href="/ep/10/"><span class="epnav-list-num">EP10</span><span class="epnav-list-title">把流程当作产品</span><span class="epnav-list-date">2026.06.07</span></a>
+    <a class="epnav-list-item epnav-active" href="/ep/11/"><span class="epnav-list-num">EP11</span><span class="epnav-list-title">把干货包装成能被接住的样子</span><span class="epnav-list-date">2026.06.15</span></a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
